@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from './pages/Dashboard.vue'
 import Analytics from './pages/Analytics.vue'
 import Fintech from './pages/Fintech.vue'
+import Products from './pages/inventory/Products.vue'
 import Customers from './pages/ecommerce/Customers.vue'
 import Orders from './pages/ecommerce/Orders.vue'
 import Invoices from './pages/ecommerce/Invoices.vue'
@@ -81,6 +82,10 @@ const router = createRouter({
     {
       path: '/dashboard/fintech',
       component: Fintech
+    },
+    {
+      path: '/inventory/products',
+      component: Products
     },    
     {
       path: '/ecommerce/customers',

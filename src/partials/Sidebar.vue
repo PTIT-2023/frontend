@@ -101,6 +101,37 @@
                   </router-link>                                  
                 </ul>
               </div>
+            </SidebarLinkGroup>
+            <!-- Inventory  -->
+            <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('inventory')">
+              <a class="block text-slate-200 truncate transition duration-150" :class="currentRoute.fullPath.includes('inventory') ? 'hover:text-slate-200' : 'hover:text-white'" href="#0" @click.prevent="parentLink.handleClick(); sidebarExpanded = true">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                      <path class="fill-current" :class="isExactActive ? 'text-indigo-500' : 'text-slate-600'" d="M16 13v4H8v-4H0l3-9h18l3 9h-8Z" />
+                      <path class="fill-current" :class="isExactActive ? 'text-indigo-300' : 'text-slate-400'" d="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z" />
+                    </svg>
+                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Inventory </span>
+                  </div>
+                  <!-- Icon -->
+                  <div class="flex shrink-0 ml-2">
+                    <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" :class="parentLink.expanded && 'rotate-180'" viewBox="0 0 12 12">
+                      <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+              <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                <ul class="pl-9 mt-1" :class="!parentLink.expanded && 'hidden'">
+                  <router-link to="/inventory/products" custom v-slot="{ href, navigate, isExactActive }">
+                    <li class="mb-1 last:mb-0">
+                      <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
+                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Products</span>
+                      </a>
+                    </li>
+                  </router-link>                  
+                </ul>
+              </div>
             </SidebarLinkGroup>            
             <!-- E-Commerce  -->
             <SidebarLinkGroup v-slot="parentLink" :activeCondition="currentRoute.fullPath.includes('ecommerce')">
