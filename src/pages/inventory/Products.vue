@@ -85,7 +85,7 @@
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced @change-page="onPageChanged" :total-page="products.totalPage" />
+            <PaginationAdvanced @change-page="onPageChanged" :total-page="pProducts.totalPage" />
           </div>
 
         </div>
@@ -130,18 +130,18 @@ export default {
       selectedItems.value = selected
     }
 
-    const { products } = mapGetters()
-    const { getProducts } = mapActions()
+    const { pProducts } = mapGetters()
+    const { getPProducts } = mapActions()
 
     const onPageChanged = (page) => {
-      getProducts(page)
+      getPProducts(page)
     }
 
     return {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
-      products,
+      pProducts,
       onPageChanged
     }
   }

@@ -82,7 +82,7 @@
                   <label class="block text-sm font-medium mb-1" for="country">Category
                     <span class="text-rose-500">*</span></label>
                   <select class="form-select" v-model="product.categoryId" >
-                    <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
+                    <option v-for="(category, index) in pCategories.data" :key="category.id" :value="category.id"
                       :selected="index === 0">{{ category.name }}
                     </option>
                   </select>
@@ -138,22 +138,22 @@ export default {
     const toggle2 = ref('Off')
     const toggle3 = ref('Off')
 
-    const { product, categories } = mapGetters()
-    const { clearProductInfo, getCategories, createProduct } = mapActions()
+    const { product, pCategories } = mapGetters()
+    const { resetProduct, getPCategories, createProduct } = mapActions()
+    const route = useRoute();
+    const productId = route.params?.id
+
+    
 
     const save = () => {
       createProduct(product.value)
     }
 
-    getCategories()
-
-    const route = useRoute();
-    const productId = route.params?.id
-
     if (productId) {
-      
+      getPCategories({setFirstCategoryForProduct: false})
     } else {
-      clearProductInfo()
+      resetProduct()
+      getPCategories({setFirstCategoryForProduct: true})
     }
 
     return {
@@ -161,10 +161,10 @@ export default {
       toggle1,
       toggle2,
       toggle3,
-      categories,
+      pCategories,
       product,
       save,
     }
-  }
+  },
 }
 </script>

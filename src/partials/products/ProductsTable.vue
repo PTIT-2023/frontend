@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 relative">
     <header class="px-5 py-4">
-      <h2 class="font-semibold text-slate-800 dark:text-slate-100">Products <span class="text-slate-400 dark:text-slate-500 font-medium">{{ products.totalResult }}</span></h2>
+      <h2 class="font-semibold text-slate-800 dark:text-slate-100">Products <span class="text-slate-400 dark:text-slate-500 font-medium">{{ pProducts.totalResult }}</span></h2>
     </header>
     <div>
 
@@ -45,7 +45,7 @@
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
             <ProductsTableItem
-              v-for="product in products.data"
+              v-for="product in pProducts.data"
               :key="product.id"
               :product="product"
               v-model:selected="selected"
@@ -72,33 +72,33 @@ export default {
   },  
   props: ['selectedItems'],
   setup(props, { emit }) {
-    const { products } = mapGetters()
-    const { getProducts } = mapActions()
+    const { pProducts } = mapGetters()
+    const { getPProducts } = mapActions()
 
     const selectAll = ref(false)
     const selected = ref([])
 
-    const productList = products.value.data;
+    const products = pProducts.value.data;
 
     const checkAll = () => {
       selected.value = []
       if (!selectAll.value) {
-        selected.value = productList.map(product => product.id)
+        selected.value = products.map(product => product.id)
       }
     }
     
     watch(selected, () => {
-      selectAll.value = productList.length === selected.value.length ? true : false
+      selectAll.value = products.length === selected.value.length ? true : false
       emit('change-selection', selected.value)
     })
     
-    getProducts(1)
+    getPProducts(1)
 
     return {
       selectAll,
       selected,
       checkAll,
-      products,
+      pProducts,
     }
   }
 }

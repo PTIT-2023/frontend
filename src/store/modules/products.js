@@ -3,9 +3,7 @@ import router from '../../router'
 
 const getDefaultState = () => {
     return {
-        products: {
-            data: []
-        },
+        pProducts: {},
         // product: {
         //     name: 'Cá vàng',
         //     description: `Cá vàng (hay cá Tàu, cá ba đuôi, cá vàng ba đuôi)`,
@@ -25,45 +23,48 @@ const getDefaultState = () => {
         //         'https://i.ytimg.com/vi/y7A-m5tL3fQ/maxresdefault.jpg'
         //     ]
         // },
-        product: {}
+        product: {},
     };
 };
 
 const state = getDefaultState();
 
 const getters = {
-    products(state) {
-        return state.products;
+    pProducts(state) {
+        return state.pProducts;
     },
     product(state) {
         return state.product;
+    },
+    newProduct(state) {
+        return state.newProduct;
     }
 };
 
 const mutations = {
-    SET_PRODUCTS(state, products) {
-        state.products = products;
+    setPProducts(state, pProducts) {
+        state.pProducts = pProducts;
     },
-    SET_PRODUCT_CATEGORY_ID(state, categoryId) {
-        state.product.categoryId = categoryId;
-    },
-    SET_PRODUCT(state, product) {
+    setProduct(state, product) {
         state.product = product;
+    },
+    setProductCategoryId(state, categoryId) {
+        state.product.categoryId = categoryId;
     },
 };
 
 const actions = {
-    getProducts({ commit }, page) {
-        api
-            .get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10`)
-            .then((res) => {
-                let data = res.data.data;
-                commit("SET_PRODUCTS", data);
-            })
-            .catch((error) => console.log(error));
+    async getPProducts({ commit }, page) {
+        try {
+            const res = await api.get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10`)
+            const pProducts = res.data.data;
+            commit("setPProducts", pProducts);
+        } catch (e) {
+            console.log(e)
+        }
     },
-    clearProductInfo({commit}) {
-        commit('SET_PRODUCT', {
+    resetProduct({ commit }) {
+        commit("setProduct", {
             name: '',
             description: '',
             habitat: '',
@@ -75,7 +76,7 @@ const actions = {
             maxSize: 0,
             categoryId: '',
             imageList: []
-        })
+        });
     },
     async createProduct({ }, product) {
         console.log(product)
@@ -91,9 +92,8 @@ const actions = {
     async getProductById({ commit }, productId) {
         try {
             const res = await api.get(`products/${productId}`)
-            let data = res.data.data;
-            commit("SET_PRODUCT", data);
-            commit("SET_PRODUCT_CATEGORY_ID", data.categoryId);
+            const product = res.data.data;
+            commit("setProduct", product);
             router.push({
                 name: 'products.edit',
                 params: { id: productId }
