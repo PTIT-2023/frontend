@@ -85,7 +85,7 @@
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationClassic />
+            <PaginationAdvanced :total-page="10" />
           </div>
 
         </div>
@@ -105,7 +105,7 @@ import DeleteButton from '../../partials/actions/DeleteButton.vue'
 import DateSelect from '../../components/DateSelect.vue'
 import FilterButton from '../../components/DropdownFilter.vue'
 import ProductsTable from '../../partials/products/ProductsTable.vue'
-import PaginationClassic from '../../components/PaginationClassic.vue'
+import PaginationAdvanced from '../../components/PaginationAdvanced.vue'
 
 export default {
   name: 'Products',
@@ -117,7 +117,7 @@ export default {
     DateSelect,
     FilterButton,
     ProductsTable,
-    PaginationClassic,
+    PaginationAdvanced,
   },
   setup() {
 
