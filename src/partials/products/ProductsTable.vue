@@ -78,7 +78,7 @@ export default {
     const checkAll = () => {
       selected.value = []
       if (!selectAll.value) {
-        selected.value = products.value.map(invoice => invoice.id)
+        selected.value = products.value.map(product => product.id)
       }
     }
     
