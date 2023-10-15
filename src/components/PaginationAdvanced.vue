@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      currentPage: 5,
+      currentPage: 1,
       activeClass: 'hover:bg-indigo-500 dark:hover:bg-indigo-500 text-slate-600 dark:text-slate-300 hover:text-white shadow-sm',
       disabledClass: 'text-slate-300 dark:text-slate-600'
     }

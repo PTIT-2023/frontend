@@ -85,7 +85,7 @@
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced :total-page="10" />
+            <PaginationAdvanced :total-page="products.totalPage" />
           </div>
 
         </div>
@@ -98,6 +98,8 @@
 
 <script>
 import { ref } from 'vue'
+import { mapGetters } from '../../mapState'
+
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
 import SearchForm from '../../components/SearchForm.vue'
@@ -128,10 +130,13 @@ export default {
       selectedItems.value = selected
     }
 
+    const { products } = mapGetters()
+
     return {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
+      products
     }
   }
 }
