@@ -37,6 +37,9 @@
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Price</div>
               </th>
+              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div class="font-semibold text-left">Action</div>
+              </th>
             </tr>
           </thead>
           <!-- Table body -->
@@ -75,15 +78,17 @@ export default {
     const selectAll = ref(false)
     const selected = ref([])
 
+    const productList = products.value.data;
+
     const checkAll = () => {
       selected.value = []
       if (!selectAll.value) {
-        selected.value = products.value.map(product => product.id)
+        selected.value = productList.map(product => product.id)
       }
     }
     
     watch(selected, () => {
-      selectAll.value = products.value.length === selected.value.length ? true : false
+      selectAll.value = productList.length === selected.value.length ? true : false
       emit('change-selection', selected.value)
     })
     

@@ -90,8 +90,13 @@ const router = createRouter({
       component: Products
     },    
     {
-      path: '/inventory/products/form',
+      path: '/inventory/products/create',
       name: 'products.create',
+      component: ProductForm
+    },
+    {
+      path: '/inventory/products/edit/:id',
+      name: 'products.edit',
       component: ProductForm
     },
     {

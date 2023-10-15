@@ -117,6 +117,7 @@
 
 <script>
 import { ref } from 'vue'
+import { useRoute } from "vue-router";
 import { mapActions, mapGetters } from '../../mapState'
 
 import Sidebar from '../../partials/Sidebar.vue'
@@ -138,13 +139,22 @@ export default {
     const toggle3 = ref('Off')
 
     const { product, categories } = mapGetters()
-    const { getCategories, createProduct } = mapActions()
+    const { clearProductInfo, getCategories, createProduct } = mapActions()
 
     const save = () => {
       createProduct(product.value)
     }
 
     getCategories()
+
+    const route = useRoute();
+    const productId = route.params?.id
+
+    if (productId) {
+      
+    } else {
+      clearProductInfo()
+    }
 
     return {
       sidebarOpen,

@@ -26,7 +26,7 @@
               <!-- Search form -->
               <SearchForm placeholder="Search by invoice ID…" />
               <!-- Create product button -->
-              <router-link :to="{ path: '/inventory/products/form' }">
+              <router-link :to="{ name: 'products.create' }">
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                   <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                     <path
