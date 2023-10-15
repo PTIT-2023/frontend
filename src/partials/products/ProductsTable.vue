@@ -42,7 +42,7 @@
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
             <ProductsTableItem
-              v-for="product in products"
+              v-for="product in products.data"
               :key="product.id"
               :product="product"
               v-model:selected="selected"

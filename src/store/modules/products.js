@@ -3,7 +3,9 @@ import router from '../../router'
 
 const getDefaultState = () => {
     return {
-        products: [],
+        products: {
+            data: []
+        },
         product: {
             name: 'Cá vàng',
             description: `Cá vàng (hay cá Tàu, cá ba đuôi, cá vàng ba đuôi)`,
@@ -51,7 +53,8 @@ const actions = {
         api
             .get(`products?categoryId=&orderByPrice=&page=1&limit=10`)
             .then((res) => {
-                commit("SET_PRODUCTS", res.data.data);
+                let data = res.data.data;
+                commit("SET_PRODUCTS", data);
             })
             .catch((error) => console.log(error));
     },
