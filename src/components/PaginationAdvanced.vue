@@ -14,7 +14,7 @@
         <li v-for="page in totalPage" :key="page">
           <button
             class="inline-flex items-center justify-center leading-5 px-3.5 py-2 dark:bg-slate-800 hover:bg-indigo-500 dark:hover:bg-indigo-500 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-white"
-            :class="setBackgroundColor(page)" @click="click(page)">{{ page }}</button>
+            :class="setBackgroundColor(page)" @click="changePage(page)">{{ page }}</button>
         </li>
       </ul>
       <div class="ml-2">
@@ -55,9 +55,9 @@ export default {
     }
   },
   methods: {
-    click(page) {
+    changePage(page) {
       this.currentPage = page
-      this.$emit('click', page)
+      this.$emit('changePage', this.currentPage)
     },
     setBackgroundColor(page) {
       return page === this.currentPage ? 'bg-indigo-500 text-white' : 'bg-white'
@@ -67,12 +67,14 @@ export default {
         return;
       }
       --this.currentPage;
+      this.$emit('changePage', this.currentPage)
     },
     nextPage() {
       if (this.isLastPage) {
         return;
       }
       ++this.currentPage;
+      this.$emit('changePage', this.currentPage)
     },
     isDisabledState(disabled) {
       return disabled ? this.disabledClass : this.activeClass

@@ -49,9 +49,9 @@ const mutations = {
 };
 
 const actions = {
-    getProducts({ commit }) {
+    getProducts({ commit }, page) {
         api
-            .get(`products?categoryId=&orderByPrice=&page=1&limit=10`)
+            .get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10`)
             .then((res) => {
                 let data = res.data.data;
                 commit("SET_PRODUCTS", data);

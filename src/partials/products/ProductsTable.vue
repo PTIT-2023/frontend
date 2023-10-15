@@ -87,7 +87,7 @@ export default {
       emit('change-selection', selected.value)
     })
     
-    getProducts()
+    getProducts(1)
 
     return {
       selectAll,

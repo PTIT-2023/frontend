@@ -85,7 +85,7 @@
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced :total-page="products.totalPage" />
+            <PaginationAdvanced @change-page="onPageChanged" :total-page="products.totalPage" />
           </div>
 
         </div>
@@ -98,7 +98,7 @@
 
 <script>
 import { ref } from 'vue'
-import { mapGetters } from '../../mapState'
+import { mapGetters, mapActions } from '../../mapState'
 
 import Sidebar from '../../partials/Sidebar.vue'
 import Header from '../../partials/Header.vue'
@@ -131,12 +131,18 @@ export default {
     }
 
     const { products } = mapGetters()
+    const { getProducts } = mapActions()
+
+    const onPageChanged = (page) => {
+      getProducts(page)
+    }
 
     return {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
-      products
+      products,
+      onPageChanged
     }
   }
 }
