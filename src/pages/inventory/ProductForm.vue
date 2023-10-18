@@ -33,7 +33,7 @@
                 <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">Description <span
                       class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.description" />
+                  <textarea class="form-input w-full h-40" type="text" required v-model="product.description" />
                 </div>
 
                 <div>
