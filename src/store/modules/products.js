@@ -56,7 +56,7 @@ const mutations = {
 const actions = {
     async getPProducts({ commit }, page) {
         try {
-            const res = await api.get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10`)
+            const res = await api.get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10&keyWord=`)
             const pProducts = res.data.data;
             commit("setPProducts", pProducts);
         } catch (e) {
