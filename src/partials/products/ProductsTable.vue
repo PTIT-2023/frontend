@@ -61,7 +61,7 @@
 
 <script>
 import { ref, watch } from 'vue'
-import { mapActions, mapGetters } from '../../mapState'
+import { mapActions, mapGetters } from '@/mapState'
 
 import ProductsTableItem from './ProductsTableItem.vue'
 

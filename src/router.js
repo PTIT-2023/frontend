@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from './pages/Dashboard.vue'
 import Analytics from './pages/Analytics.vue'
 import Fintech from './pages/Fintech.vue'
-import Products from './pages/inventory/Products.vue'
-import ProductForm from './pages/inventory/ProductForm.vue'
 import Customers from './pages/ecommerce/Customers.vue'
 import Orders from './pages/ecommerce/Orders.vue'
 import Invoices from './pages/ecommerce/Invoices.vue'
@@ -87,17 +85,17 @@ const router = createRouter({
     {
       path: '/inventory/products',
       name: 'products.list',
-      component: Products
+      component: () => import("../src/pages/inventory/products/Products.vue")
     },    
     {
       path: '/inventory/products/create',
       name: 'products.create',
-      component: ProductForm
+      component: () => import("../src/pages/inventory/products/CreateProduct.vue")
     },
     {
       path: '/inventory/products/edit/:id',
       name: 'products.edit',
-      component: ProductForm
+      component: () => import("../src/pages/inventory/products/CreateProduct.vue")
     },
     {
       path: '/ecommerce/customers',

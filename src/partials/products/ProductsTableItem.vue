@@ -48,7 +48,7 @@
 
 <script>
 import { computed } from 'vue'
-import { mapActions } from '../../mapState'
+import { mapActions } from '@/mapState'
 
 export default {
   name: 'ProductsTableItem',

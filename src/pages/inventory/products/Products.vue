@@ -98,16 +98,16 @@
 
 <script>
 import { ref } from 'vue'
-import { mapGetters, mapActions } from '../../mapState'
+import { mapGetters, mapActions } from '@/mapState'
 
-import Sidebar from '../../partials/Sidebar.vue'
-import Header from '../../partials/Header.vue'
-import SearchForm from '../../components/SearchForm.vue'
-import DeleteButton from '../../partials/actions/DeleteButton.vue'
-import DateSelect from '../../components/DateSelect.vue'
-import FilterButton from '../../components/DropdownFilter.vue'
-import ProductsTable from '../../partials/products/ProductsTable.vue'
-import PaginationAdvanced from '../../components/PaginationAdvanced.vue'
+import Sidebar from '@/partials/Sidebar.vue'
+import Header from '@/partials/Header.vue'
+import SearchForm from '@/components/SearchForm.vue'
+import DeleteButton from '@/partials/actions/DeleteButton.vue'
+import DateSelect from '@/components/DateSelect.vue'
+import FilterButton from '@/components/DropdownFilter.vue'
+import ProductsTable from '@/partials/products/ProductsTable.vue'
+import PaginationAdvanced from '@/components/PaginationAdvanced.vue'
 
 export default {
   name: 'Products',

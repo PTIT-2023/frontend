@@ -135,11 +135,11 @@
 <script>
 import { ref } from 'vue'
 import { useRoute } from "vue-router";
-import { mapActions, mapGetters } from '../../mapState'
+import { mapActions, mapGetters } from '@/mapState'
 
-import Sidebar from '../../partials/Sidebar.vue'
-import Header from '../../partials/Header.vue'
-import Tooltip from '../../components/Tooltip.vue'
+import Sidebar from '@/partials/Sidebar.vue'
+import Header from '@/partials/Header.vue'
+import Tooltip from '@/components/Tooltip.vue'
 
 export default {
   name: 'FormPage',
