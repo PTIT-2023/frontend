@@ -1,34 +1,33 @@
-import { mapActions } from 'vuex';
 import api from '../../api'
 
 const getDefaultState = () => {
     return {
-        pCategories: {},
+        categories: {},
     };
 };
 
 const state = getDefaultState();
 
 const getters = {
-    pCategories(state) {
-        return state.pCategories;
+    categories(state) {
+        return state.categories;
     },
 };
 
 const mutations = {
-    setPCategories(state, pCategories) {
-        state.pCategories = pCategories;
+    setCategories(state, categories) {
+        state.categories = categories;
     }
 };
 
 const actions = {
-    async getPCategories({ commit }, { setFirstCategoryForProduct }) {
+    async getCategories({ commit }, { setFirstCategoryForProduct }) {
         try {
-            const res = await api.get(`categories?page=1&limit=100`)
-            const pCategories = res.data.data;
-            commit("setPCategories", pCategories);
+            const res = await api.get(`categories`)
+            const categories = res.data.data;
+            commit("setCategories", categories);
             if (setFirstCategoryForProduct) {
-                commit("setProductCategoryId", pCategories.data[0]?.id);
+                commit("setProductCategoryId", categories[0]?.id);
             }
         } catch (e) {
             console.log(e)

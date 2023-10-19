@@ -81,11 +81,28 @@
                 <div>
                   <label class="block text-sm font-medium mb-1" for="country">Category
                     <span class="text-rose-500">*</span></label>
-                  <select class="form-select" v-model="product.categoryId" >
-                    <option v-for="(category, index) in pCategories.data" :key="category.id" :value="category.id"
+                  <select class="form-select" v-model="product.categoryId">
+                    <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
                       :selected="index === 0">{{ category.name }}
                     </option>
                   </select>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Status <span
+                      class="text-rose-500">*</span></label>
+                  <div class="flex items-center mt-5">
+                    <div class="form-switch">
+                      <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
+                        :false-value="false" />
+                      <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
+                        <span class="bg-white shadow-sm" aria-hidden="true"></span>
+                        <span class="sr-only">Toggle</span>
+                      </label>
+                    </div>
+                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ product.status ? 'Active' :
+                      'Inactive' }}</div>
+                  </div>
                 </div>
 
               </div>
@@ -134,36 +151,34 @@ export default {
 
   setup() {
     const sidebarOpen = ref(false)
-    const toggle1 = ref('On')
-    const toggle2 = ref('Off')
-    const toggle3 = ref('Off')
 
-    const { product, pCategories } = mapGetters()
-    const { resetProduct, getPCategories, createProduct } = mapActions()
+    const { product, categories } = mapGetters()
+    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
     const route = useRoute();
     const productId = route.params?.id
 
     const save = () => {
-      createProduct(product.value)
+      if (productId) {
+        editProduct(product.value)
+      } else {
+        createProduct(product.value)
+      }
     }
 
     if (productId) {
-      getPCategories({setFirstCategoryForProduct: false})
+      getCategories({ setFirstCategoryForProduct: false })
     } else {
       resetProduct()
-      getPCategories({setFirstCategoryForProduct: true})
+      getCategories({ setFirstCategoryForProduct: true })
     }
-    
+
     const showTitle = () => {
       return productId == null ? 'Create new product' : 'Edit product'
     }
 
     return {
       sidebarOpen,
-      toggle1,
-      toggle2,
-      toggle3,
-      pCategories,
+      categories,
       product,
       save,
       showTitle

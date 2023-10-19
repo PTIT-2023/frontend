@@ -75,7 +75,8 @@ const actions = {
             foodType: '',
             maxSize: 0,
             categoryId: '',
-            imageList: []
+            imageList: [],
+            status: false
         });
     },
     async createProduct({ }, product) {
@@ -101,7 +102,19 @@ const actions = {
         } catch (e) {
             console.log(e)
         }
-    }
+    },
+    async editProduct({ }, product) {
+        console.log(product)
+        try {
+            const res = await api.put(`products`, product)
+            console.log(res.data.message)
+            router.push({
+                name: 'products.list'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {
