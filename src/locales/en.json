@@ -1,0 +1,11 @@
+{
+    "validations": {
+        "required": "This field is required.",
+        "minLen": "This field must have at least {min} characters.",
+        "minValue": "This field must have a minimum value of {min}.",
+        "maxValue": "This field must have a maximum value of {max}.",
+        "maxLen": "This field must have at most {max} characters.",
+        "email": "Please enter a valid email",
+        "url": "This Fixed URL must start with http|https:// and should be within 6-128 characters."
+    }
+}

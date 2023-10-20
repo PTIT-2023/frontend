@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">{{ showTitle() }} ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Create new product ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
@@ -28,6 +28,11 @@
                   <label class="block text-sm font-medium mb-1" for="mandatory">Name <span
                       class="text-rose-500">*</span></label>
                   <input class="form-input w-full" type="text" required v-model="product.name" />
+                  <div v-for="error of v$.name.$errors" :key="error.$uid" class="mt-2">
+                    <div class="text-red-500">
+                      {{ error.$message }}
+                    </div>
+                  </div>
                 </div>
 
                 <div>
@@ -136,10 +141,12 @@
 import { ref } from 'vue'
 import { useRoute } from "vue-router";
 import { mapActions, mapGetters } from '@/mapState'
+import { useVuelidate } from '@vuelidate/core'
 
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
+import { required } from '@/helpers/i18n-validators'
 
 export default {
   name: 'FormPage',
@@ -147,6 +154,16 @@ export default {
     Sidebar,
     Header,
     Tooltip,
+  },
+
+  validations() {
+    return {
+      name: { required }
+    }
+  },
+
+  mounted() {
+    this.v$.$touch();
   },
 
   setup() {
@@ -172,16 +189,18 @@ export default {
       getCategories({ setFirstCategoryForProduct: true })
     }
 
-    const showTitle = () => {
-      return productId == null ? 'Create new product' : 'Edit product'
+    const rules = {
+      name: { required }
     }
+
+    const v$ = useVuelidate(rules, product)
 
     return {
       sidebarOpen,
       categories,
       product,
       save,
-      showTitle
+      v$
     }
   },
 }
