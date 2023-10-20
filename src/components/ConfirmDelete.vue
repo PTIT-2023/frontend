@@ -44,13 +44,11 @@ export default {
     emits: ['on-cancel'],
     setup(props, { emit }) {
 
-        const dangerModalOpen = ref(false)
         const cancel = () => {
-            emit('on-cancel')
+            emit('onCancel')
         }
 
         return {
-            dangerModalOpen,
             cancel
         }
     }

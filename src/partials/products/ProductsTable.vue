@@ -47,14 +47,13 @@
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
             <ProductsTableItem v-for="product in pProducts.data" :key="product.id" :product="product"
-              v-model:selected="selected" :value="product.id" />
+              v-model:selected="selected" :value="product.id" @on-delete="onDelete" />
           </tbody>
         </table>
 
       </div>
     </div>
   </div>
-  <button @click.stop="showConfirmDelete(true)">Delete</button>
   <ConfirmDelete :title="$t('deleteDialog_title', { name: 'product', quantity: 5 })"
     :description="$t('deleteDialog_description', { name: 'product' })" :opened="confirmDeleteOpen"
     @on-cancel="showConfirmDelete(false)" />
@@ -75,9 +74,7 @@ export default {
   },
   props: ['selectedItems'],
   methods: {
-    showConfirmDelete(opened) {
-      this.confirmDeleteOpen = opened
-    }
+
   },
   setup(props, { emit }) {
     // Load products
@@ -105,6 +102,14 @@ export default {
 
     // Confirm delete dialog
     const confirmDeleteOpen = ref(false)
+    function showConfirmDelete (opened) {
+      confirmDeleteOpen.value = opened
+    }
+    
+    const onDelete = (productId) => {
+      showConfirmDelete(true)
+      console.log(productId)
+    }
 
     return {
       pProducts,
@@ -112,6 +117,8 @@ export default {
       selected,
       checkAll,
       confirmDeleteOpen,
+      showConfirmDelete,
+      onDelete
     }
   }
 }
