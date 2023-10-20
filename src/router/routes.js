@@ -90,7 +90,7 @@ const routes = [
   {
     path: '/inventory/products/edit/:id',
     name: 'products.edit',
-    component: () => import("@/pages/inventory/products/CreateProduct.vue")
+    component: () => import("@/pages/inventory/products/EditProduct.vue")
   },
   {
     path: '/ecommerce/customers',
