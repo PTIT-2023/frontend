@@ -1,7 +1,8 @@
 <template>
   <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 relative">
     <header class="px-5 py-4">
-      <h2 class="font-semibold text-slate-800 dark:text-slate-100">Products <span class="text-slate-400 dark:text-slate-500 font-medium">{{ pProducts.totalResult }}</span></h2>
+      <h2 class="font-semibold text-slate-800 dark:text-slate-100">Products <span
+          class="text-slate-400 dark:text-slate-500 font-medium">{{ pProducts.totalResult }}</span></h2>
     </header>
     <div>
 
@@ -9,7 +10,8 @@
       <div class="overflow-x-auto">
         <table class="table-auto w-full dark:text-slate-300">
           <!-- Table header -->
-          <thead class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-700">
+          <thead
+            class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-700">
             <tr>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                 <div class="flex items-center">
@@ -44,19 +46,18 @@
           </thead>
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
-            <ProductsTableItem
-              v-for="product in pProducts.data"
-              :key="product.id"
-              :product="product"
-              v-model:selected="selected"
-              :value="product.id"
-            />
+            <ProductsTableItem v-for="product in pProducts.data" :key="product.id" :product="product"
+              v-model:selected="selected" :value="product.id" />
           </tbody>
         </table>
 
       </div>
     </div>
   </div>
+  <button @click.stop="showConfirmDelete(true)">Delete</button>
+  <ConfirmDelete :title="$t('deleteDialog_title', { name: 'product', quantity: 5 })"
+    :description="$t('deleteDialog_description', { name: 'product' })" :opened="confirmDeleteOpen"
+    @on-cancel="showConfirmDelete(false)" />
 </template>
 
 <script>
@@ -64,41 +65,53 @@ import { ref, watch } from 'vue'
 import { mapActions, mapGetters } from '@/mapState'
 
 import ProductsTableItem from './ProductsTableItem.vue'
+import ConfirmDelete from '@/components/ConfirmDelete.vue'
 
 export default {
   name: 'ProductsTable',
   components: {
     ProductsTableItem,
-  },  
+    ConfirmDelete,
+  },
   props: ['selectedItems'],
+  methods: {
+    showConfirmDelete(opened) {
+      this.confirmDeleteOpen = opened
+    }
+  },
   setup(props, { emit }) {
+    // Load products
     const { pProducts } = mapGetters()
     const { getPProducts } = mapActions()
+    getPProducts(1)
 
+    // Select products
     const selectAll = ref(false)
     const selected = ref([])
-
-    const products = pProducts.value.data;
 
     const checkAll = () => {
       selected.value = []
       if (!selectAll.value) {
+        const products = pProducts.value.data;
         selected.value = products.map(product => product.id)
       }
     }
-    
+
     watch(selected, () => {
+      const products = pProducts.value.data;
       selectAll.value = products.length === selected.value.length ? true : false
       emit('change-selection', selected.value)
     })
-    
-    getPProducts(1)
+
+    // Confirm delete dialog
+    const confirmDeleteOpen = ref(false)
 
     return {
+      pProducts,
       selectAll,
       selected,
       checkAll,
-      pProducts,
+      confirmDeleteOpen,
     }
   }
 }
