@@ -28,59 +28,53 @@
                   <label class="block text-sm font-medium mb-1" for="mandatory">Name <span
                       class="text-rose-500">*</span></label>
                   <input class="form-input w-full" type="text" required v-model="product.name" />
-                  <div v-for="error of v$.name.$errors" :key="error.$uid" class="mt-2">
-                    <div class="text-red-500">
-                      {{ error.$message }}
-                    </div>
-                  </div>
+                  <error-text :v="v$.name" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Description <span
-                      class="text-rose-500">*</span></label>
-                  <textarea class="form-input w-full h-40" type="text" required v-model="product.description" />
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Description</label>
+                  <textarea class="form-input w-full h-40" type="text" v-model="product.description" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Habitat <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.habitat" />
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Habitat</label>
+                  <input class="form-input w-full" type="text" v-model="product.habitat" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Position <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.position" />
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Position</label>
+                  <input class="form-input w-full" type="text" v-model="product.position" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Reproduction method <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.reproductionMethod" />
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Reproduction method</label>
+                  <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Food type <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.foodType" />
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Food type</label>
+                  <input class="form-input w-full" type="text" v-model="product.foodType" />
                 </div>
 
                 <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">Temperature <span
                       class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" required v-model="product.temperature" />
+                  <input class="form-input w-full" type="number" v-model="product.temperature" />
+                  <error-text :v="v$.temperature" />
                 </div>
 
                 <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">pH <span
                       class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" required v-model="product.ph" />
+                  <input class="form-input w-full" type="number" v-model="product.ph" />
+                  <error-text :v="v$.ph" />
                 </div>
 
                 <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">Max size <span
                       class="text-rose-500">*</span></label>
                   <input class="form-input w-full" type="number" required v-model="product.maxSize" />
+                  <error-text :v="v$.maxSize" />
                 </div>
 
                 <div>
@@ -94,12 +88,11 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Status <span
-                      class="text-rose-500">*</span></label>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Status</label>
                   <div class="flex items-center mt-5">
                     <div class="form-switch">
                       <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
-                        :false-value="false" />
+                        :false-value="false" disabled />
                       <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
                         <span class="bg-white shadow-sm" aria-hidden="true"></span>
                         <span class="sr-only">Toggle</span>
@@ -119,7 +112,8 @@
           <div class="space-y-8 mt-8" />
 
           <div class="m-1.5 inline-block">
-            <button @click="save" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Save</button>
+            <button @click="save" :disabled="v$.$invalid"
+              class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Save</button>
           </div>
 
           <router-link :to="{ name: 'products.list' }">
@@ -146,7 +140,8 @@ import { useVuelidate } from '@vuelidate/core'
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
-import { required } from '@/helpers/i18n-validators'
+import ErrorText from '@/components/ErrorText.vue'
+import { required, minValue, maxValue } from '@/helpers/i18n-validators'
 
 export default {
   name: 'FormPage',
@@ -154,6 +149,7 @@ export default {
     Sidebar,
     Header,
     Tooltip,
+    'error-text': ErrorText
   },
 
   validations() {
@@ -190,7 +186,21 @@ export default {
     }
 
     const rules = {
-      name: { required }
+      name: { required },
+      maxSize: { 
+        required, 
+        minValue: minValue(1) 
+      },
+      ph: {
+        required,
+        minValue: minValue(0),
+        maxValue: maxValue(14)
+      },
+      temperature: {
+        required,
+        minValue: minValue(20),
+        maxValue: maxValue(30)
+      }
     }
 
     const v$ = useVuelidate(rules, product)
