@@ -92,7 +92,7 @@
                   <div class="flex items-center mt-5">
                     <div class="form-switch">
                       <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
-                        :false-value="false" disabled />
+                        :false-value="false" :disabled="product.inventoryQuantity <= 0" />
                       <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
                         <span class="bg-white shadow-sm" aria-hidden="true"></span>
                         <span class="sr-only">Toggle</span>
