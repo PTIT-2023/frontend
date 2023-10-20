@@ -25,7 +25,7 @@
                     <button
                         class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
                         @click.stop="cancel()">Cancel</button>
-                    <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Yes, Delete it</button>
+                    <button @click.stop="yes()" class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Yes, Delete it</button>
                 </div>
             </div>
         </div>
@@ -44,11 +44,16 @@ export default {
     emits: ['on-cancel'],
     setup(props, { emit }) {
 
+        const yes = () => {
+            emit('onYes')
+        }
+
         const cancel = () => {
             emit('onCancel')
         }
 
         return {
+            yes,
             cancel
         }
     }

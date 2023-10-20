@@ -115,6 +115,16 @@ const actions = {
             console.log(e)
         }
     },
+    async deleteProductById({ dispatch }, productIds) {
+        console.log(productIds)
+        try {
+            const res = await api.delete(`products/${productIds[0]}`)
+            console.log(res.data.message)
+        } catch (e) {
+            console.log(e)
+        }
+        dispatch("getPProducts", 1);
+    },
 };
 
 export default {

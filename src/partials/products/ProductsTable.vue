@@ -47,16 +47,16 @@
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
             <ProductsTableItem v-for="product in pProducts.data" :key="product.id" :product="product"
-              v-model:selected="selected" :value="product.id" @on-delete="onDelete" />
+              v-model:selected="selected" :value="product.id" @on-delete="onDeleteItemClick" />
           </tbody>
         </table>
 
       </div>
     </div>
   </div>
-  <ConfirmDelete :title="$t('deleteDialog_title', { name: 'product', quantity: 5 })"
-    :description="$t('deleteDialog_description', { name: 'product' })" :opened="confirmDeleteOpen"
-    @on-cancel="showConfirmDelete(false)" />
+  <ConfirmDelete :title="$t('deleteDialog_title', {name: 'product', quantity: productsToDelete.length})"
+    :description="$t('deleteDialog_description', {name: 'product'})" :opened="confirmDeleteOpen"
+    @on-cancel="showConfirmDelete(false)" @on-yes="handleDelete" />
 </template>
 
 <script>
@@ -79,7 +79,7 @@ export default {
   setup(props, { emit }) {
     // Load products
     const { pProducts } = mapGetters()
-    const { getPProducts } = mapActions()
+    const { getPProducts, deleteProductById } = mapActions()
     getPProducts(1)
 
     // Select products
@@ -101,14 +101,21 @@ export default {
     })
 
     // Confirm delete dialog
+    const productsToDelete = ref([])
+
+    const onDeleteItemClick = (productId) => {
+      productsToDelete.value = [productId]
+      showConfirmDelete(true)
+    }
+
     const confirmDeleteOpen = ref(false)
-    function showConfirmDelete (opened) {
+    const showConfirmDelete = (opened) => {
       confirmDeleteOpen.value = opened
     }
-    
-    const onDelete = (productId) => {
-      showConfirmDelete(true)
-      console.log(productId)
+
+    const handleDelete = () => {
+      showConfirmDelete(false)
+      deleteProductById(productsToDelete.value)
     }
 
     return {
@@ -117,8 +124,10 @@ export default {
       selected,
       checkAll,
       confirmDeleteOpen,
+      productsToDelete,
       showConfirmDelete,
-      onDelete
+      onDeleteItemClick,
+      handleDelete
     }
   }
 }
