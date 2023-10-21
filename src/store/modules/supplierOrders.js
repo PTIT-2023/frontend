@@ -17,6 +17,9 @@ const getters = {
     supplierOrder(state) {
         return state.supplierOrder;
     },
+    orderSupplierDetailList(state) {
+        return state.supplierOrder.orderSupplierDetailList
+    }
 };
 
 const mutations = {

@@ -31,12 +31,13 @@
                   <error-text :v="v$.supplierName" />
                 </div>
 
-                <!-- Datepicker (built with flatpickr) -->
-              <div>
-                <label class="block text-sm font-medium mb-1" for="mandatory">Delivery date <span
+                <div>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Delivery date <span
                       class="text-rose-500">*</span></label>
-                <SingleDatePicker />
-              </div>
+                  <SingleDatePicker />
+                </div>
+
+
 
                 <!-- <div>
                   <label class="block text-sm font-medium mb-1" for="country">Category
@@ -65,6 +66,11 @@
                 </div> -->
 
               </div>
+              <div>
+                <label class="block text-sm font-medium mb-1" for="mandatory">Supplier order detail <span
+                    class="text-rose-500">*</span></label>
+                <SOPTable />
+              </div>
 
             </div>
 
@@ -82,6 +88,8 @@
               <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Cancel</button>
             </div>
           </router-link>
+
+          
 
         </div>
 
@@ -103,6 +111,8 @@ import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
 import SingleDatePicker from '@/components/SingleDatePicker.vue'
+import SOPTable from '@/partials/supplier_orders/SOPTable.vue';
+// import SearchModal from '@/components/ModalSearch.vue'
 import { required, minValue, maxValue } from '@/helpers/i18n-validators'
 
 export default {
@@ -112,7 +122,9 @@ export default {
     Header,
     Tooltip,
     SingleDatePicker,
-    'error-text': ErrorText
+    'error-text': ErrorText,
+    SOPTable,
+    // SearchModal
   },
 
   validations() {
