@@ -35,9 +35,9 @@ const mutations = {
 };
 
 const actions = {
-    async getPProducts({ commit }, { page, keyWord }) {
+    async getPProducts({ commit }, { categoryId, page, keyWord }) {
         try {
-            const res = await api.get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10&keyWord=${keyWord}`)
+            const res = await api.get(`products?categoryId=${categoryId}&orderByPrice=DESC&page=${page}&limit=10&keyWord=${keyWord}`)
             const data = res.data
             if (data.code >= 400) {
                 commit("SHOW_NOTIFICATION", data)

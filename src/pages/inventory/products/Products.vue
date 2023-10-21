@@ -23,8 +23,20 @@
 
             <!-- Right: Actions  -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+              <!-- Category select -->
+              <div class="content-center">
+                <label class="block text-sm font-medium" for="country">Category</label>
+              </div>
+              <select class="form-select" @change="onSelectedCategoryIdChanged($event)">
+                <option :key="'all'" :value="''">All</option>
+                <option v-for="(category, index) in categories" :key="category.id" :value="category.id">{{ category.name }}
+                </option>
+              </select>
+
               <!-- Search form -->
-              <SearchForm ref="searchForm" placeholder="Search by name or description…" @onTextChanged="onSearchChanged" />
+              <SearchForm placeholder="Search by name or description…"
+                @onTextChanged="onSearchChanged" />
               <!-- Create product button -->
               <router-link :to="{ name: 'products.create' }">
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
@@ -97,7 +109,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { mapGetters, mapActions } from '@/mapState'
 
 import Sidebar from '@/partials/Sidebar.vue'
@@ -122,7 +134,6 @@ export default {
     PaginationAdvanced,
   },
   setup() {
-
     const sidebarOpen = ref(false)
     const selectedItems = ref([])
 
@@ -130,27 +141,42 @@ export default {
       selectedItems.value = selected
     }
 
-    const { pProducts } = mapGetters()
-    const { getPProducts } = mapActions()
+    const { pProducts, categories } = mapGetters()
+    const { getPProducts, getCategories } = mapActions()
 
-    const searchForm = ref(null)
+    getCategories({ setFirstCategoryForProduct: false })
+
+    const selectedCategoryId = ref('')
+    const selectedPage = ref(1)
+    const selectKeyWord = ref('')
+
+    watch([selectedCategoryId, selectedPage, selectKeyWord],  ([newCategoryId, newPage, newKeyWord]) => {
+      getPProducts({ categoryId: newCategoryId, page: newPage, keyWord: newKeyWord })
+    })
+
+    const onSelectedCategoryIdChanged = (e) => {
+      selectedCategoryId.value = e.target.value
+    }
+
     const onPageChanged = (page) => {
-      getPProducts({page, keyWord: searchForm.value.keyWord})
+      selectedPage.value = page
     }
 
     const onSearchChanged = (keyWord) => {
-      console.log(keyWord);
-      getPProducts({page: 1, keyWord})
+      selectKeyWord.value = keyWord
     }
 
     return {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
+      onSelectedCategoryIdChanged,
+      selectedCategoryId,
+      selectedPage,
+      categories,
       pProducts,
       onPageChanged,
       onSearchChanged,
-      searchForm
     }
   }
 }
