@@ -69,7 +69,8 @@
               <div>
                 <label class="block text-sm font-medium mb-1" for="mandatory">Supplier order detail <span
                     class="text-rose-500">*</span></label>
-                <SOPTable />
+                <error-text :v="v$.orderSupplierDetailList" />
+                <SOPTable class="mt-4" />
               </div>
 
             </div>
@@ -89,8 +90,6 @@
             </div>
           </router-link>
 
-          
-
         </div>
 
       </main>
@@ -102,7 +101,6 @@
 
 <script>
 import { ref } from 'vue'
-import { useRoute } from "vue-router";
 import { mapActions, mapGetters } from '@/mapState'
 import { useVuelidate } from '@vuelidate/core'
 
@@ -113,7 +111,7 @@ import ErrorText from '@/components/ErrorText.vue'
 import SingleDatePicker from '@/components/SingleDatePicker.vue'
 import SOPTable from '@/partials/supplier_orders/SOPTable.vue';
 // import SearchModal from '@/components/ModalSearch.vue'
-import { required, minValue, maxValue } from '@/helpers/i18n-validators'
+import { required, minLength } from '@/helpers/i18n-validators'
 
 export default {
   name: 'FormPage',
@@ -149,20 +147,9 @@ export default {
 
     const rules = {
       supplierName: { required },
-      // maxSize: { 
-      //   required, 
-      //   minValue: minValue(1) 
-      // },
-      // ph: {
-      //   required,
-      //   minValue: minValue(0),
-      //   maxValue: maxValue(14)
-      // },
-      // temperature: {
-      //   required,
-      //   minValue: minValue(20),
-      //   maxValue: maxValue(30)
-      // }
+      orderSupplierDetailList: {
+        required,
+      }
     }
 
     const v$ = useVuelidate(rules, supplierOrder)
