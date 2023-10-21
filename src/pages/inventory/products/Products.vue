@@ -24,7 +24,7 @@
             <!-- Right: Actions  -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
               <!-- Search form -->
-              <SearchForm placeholder="Search by invoice ID…" />
+              <SearchForm ref="searchForm" placeholder="Search by name or description…" @onTextChanged="onSearchChanged" />
               <!-- Create product button -->
               <router-link :to="{ name: 'products.create' }">
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
@@ -133,8 +133,14 @@ export default {
     const { pProducts } = mapGetters()
     const { getPProducts } = mapActions()
 
+    const searchForm = ref(null)
     const onPageChanged = (page) => {
-      getPProducts(page)
+      getPProducts({page, keyWord: searchForm.value.keyWord})
+    }
+
+    const onSearchChanged = (keyWord) => {
+      console.log(keyWord);
+      getPProducts({page: 1, keyWord})
     }
 
     return {
@@ -142,7 +148,9 @@ export default {
       selectedItems,
       updateSelectedItems,
       pProducts,
-      onPageChanged
+      onPageChanged,
+      onSearchChanged,
+      searchForm
     }
   }
 }

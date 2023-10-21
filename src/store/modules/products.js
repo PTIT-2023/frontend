@@ -35,10 +35,16 @@ const mutations = {
 };
 
 const actions = {
-    async getPProducts({ commit }, page) {
+    async getPProducts({ commit }, { page, keyWord }) {
         try {
-            const res = await api.get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10&keyWord=`)
+            const res = await api.get(`products?categoryId=&orderByPrice=DESC&page=${page}&limit=10&keyWord=${keyWord}`)
+            const data = res.data
+            if (data.code >= 400) {
+                commit("SHOW_NOTIFICATION", data)
+                return
+            }
             const pProducts = res.data.data;
+            console.log(res.data.message);
             commit("setPProducts", pProducts);
         } catch (e) {
             console.log(e)
@@ -110,7 +116,7 @@ const actions = {
         } catch (e) {
             console.log(e)
         }
-        dispatch("getPProducts", 1);
+        dispatch("getPProducts", {page: 1, keyWord: ''});
     },
 };
 

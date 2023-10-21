@@ -77,7 +77,7 @@ export default {
     // Load products
     const { pProducts } = mapGetters()
     const { getPProducts, deleteProductById } = mapActions()
-    getPProducts(1)
+    getPProducts({page: 1, keyWord: ''})
 
     // Select products
     const selectAll = ref(false)
