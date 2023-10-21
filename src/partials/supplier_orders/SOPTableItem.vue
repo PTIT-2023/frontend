@@ -9,7 +9,7 @@
       </div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <img :src="product.imageList[0]" width="100" height="auto"/>
+      <img :src="product.imageList ? product.imageList[0] : ''" width="100" height="auto"/>
     </td>  
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{product.name}}</div>
@@ -20,9 +20,9 @@
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <input class="form-input w-20" type="number" required v-model="product.quantity" />
     </td>
-    <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{product.price}}</div>
-    </td> -->
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      <input class="form-input w-30" type="number" required v-model="product.price" step="1000" />
+    </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">
         <!-- <button @click="onEdit(product.id)" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">

@@ -1,4 +1,5 @@
 import api from '@/api'
+import router from '@/router';
 
 const getDefaultState = () => {
     return {
@@ -29,7 +30,8 @@ const mutations = {
         state.supplierOrder = data;
     },
     addProductToOrderSupplierDetail(state, data) {
-        state.supplierOrder.orderSupplierDetailList.unshift({ ...data, quantity: 1 })
+        const { id, name, imageList, inventoryQuantity } = data
+        state.supplierOrder.orderSupplierDetailList.unshift({ id, name, imageList, inventoryQuantity, quantity: 1, price: 1000 })
     },
     removeProductFromOrderSupplierDetail(state, id) {
         let list = state.supplierOrder.orderSupplierDetailList.filter(product => product.id !== id)
@@ -66,18 +68,22 @@ const actions = {
         });
     },
     async createSupplierOrder({ commit }, order) {
-        // console.log(product)
-        // try {
-        //     const res = await api.post(`products`, product)
-        //     const data = res.data
-        //     commit("SHOW_NOTIFICATION", data)
-        //     if (data.code >= 400) return;
-        //     router.push({
-        //         name: 'products.list'
-        //     })
-        // } catch (e) {
-        //     console.log(e)
-        // }
+        console.log(order)
+        order.orderSupplierDetailList = order.orderSupplierDetailList.map(product => {
+            const { id: productId, quantity, price } = product
+            return { productId, quantity, price }
+        })
+        try {
+            const res = await api.post(`order-suppliers`, order)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
+            router.push({
+                name: 'supplier-orders.list'
+            })
+        } catch (e) {
+            console.log(e)
+        }
     },
     // async getProductById({ commit }, productId) {
     //     try {
