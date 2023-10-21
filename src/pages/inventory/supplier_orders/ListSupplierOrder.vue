@@ -70,9 +70,12 @@
                     <span class="ml-1 text-slate-400 dark:text-slate-500">19</span>
                   </button>
                 </li> -->
-                <StatusBadge title="Waiting" value="WAITING" @on-click="onSelectedOrderStatusChanged" />
-                <StatusBadge title="Imported" value="IMPORTED" @on-click="onSelectedOrderStatusChanged" />
-                <StatusBadge title="Cancelled" value="CANCELLED" @on-click="onSelectedOrderStatusChanged" />
+                <StatusBadge title="Waiting" value="WAITING" :active="selectedOrderStatus"
+                  @on-click="onSelectedOrderStatusChanged" />
+                <StatusBadge title="Imported" value="IMPORTED" :active="selectedOrderStatus"
+                  @on-click="onSelectedOrderStatusChanged" />
+                <StatusBadge title="Cancelled" value="CANCELLED" :active="selectedOrderStatus"
+                  @on-click="onSelectedOrderStatusChanged" />
               </ul>
             </div>
 
@@ -148,7 +151,7 @@ export default {
 
     watch([selectedOrderStatus, selectedPage, searchText], ([newStatus, newPage, newSearchText]) => {
       console.log(newSearchText);
-      getPSupplierOrders({status: newStatus, page: newPage, keyWord: newSearchText})
+      getPSupplierOrders({ status: newStatus, page: newPage, keyWord: newSearchText })
     })
 
     const onSelectedOrderStatusChanged = (status) => {
