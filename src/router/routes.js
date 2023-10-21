@@ -93,6 +93,11 @@ const routes = [
     component: () => import("@/pages/inventory/products/EditProduct.vue")
   },
   {
+    path: '/inventory/supplier-orders',
+    name: 'supplier-orders.list',
+    component: () => import("@/pages/inventory/supplier_orders/ListSupplierOrder.vue")
+  },
+  {
     path: '/ecommerce/customers',
     component: Customers
   },
