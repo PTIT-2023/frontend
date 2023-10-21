@@ -43,7 +43,7 @@
           <div class="sm:flex sm:justify-between sm:items-center mb-5">
 
             <!-- Left side -->
-            <div class="mb-4 sm:mb-0">
+            <div style="visibility: hidden;" class="mb-4 sm:mb-0">
               <ul class="flex flex-wrap -m-1">
                 <li class="m-1">
                   <button
@@ -73,9 +73,9 @@
               <!-- Delete button -->
               <DeleteButton :selectedItems="selectedItems" />
               <!-- Dropdown -->
-              <DateSelect />
+              <!-- <DateSelect /> -->
               <!-- Filter button -->
-              <FilterButton align="right" />
+              <!-- <FilterButton align="right" /> -->
             </div>
 
           </div>
