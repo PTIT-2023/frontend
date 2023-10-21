@@ -60,10 +60,13 @@ const actions = {
             status: false
         });
     },
-    async createProduct({ }, product) {
+    async createProduct({ commit }, product) {
         console.log(product)
         try {
-            await api.post(`products`, product)
+            const res = await api.post(`products`, product)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
             router.push({
                 name: 'products.list'
             })
