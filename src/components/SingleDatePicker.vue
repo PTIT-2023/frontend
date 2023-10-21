@@ -43,6 +43,7 @@ export default {
         },
         onChange: (selectedDates, dateStr, instance) => {
           instance.element.value = dateStr.replace('to', '-');
+          this.$emit('onDateChanged', selectedDates ? selectedDates[0] : null)
         },
       },
     }

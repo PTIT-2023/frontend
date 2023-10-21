@@ -34,36 +34,8 @@
                 <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">Delivery date <span
                       class="text-rose-500">*</span></label>
-                  <SingleDatePicker />
+                  <SingleDatePicker @onDateChanged="handleDateChanged" />
                 </div>
-
-
-
-                <!-- <div>
-                  <label class="block text-sm font-medium mb-1" for="country">Category
-                    <span class="text-rose-500">*</span></label>
-                  <select class="form-select" v-model="entity.categoryId">
-                    <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
-                      :selected="index === 0">{{ category.name }}
-                    </option>
-                  </select>
-                </div> -->
-
-                <!-- <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Status</label>
-                  <div class="flex items-center mt-5">
-                    <div class="form-switch">
-                      <input type="checkbox" id="toggle" class="sr-only" v-model="entity.status" :true-value="true"
-                        :false-value="false" disabled />
-                      <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
-                        <span class="bg-white shadow-sm" aria-hidden="true"></span>
-                        <span class="sr-only">Toggle</span>
-                      </label>
-                    </div>
-                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ entity.status ? 'Active' :
-                      'Inactive' }}</div>
-                  </div>
-                </div> -->
 
               </div>
               <div>
@@ -141,6 +113,10 @@ export default {
     const { supplierOrder } = mapGetters()
     const { createSupplierOrder } = mapActions()
 
+    const handleDateChanged = (selectedDate) => {
+      supplierOrder.value.deliveryDate = selectedDate.getTime()
+    }
+
     const save = () => {
       createSupplierOrder(supplierOrder.value)
     }
@@ -157,6 +133,7 @@ export default {
     return {
       sidebarOpen,
       entity: supplierOrder,
+      handleDateChanged,
       save,
       v$
     }

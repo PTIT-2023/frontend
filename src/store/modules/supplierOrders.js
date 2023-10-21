@@ -68,11 +68,12 @@ const actions = {
         });
     },
     async createSupplierOrder({ commit }, order) {
-        console.log(order)
+        order.orderDate = Date.now()
         order.orderSupplierDetailList = order.orderSupplierDetailList.map(product => {
             const { id: productId, quantity, price } = product
             return { productId, quantity, price }
         })
+        console.log(order)
         try {
             const res = await api.post(`order-suppliers`, order)
             const data = res.data
