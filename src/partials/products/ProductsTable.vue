@@ -73,9 +73,6 @@ export default {
     ConfirmDelete,
   },
   props: ['selectedItems'],
-  methods: {
-
-  },
   setup(props, { emit }) {
     // Load products
     const { pProducts } = mapGetters()

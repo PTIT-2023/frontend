@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 
+import notification from "./modules/notification";
 import products from "./modules/products";
 import categories from "./modules/categories";
 
@@ -9,6 +10,7 @@ export default createStore({
     mutations: {},
     actions: {},
     modules: {
+        notification,
         products,
         categories
     }
