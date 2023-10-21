@@ -4,6 +4,7 @@ module.exports = {
   content: [
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}',
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   darkMode: 'class',
   theme: {
@@ -64,5 +65,6 @@ module.exports = {
         modifySelectors(({ className }) => `.sidebar-expanded .${e(`sidebar-expanded${separator}${className}`)}`);
       });
     }),
+    require("tw-elements/dist/plugin.cjs")
   ],
 };

@@ -115,11 +115,13 @@ const actions = {
             console.log(e)
         }
     },
-    async deleteProductById({ dispatch }, productIds) {
-        console.log(productIds)
+    async deleteProductById({ commit, dispatch }, productIds) {
         try {
             const res = await api.delete(`products/${productIds[0]}`)
-            console.log(res.data.message)
+            commit("SHOW_NOTIFICATION", {
+                text: res.data.message,
+                type: 'success'
+            })
         } catch (e) {
             console.log(e)
         }

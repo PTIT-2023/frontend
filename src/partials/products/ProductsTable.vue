@@ -54,8 +54,8 @@
       </div>
     </div>
   </div>
-  <ConfirmDelete :title="$t('deleteDialog_title', {name: 'product', quantity: productsToDelete.length})"
-    :description="$t('deleteDialog_description', {name: 'product'})" :opened="confirmDeleteOpen"
+  <ConfirmDelete :title="$t('deleteDialog_title', { name: 'product', quantity: productsToDelete.length })"
+    :description="$t('deleteDialog_description', { name: 'product' })" :opened="confirmDeleteOpen"
     @on-cancel="showConfirmDelete(false)" @on-yes="handleDelete" />
 </template>
 
@@ -73,9 +73,6 @@ export default {
     ConfirmDelete,
   },
   props: ['selectedItems'],
-  methods: {
-
-  },
   setup(props, { emit }) {
     // Load products
     const { pProducts } = mapGetters()
