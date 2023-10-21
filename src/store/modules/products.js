@@ -87,11 +87,13 @@ const actions = {
             console.log(e)
         }
     },
-    async editProduct({ }, product) {
+    async editProduct({ commit }, product) {
         console.log(product)
         try {
             const res = await api.put(`products`, product)
-            console.log(res.data.message)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
             router.push({
                 name: 'products.list'
             })
