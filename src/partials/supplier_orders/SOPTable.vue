@@ -5,7 +5,7 @@
         <h2 class="font-semibold text-slate-800 dark:text-slate-100">Products <span
             class="text-slate-400 dark:text-slate-500 font-medium">{{ orderSupplierDetailList.length }}</span></h2>
 
-        <button @click.stop="searchModalOpen = true" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+        <button @click.stop="openSearchModal()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
           <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
             <path
               d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -55,8 +55,8 @@
           </tbody>
         </table>
 
-        <SearchModal id="search-modal" searchId="search" :modalOpen="searchModalOpen"
-            @open-modal="searchModalOpen = true" @close-modal="searchModalOpen = false" />
+        <ProductSearchModal :products="pProducts.data" id="search-modal" searchId="search" :modalOpen="searchModalOpen"
+            @open-modal="searchModalOpen = true" @close-modal="handleCloseModal" />
 
       </div>
     </div>
@@ -68,27 +68,37 @@
 
 <script>
 import { ref, watch } from 'vue'
-import { mapActions, mapGetters } from '@/mapState'
+import { mapActions, mapMutations, mapGetters } from '@/mapState'
 
 import SOPTableItem from './SOPTableItem.vue'
 import ConfirmDelete from '@/components/ConfirmDelete.vue'
-import SearchModal from '@/components/ModalSearch.vue'
+import ProductSearchModal from '@/partials/supplier_orders/ProductSearchModal.vue'
 
 export default {
   components: {
     SOPTableItem,
     ConfirmDelete,
-    SearchModal
+    ProductSearchModal
   },
   props: ['selectedItems'],
   setup(props, { emit }) {
     // Load products
     const { pProducts, orderSupplierDetailList } = mapGetters()
+    const { addProductToOrderSupplierDetail } = mapMutations()
     const { getPProducts, deleteProductById, resetSupplierOrder } = mapActions()
 
     resetSupplierOrder()
 
     const searchModalOpen = ref(false)
+    const openSearchModal = () => {
+      searchModalOpen.value = true
+      getPProducts({categoryId: '', page: 1, keyWord: ''})
+    }
+    const handleCloseModal = (product) => {
+      searchModalOpen.value = false
+      if (!product) return
+      addProductToOrderSupplierDetail(product)
+    }
     
     // Select products
     const selectAll = ref(false)
@@ -128,6 +138,8 @@ export default {
 
     return {
       searchModalOpen,
+      openSearchModal,
+      handleCloseModal,
       pProducts,
       selectAll,
       selected,

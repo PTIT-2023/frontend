@@ -1,5 +1,4 @@
 import api from '@/api'
-import router from '@/router'
 
 const getDefaultState = () => {
     return {
@@ -29,6 +28,9 @@ const mutations = {
     setSupplierOrder(state, data) {
         state.supplierOrder = data;
     },
+    addProductToOrderSupplierDetail(state, data) {
+        return state.supplierOrder.orderSupplierDetailList.unshift(data)
+    }
 };
 
 const actions = {
