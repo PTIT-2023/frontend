@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Create new product ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Create new supplier order ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
@@ -25,83 +25,44 @@
 
               <div class="grid gap-5 md:grid-cols-2">
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Name <span
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Supplier name <span
                       class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.name" />
-                  <error-text :v="v$.name" />
+                  <input class="form-input w-full" type="text" required v-model="entity.supplierName" />
+                  <error-text :v="v$.supplierName" />
                 </div>
 
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Description</label>
-                  <textarea class="form-input w-full h-40" type="text" v-model="product.description" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Habitat</label>
-                  <input class="form-input w-full" type="text" v-model="product.habitat" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Position</label>
-                  <input class="form-input w-full" type="text" v-model="product.position" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Reproduction method</label>
-                  <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Food type</label>
-                  <input class="form-input w-full" type="text" v-model="product.foodType" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Temperature <span
+                <!-- Datepicker (built with flatpickr) -->
+              <div>
+                <label class="block text-sm font-medium mb-1" for="mandatory">Delivery date <span
                       class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" v-model="product.temperature" />
-                  <error-text :v="v$.temperature" />
-                </div>
+                <SingleDatePicker />
+              </div>
 
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">pH <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" v-model="product.ph" />
-                  <error-text :v="v$.ph" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Max size <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" required v-model="product.maxSize" />
-                  <error-text :v="v$.maxSize" />
-                </div>
-
-                <div>
+                <!-- <div>
                   <label class="block text-sm font-medium mb-1" for="country">Category
                     <span class="text-rose-500">*</span></label>
-                  <select class="form-select" v-model="product.categoryId">
+                  <select class="form-select" v-model="entity.categoryId">
                     <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
                       :selected="index === 0">{{ category.name }}
                     </option>
                   </select>
-                </div>
+                </div> -->
 
-                <div>
+                <!-- <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">Status</label>
                   <div class="flex items-center mt-5">
                     <div class="form-switch">
-                      <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
+                      <input type="checkbox" id="toggle" class="sr-only" v-model="entity.status" :true-value="true"
                         :false-value="false" disabled />
                       <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
                         <span class="bg-white shadow-sm" aria-hidden="true"></span>
                         <span class="sr-only">Toggle</span>
                       </label>
                     </div>
-                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ product.status ? 'Active' :
+                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ entity.status ? 'Active' :
                       'Inactive' }}</div>
                   </div>
-                </div>
+                </div> -->
 
               </div>
 
@@ -116,7 +77,7 @@
               class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Save</button>
           </div>
 
-          <router-link :to="{ name: 'products.list' }">
+          <router-link :to="{ name: 'supplier-orders.list' }">
             <div class="m-1.5 inline-block">
               <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Cancel</button>
             </div>
@@ -141,6 +102,7 @@ import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
+import SingleDatePicker from '@/components/SingleDatePicker.vue'
 import { required, minValue, maxValue } from '@/helpers/i18n-validators'
 
 export default {
@@ -149,6 +111,7 @@ export default {
     Sidebar,
     Header,
     Tooltip,
+    SingleDatePicker,
     'error-text': ErrorText
   },
 
@@ -165,50 +128,36 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { product, categories } = mapGetters()
-    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
-    const route = useRoute();
-    const productId = route.params?.id
+    const { supplierOrder } = mapGetters()
+    const { createSupplierOrder } = mapActions()
 
     const save = () => {
-      if (productId) {
-        editProduct(product.value)
-      } else {
-        createProduct(product.value)
-      }
-    }
-
-    if (productId) {
-      getCategories({ setFirstCategoryForProduct: false })
-    } else {
-      resetProduct()
-      getCategories({ setFirstCategoryForProduct: true })
+      createSupplierOrder(supplierOrder.value)
     }
 
     const rules = {
-      name: { required },
-      maxSize: { 
-        required, 
-        minValue: minValue(1) 
-      },
-      ph: {
-        required,
-        minValue: minValue(0),
-        maxValue: maxValue(14)
-      },
-      temperature: {
-        required,
-        minValue: minValue(20),
-        maxValue: maxValue(30)
-      }
+      supplierName: { required },
+      // maxSize: { 
+      //   required, 
+      //   minValue: minValue(1) 
+      // },
+      // ph: {
+      //   required,
+      //   minValue: minValue(0),
+      //   maxValue: maxValue(14)
+      // },
+      // temperature: {
+      //   required,
+      //   minValue: minValue(20),
+      //   maxValue: maxValue(30)
+      // }
     }
 
-    const v$ = useVuelidate(rules, product)
+    const v$ = useVuelidate(rules, supplierOrder)
 
     return {
       sidebarOpen,
-      categories,
-      product,
+      entity: supplierOrder,
       save,
       v$
     }

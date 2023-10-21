@@ -46,36 +46,30 @@ const actions = {
             console.log(e)
         }
     },
-    // resetProduct({ commit }) {
-    //     commit("setProduct", {
-    //         name: '',
-    //         description: '',
-    //         habitat: '',
-    //         temperature: 20,
-    //         ph: 0,
-    //         position: '',
-    //         reproductionMethod: '',
-    //         foodType: '',
-    //         maxSize: 1,
-    //         categoryId: '',
-    //         imageList: ['https://i.ytimg.com/vi/y7A-m5tL3fQ/maxresdefault.jpg'],
-    //         status: false
-    //     });
-    // },
-    // async createProduct({ commit }, product) {
-    //     console.log(product)
-    //     try {
-    //         const res = await api.post(`products`, product)
-    //         const data = res.data
-    //         commit("SHOW_NOTIFICATION", data)
-    //         if (data.code >= 400) return;
-    //         router.push({
-    //             name: 'products.list'
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    resetSupplierOrder({ commit }) {
+        commit("setSupplierOrder", {
+            supplierName: '',
+            deliveryDate: 0,
+            orderDate: 0,
+            employeeId: 'e13334a4-f3bf-45e7-9aae-98d35d164ee6',
+            orderSupplierDetailList: [],
+            // status: 'WAITING'
+        });
+    },
+    async createSupplierOrder({ commit }, order) {
+        // console.log(product)
+        // try {
+        //     const res = await api.post(`products`, product)
+        //     const data = res.data
+        //     commit("SHOW_NOTIFICATION", data)
+        //     if (data.code >= 400) return;
+        //     router.push({
+        //         name: 'products.list'
+        //     })
+        // } catch (e) {
+        //     console.log(e)
+        // }
+    },
     // async getProductById({ commit }, productId) {
     //     try {
     //         const res = await api.get(`products/${productId}`)

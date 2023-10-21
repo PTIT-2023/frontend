@@ -27,7 +27,7 @@
               <!-- Search form -->
               <SearchForm placeholder="Search by id, supplier name or employee name" @onTextChanged="onSearchChanged" />
               <!-- Create product button -->
-              <router-link :to="{ name: 'products.create' }">
+              <router-link :to="{ name: 'supplier-orders.create' }">
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                   <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                     <path
