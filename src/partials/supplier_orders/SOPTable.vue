@@ -38,14 +38,17 @@
                 <div class="font-semibold text-left">Name</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div class="font-semibold text-left">Inventory quantity</div>
+              </th>
+              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Quantity</div>
               </th>
               <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Price</div>
-              </th>
+              </th> -->
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Action</div>
-              </th> -->
+              </th>
             </tr>
           </thead>
           <!-- Table body -->

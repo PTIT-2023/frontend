@@ -29,7 +29,11 @@ const mutations = {
         state.supplierOrder = data;
     },
     addProductToOrderSupplierDetail(state, data) {
-        return state.supplierOrder.orderSupplierDetailList.unshift(data)
+        state.supplierOrder.orderSupplierDetailList.unshift({ ...data, quantity: 1 })
+    },
+    removeProductFromOrderSupplierDetail(state, id) {
+        let list = state.supplierOrder.orderSupplierDetailList.filter(product => product.id !== id)
+        state.supplierOrder.orderSupplierDetailList = list
     }
 };
 
