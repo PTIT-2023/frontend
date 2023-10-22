@@ -68,7 +68,7 @@ export default {
         console.log(textBody, typeNoti);
 
         toast({
-          title: "Thông báo",
+          title: "Notification",
           message: textBody,
           type: typeNoti,
           duration: 5000

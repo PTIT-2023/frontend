@@ -37,6 +37,7 @@ const actions = {
             const data = res.data
             commit("SHOW_NOTIFICATION", data)
             if (data.code >= 400) return;
+            commit("setSelectedSupplierOrderStatus", 'IMPORTED')
             router.push({
                 name: 'supplier-orders.list'
             })

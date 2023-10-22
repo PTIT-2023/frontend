@@ -132,6 +132,7 @@ const actions = {
             const res = await api.put(`order-suppliers/${id}`)
             console.log(res.data.message)
             commit("SHOW_NOTIFICATION", res.data)
+            commit("setSelectedSupplierOrderStatus", 'CANCELLED')
             router.push({
                 name: 'supplier-orders.list'
             })
