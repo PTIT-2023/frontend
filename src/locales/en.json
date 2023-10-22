@@ -15,5 +15,8 @@
     "CANCELLED": "Cancelled",
     "WAITING_PICKUP": "Waiting pickup",
     "DELIVERING": "Delivering",
-    "WAITING_CONFIRM": "Waiting confirm"
+    "WAITING_CONFIRM": "Waiting confirm",
+
+    "WAITING": "Waiting",
+    "IMPORTED": "Imported"
 }

@@ -35,8 +35,8 @@
             <!-- Left side -->
             <div class="mb-4 sm:mb-0">
               <ul class="flex flex-wrap -m-1">
-                <StatusBadge v-for="status in orderStatuses" :title="$t(status.name)" :value="status" :active="selectedSupplierOrderStatus"
-                  @on-click="onSelectedOrderStatusChanged" />
+                <StatusBadge v-for="status in orderStatuses" :title="$t(status.name)" :value="status"
+                  :active="status.id === selectedCustomerOrderStatus.id" @on-click="onSelectedOrderStatusChanged" />
               </ul>
             </div>
 
@@ -53,11 +53,11 @@
           </div>
 
           <!-- Table -->
-          <!-- <SupplierOrdersTable @change-selection="updateSelectedItems($event)" /> -->
+          <CustomerOrdersTable @change-selection="updateSelectedItems($event)" />
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced @change-page="onPageChanged" :total-page="pSupplierOrders.totalPage" />
+            <PaginationAdvanced @change-page="onPageChanged" :total-page="pCustomerOrders.totalPage" />
           </div>
 
         </div>
@@ -78,12 +78,11 @@ import SearchForm from '@/components/SearchForm.vue'
 import DeleteButton from '@/partials/actions/DeleteButton.vue'
 import DateSelect from '@/components/DateSelect.vue'
 import FilterButton from '@/components/DropdownFilter.vue'
-import SupplierOrdersTable from '@/partials/supplier_orders/SupplierOrdersTable.vue'
+import CustomerOrdersTable from '@/partials/customer_orders/CustomerOrdersTable.vue'
 import PaginationAdvanced from '@/components/PaginationAdvanced.vue'
 import StatusBadge from '@/components/StatusBadge.vue'
 
 export default {
-  name: 'ListSupplierOrder',
   components: {
     Sidebar,
     Header,
@@ -91,7 +90,7 @@ export default {
     DeleteButton,
     DateSelect,
     FilterButton,
-    SupplierOrdersTable,
+    CustomerOrdersTable,
     PaginationAdvanced,
     StatusBadge
   },
@@ -103,24 +102,25 @@ export default {
       selectedItems.value = selected
     }
 
-    const { orderStatuses, selectedSupplierOrderStatus, pSupplierOrders } = mapGetters()
-    const { setSelectedSupplierOrderStatus } = mapMutations()
-    const { getOrderStatuses, getPSupplierOrders } = mapActions()
+    const { orderStatuses, pCustomerOrders, selectedCustomerOrderStatus } = mapGetters()
+    const { setSelectedCustomerOrderStatus } = mapMutations()
+    const { getOrderStatuses, getPCustomerOrders } = mapActions()
 
     const selectedPage = ref(1)
     const searchText = ref('')
 
     onMounted(() => {
-      getOrderStatuses()
-      getPSupplierOrders({ status: selectedSupplierOrderStatus.value, page: selectedPage.value, keyWord: searchText.value })
-    }),
+      getOrderStatuses().then(() => {
+        getPCustomerOrders({ orderStatusId: selectedCustomerOrderStatus.value.id, page: selectedPage.value, keyWord: searchText.value })
+      })
+    })
 
-    watch([selectedSupplierOrderStatus, selectedPage, searchText], ([newStatus, newPage, newSearchText]) => {
-      getPSupplierOrders({ status: newStatus, page: newPage, keyWord: newSearchText })
+    watch([selectedCustomerOrderStatus, selectedPage, searchText], ([newStatus, newPage, newSearchText]) => {
+      getPCustomerOrders({ orderStatusId: newStatus.id, page: newPage, keyWord: newSearchText })
     })
 
     const onSelectedOrderStatusChanged = (status) => {
-      setSelectedSupplierOrderStatus(status)
+      setSelectedCustomerOrderStatus(status)
     }
 
     const onPageChanged = (page) => {
@@ -136,8 +136,8 @@ export default {
       selectedItems,
       updateSelectedItems,
       orderStatuses,
-      selectedSupplierOrderStatus,
-      pSupplierOrders,
+      selectedCustomerOrderStatus,
+      pCustomerOrders,
       onSelectedOrderStatusChanged,
       selectedPage,
       onPageChanged,

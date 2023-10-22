@@ -46,35 +46,7 @@
             <!-- Left side -->
             <div class="mb-4 sm:mb-0">
               <ul class="flex flex-wrap -m-1">
-                <!-- <li class="m-1">
-                  <button
-                    class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">All
-                    <span class="ml-1 text-indigo-200">67</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button
-                    class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">Waiting
-                    <span class="ml-1 text-slate-400 dark:text-slate-500">14</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button
-                    class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">Imported
-                    <span class="ml-1 text-slate-400 dark:text-slate-500">34</span>
-                  </button>
-                </li>
-                <li class="m-1">
-                  <button
-                    class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 duration-150 ease-in-out">Cancelled
-                    <span class="ml-1 text-slate-400 dark:text-slate-500">19</span>
-                  </button>
-                </li> -->
-                <StatusBadge title="Waiting" value="WAITING" :active="selectedSupplierOrderStatus"
-                  @on-click="onSelectedOrderStatusChanged" />
-                <StatusBadge title="Imported" value="IMPORTED" :active="selectedSupplierOrderStatus"
-                  @on-click="onSelectedOrderStatusChanged" />
-                <StatusBadge title="Cancelled" value="CANCELLED" :active="selectedSupplierOrderStatus"
+                <StatusBadge v-for="status in supplierOrderStatuses" :title="$t(status)" :value="status" :active="selectedSupplierOrderStatus === status"
                   @on-click="onSelectedOrderStatusChanged" />
               </ul>
             </div>
@@ -146,6 +118,7 @@ export default {
     const { setSelectedSupplierOrderStatus } = mapMutations()
     const { getPSupplierOrders } = mapActions()
 
+    const supplierOrderStatuses = ref(['WAITING', 'IMPORTED', 'CANCELLED'])
     const selectedPage = ref(1)
     const searchText = ref('')
 
@@ -173,6 +146,7 @@ export default {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
+      supplierOrderStatuses,
       selectedSupplierOrderStatus,
       pSupplierOrders,
       onSelectedOrderStatusChanged,
