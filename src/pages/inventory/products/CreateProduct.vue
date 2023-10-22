@@ -25,61 +25,66 @@
 
               <div class="grid gap-5 md:grid-cols-2">
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Name <span
-                      class="text-rose-500">*</span></label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Name <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="text" required v-model="product.name" />
                   <error-text :v="v$.name" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Description</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Description <span
+                      class="text-rose-500">*</span></h2>
                   <textarea class="form-input w-full h-40" type="text" v-model="product.description" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Habitat</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="text" v-model="product.habitat" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Position</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="text" v-model="product.position" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Reproduction method</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Food type</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="text" v-model="product.foodType" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Temperature <span
-                      class="text-rose-500">*</span></label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="number" v-model="product.temperature" />
                   <error-text :v="v$.temperature" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">pH <span
-                      class="text-rose-500">*</span></label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="number" v-model="product.ph" />
                   <error-text :v="v$.ph" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Max size <span
-                      class="text-rose-500">*</span></label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size <span
+                      class="text-rose-500">*</span></h2>
                   <input class="form-input w-full" type="number" required v-model="product.maxSize" />
                   <error-text :v="v$.maxSize" />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="country">Category
-                    <span class="text-rose-500">*</span></label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Category <span
+                      class="text-rose-500">*</span></h2>
                   <select class="form-select" v-model="product.categoryId">
                     <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
                       :selected="index === 0">{{ category.name }}
@@ -88,7 +93,8 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Status</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status <span
+                      class="text-rose-500">*</span></h2>
                   <div class="flex items-center mt-5">
                     <div class="form-switch">
                       <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
