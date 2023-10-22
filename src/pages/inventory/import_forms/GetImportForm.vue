@@ -66,7 +66,7 @@
               <div>
                 <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier order detail</h2>
                 <!-- {{ mOrderSupplierDetailList }} -->
-                <!-- <SOPTable class="mt-4" :products="mOrderSupplierDetailList" :quantityEditable="entity.status === 'WAITING'" /> -->
+                <SOPTable class="mt-4" :products="mImportFormDetail" :quantityEditable="entity.status === 'WAITING'" />
               </div>
 
             </div>
@@ -75,15 +75,6 @@
 
           <div class="space-y-8 mt-8" />
 
-          <!-- <div v-if="entity.status === 'WAITING'" class="m-1.5 inline-block">
-            <button @click.stop="showConfirmCancelDialog(true)"
-              class="btn bg-rose-500 hover:bg-rose-600 text-white">Cancel</button>
-          </div>
-
-          <div v-if="entity.status === 'WAITING'" class="m-1.5 inline-block">
-            <button @click.stop="openConfirmImportDialog(true)"
-              class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Import</button>
-          </div> -->
           <!-- Confirm import dialog -->
           <ModalBlank id="info-modal" :modalOpen="infoModalOpen" @close-modal="infoModalOpen = false">
             <div class="p-5 flex space-x-4">
@@ -168,7 +159,7 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { mImportForm } = mapGetters()
+    const { mImportForm, mImportFormDetail } = mapGetters()
     const { getImportFormById } = mapActions()
 
     const route = useRoute();
@@ -198,6 +189,7 @@ export default {
     return {
       sidebarOpen,
       entity: mImportForm,
+      mImportFormDetail,
       confirmCancelOpen,
       showConfirmCancelDialog,
       handleCancelOrder,

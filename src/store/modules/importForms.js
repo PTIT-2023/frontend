@@ -17,6 +17,9 @@ const getters = {
     mImportForm(state) {
         return state.mImportForm;
     },
+    mImportFormDetail(state) {
+        return state.mImportForm.detail
+    }
 };
 
 const mutations = {
@@ -25,6 +28,12 @@ const mutations = {
     },
     setMImportForm(state, data) {
         state.mImportForm = data;
+    },
+    setMImportFormDetail(state, list) {
+        state.mImportForm.detail = list.map(p => {
+            const { productId: id, productImage: image, name, inventoryQuantity, quantity, unitPrice, totalPrice } = p
+            return { id, image, name, inventoryQuantity, quantity, unitPrice, totalPrice }
+        });
     },
 };
 
@@ -78,7 +87,7 @@ const actions = {
             const entity = res.data.data;
             console.log(entity)
             commit("setMImportForm", entity);
-            // commit("setMOrderSupplierDetailList", entity.productsList);
+            commit("setMImportFormDetail", entity.productList);
             router.push({
                 name: 'import-forms.get',
                 params: { id }
