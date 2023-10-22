@@ -4,7 +4,7 @@ import router from '@/router';
 const getDefaultState = () => {
     return {
         pImportForms: [],
-        importForm: {},
+        mImportForm: {},
     };
 };
 
@@ -14,11 +14,17 @@ const getters = {
     pImportForms(state) {
         return state.pImportForms;
     },
+    mImportForm(state) {
+        return state.mImportForm;
+    },
 };
 
 const mutations = {
     setPImportForms(state, pData) {
         state.pImportForms = pData;
+    },
+    setMImportForm(state, data) {
+        state.mImportForm = data;
     },
 };
 
@@ -39,7 +45,7 @@ const actions = {
             console.log(e)
         }
     },
-    async createImportForm({commit, getters}) {
+    async createImportForm({ commit, getters }) {
         const supplierOrder = getters.mSupplierOrder;
         const importDetailList = supplierOrder.detail.map(product => {
             console.log(product.id);
@@ -61,6 +67,21 @@ const actions = {
             commit("setSelectedSupplierOrderStatus", 'IMPORTED')
             router.push({
                 name: 'supplier-orders.list'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    async getImportFormById({ commit }, id) {
+        try {
+            const res = await api.get(`import-forms/${id}`)
+            const entity = res.data.data;
+            console.log(entity)
+            commit("setMImportForm", entity);
+            // commit("setMOrderSupplierDetailList", entity.productsList);
+            router.push({
+                name: 'import-forms.get',
+                params: { id }
             })
         } catch (e) {
             console.log(e)
