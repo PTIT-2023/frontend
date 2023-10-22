@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Supplier order detail ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Customer order detail ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
@@ -26,41 +26,44 @@
               <div class="grid gap-5 md:grid-cols-2">
                 <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">ID</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.id }}</label>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ order.id }}</label>
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier name</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.supplierName }}</label>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Customer name</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ order.customerName }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Delivery email</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ order.deliveryEmail }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Delivery address</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ order.deliveryAddress }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Delivery phone</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ order.deliveryPhone }}</label>
                 </div>
 
                 <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Order date</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ $filters.toDateString(entity.orderDate)
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ $filters.toDateString(order.orderDate)
                   }}</label>
                 </div>
 
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Delivery date</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{
-                    $filters.toDateString(entity.deliveryDate) }}</label>
-                </div>
-
-                <div>
+                <!-- <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.status }}</label>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Employee name</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.employeeName }}</label>
-                </div>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ $t(order.status) }}</label>
+                </div> -->
 
               </div>
               <div>
-                <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier order detail</h2>
-                <!-- {{ mOrderSupplierDetailList }} -->
-                <SOPTable class="mt-4" :products="mOrderSupplierDetailList" :quantityEditable="entity.status === 'WAITING'" />
+                <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Customer order detail</h2>
+                <SOPTable class="mt-4" :products="order.detail" />
               </div>
 
             </div>
@@ -69,15 +72,6 @@
 
           <div class="space-y-8 mt-8" />
 
-          <div v-if="entity.status === 'WAITING'" class="m-1.5 inline-block">
-            <button @click.stop="showConfirmCancelDialog(true)"
-              class="btn bg-rose-500 hover:bg-rose-600 text-white">Cancel</button>
-          </div>
-
-          <div v-if="entity.status === 'WAITING'" class="m-1.5 inline-block">
-            <button @click.stop="openConfirmImportDialog(true)"
-              class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Import</button>
-          </div>
           <!-- Confirm import dialog -->
           <ModalBlank id="info-modal" :modalOpen="infoModalOpen" @close-modal="infoModalOpen = false">
             <div class="p-5 flex space-x-4">
@@ -114,7 +108,7 @@
           </ModalBlank>
 
           <!-- Back -->
-          <router-link :to="{ name: 'supplier-orders.list' }">
+          <router-link :to="{ name: 'customer-orders.list' }">
             <div class="m-1.5 inline-block">
               <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Back</button>
             </div>
@@ -128,7 +122,7 @@
 
   </div>
 
-  <ConfirmDelete title="Cancel this supplier order?" description="You cannot undo this action" :opened="confirmCancelOpen"
+  <ConfirmDelete title="Cancel this Customer order?" description="You cannot undo this action" :opened="confirmCancelOpen"
     :cancelText="'No, go back'" :actionText="'Yes, cancel it'" @on-cancel="showConfirmCancelDialog(false)"
     @on-yes="handleCancelOrder" />
 </template>
@@ -153,9 +147,9 @@ export default {
     Sidebar,
     Header,
     Tooltip,
+    SOPTable,
     SingleDatePicker,
     'error-text': ErrorText,
-    SOPTable,
     ConfirmDelete,
     ModalBlank,
   },
@@ -163,14 +157,14 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { mSupplierOrder, mOrderSupplierDetailList } = mapGetters()
-    const { getSupplierOrderById, cancelSupplierOrderById, createImportForm } = mapActions()
+    const { customerOrder } = mapGetters()
+    const { getCustomerOrderById } = mapActions()
 
     const route = useRoute();
     const orderId = route.params?.id
 
     onMounted(() => {
-      getSupplierOrderById(orderId)
+      getCustomerOrderById(orderId)
     })
 
     const confirmCancelOpen = ref(false)
@@ -179,7 +173,7 @@ export default {
     }
     const handleCancelOrder = () => {
       confirmCancelOpen.value = false
-      cancelSupplierOrderById(orderId)
+      // cancelCustomerOrderById(orderId)
     }
 
     const infoModalOpen = ref(false)
@@ -187,13 +181,13 @@ export default {
       infoModalOpen.value = opened
     }
     const handleImport = () => {
-      createImportForm(mSupplierOrder.value)
+      // createImportForm(mCustomerOrder.value)
     }
 
     return {
       sidebarOpen,
-      entity: mSupplierOrder,
-      mOrderSupplierDetailList,
+      order: customerOrder,
+      // mOrderCustomerDetailList,
       confirmCancelOpen,
       showConfirmCancelDialog,
       handleCancelOrder,

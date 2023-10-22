@@ -18,9 +18,9 @@ const getters = {
     customerOrder(state) {
         return state.customerOrder;
     },
-    // orderCustomerDetailList(state) {
-    //     return state.CustomerOrder.orderCustomerDetailList
-    // },
+    customerOrderDetail(state) {
+        return state.customerOrder.detail;
+    },
     // mCustomerOrder(state) {
     //     return state.mCustomerOrder;
     // },
@@ -35,6 +35,10 @@ const mutations = {
     },
     setCustomerOrder(state, data) {
         state.customerOrder = data;
+        state.customerOrder.detail = data.productsList.map(p => {
+            const { productId: id, productImage: image, name, inventoryQuantity, quantity, unitPrice, totalPrice } = p
+            return { id, image, name, inventoryQuantity, quantity, unitPrice, totalPrice }
+        })
     },
     // addProductToOrderCustomerDetail(state, data) {
     //     const { id, name, imageList, inventoryQuantity } = data
@@ -104,21 +108,20 @@ const actions = {
     //         console.log(e)
     //     }
     // },
-    // async getCustomerOrderById({ commit }, id) {
-    //     try {
-    //         const res = await api.get(`order-Customers/${id}`)
-    //         const entity = res.data.data;
-    //         console.log(entity)
-    //         commit("setMCustomerOrder", entity);
-    //         commit("setMOrderCustomerDetailList", entity.productsList);
-    //         router.push({
-    //             name: 'Customer-orders.edit',
-    //             params: { id }
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async getCustomerOrderById({ commit }, id) {
+        try {
+            const res = await api.get(`order-customers/${id}`)
+            const entity = res.data.data;
+            console.log(entity)
+            commit("setCustomerOrder", entity);
+            router.push({
+                name: 'customer-orders.edit',
+                params: { id }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
     // async cancelCustomerOrderById({ commit, dispatch }, id) {
     //     try {
     //         const res = await api.put(`order-Customers/${id}`)

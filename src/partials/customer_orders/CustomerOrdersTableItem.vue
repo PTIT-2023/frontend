@@ -51,7 +51,6 @@ import { ref, computed } from 'vue'
 import { mapActions } from '@/mapState'
 
 export default {
-  name: 'SupplierOrdersTableItem',
   props: ['order', 'value', 'selected'],
   setup(props, context) {
     const checked = computed(() => props.selected.includes(props.value))
@@ -109,10 +108,10 @@ export default {
       }
     }    
 
-    const { getSupplierOrderById } = mapActions()
+    const { getCustomerOrderById } = mapActions()
 
     const onEdit = (id) => {
-      getSupplierOrderById(id)
+      getCustomerOrderById(id)
     }
 
     const onDelete = (id) => {
