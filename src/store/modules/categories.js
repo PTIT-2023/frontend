@@ -2,7 +2,7 @@ import api from '../../api'
 
 const getDefaultState = () => {
     return {
-        categories: {},
+        categories: [],
     };
 };
 
