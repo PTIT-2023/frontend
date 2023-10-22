@@ -40,7 +40,7 @@
             <!-- Right side -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
               <!-- Delete button -->
-              <DeleteButton :selectedItems="selectedItems" />
+              <!-- <DeleteButton :selectedItems="selectedItems" /> -->
               <!-- Dropdown -->
               <!-- <DateSelect /> -->
               <!-- Filter button -->
