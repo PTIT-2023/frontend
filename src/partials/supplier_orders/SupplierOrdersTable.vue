@@ -73,12 +73,8 @@ export default {
   setup(props, { emit }) {
     // Load products
     const { pSupplierOrders } = mapGetters()
-    const { getPSupplierOrders, deleteProductById } = mapActions()
-
-    onMounted(() => {
-      getPSupplierOrders({status: 'WAITING', page: 1, keyWord: ''})
-    })
-
+    const { deleteProductById } = mapActions()
+    
     // Select products
     const selectAll = ref(false)
     const selected = ref([])

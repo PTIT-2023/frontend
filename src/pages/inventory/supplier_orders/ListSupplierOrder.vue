@@ -70,11 +70,11 @@
                     <span class="ml-1 text-slate-400 dark:text-slate-500">19</span>
                   </button>
                 </li> -->
-                <StatusBadge title="Waiting" value="WAITING" :active="selectedOrderStatus"
+                <StatusBadge title="Waiting" value="WAITING" :active="selectedSupplierOrderStatus"
                   @on-click="onSelectedOrderStatusChanged" />
-                <StatusBadge title="Imported" value="IMPORTED" :active="selectedOrderStatus"
+                <StatusBadge title="Imported" value="IMPORTED" :active="selectedSupplierOrderStatus"
                   @on-click="onSelectedOrderStatusChanged" />
-                <StatusBadge title="Cancelled" value="CANCELLED" :active="selectedOrderStatus"
+                <StatusBadge title="Cancelled" value="CANCELLED" :active="selectedSupplierOrderStatus"
                   @on-click="onSelectedOrderStatusChanged" />
               </ul>
             </div>
@@ -108,8 +108,8 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-import { mapGetters, mapActions } from '@/mapState'
+import { ref, watch, onMounted } from 'vue'
+import { mapGetters, mapActions, mapMutations } from '@/mapState'
 
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
@@ -142,20 +142,23 @@ export default {
       selectedItems.value = selected
     }
 
-    const { pSupplierOrders } = mapGetters()
+    const { selectedSupplierOrderStatus, pSupplierOrders } = mapGetters()
+    const { setSelectedSupplierOrderStatus } = mapMutations()
     const { getPSupplierOrders } = mapActions()
 
-    const selectedOrderStatus = ref('WAITING')
     const selectedPage = ref(1)
     const searchText = ref('')
 
-    watch([selectedOrderStatus, selectedPage, searchText], ([newStatus, newPage, newSearchText]) => {
-      console.log(newSearchText);
+    onMounted(() => {
+      getPSupplierOrders({ status: selectedSupplierOrderStatus.value, page: selectedPage.value, keyWord: searchText.value })
+    }),
+
+    watch([selectedSupplierOrderStatus, selectedPage, searchText], ([newStatus, newPage, newSearchText]) => {
       getPSupplierOrders({ status: newStatus, page: newPage, keyWord: newSearchText })
     })
 
     const onSelectedOrderStatusChanged = (status) => {
-      selectedOrderStatus.value = status
+      setSelectedSupplierOrderStatus(status)
     }
 
     const onPageChanged = (page) => {
@@ -170,9 +173,9 @@ export default {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
+      selectedSupplierOrderStatus,
       pSupplierOrders,
       onSelectedOrderStatusChanged,
-      selectedOrderStatus,
       selectedPage,
       onPageChanged,
       onSearchChanged,

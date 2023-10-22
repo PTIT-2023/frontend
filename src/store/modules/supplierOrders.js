@@ -3,6 +3,7 @@ import router from '@/router';
 
 const getDefaultState = () => {
     return {
+        selectedSupplierOrderStatus: 'WAITING',
         pSupplierOrders: {},
         supplierOrder: {},
         mSupplierOrder: {}
@@ -12,6 +13,9 @@ const getDefaultState = () => {
 const state = getDefaultState();
 
 const getters = {
+    selectedSupplierOrderStatus(state) {
+        return state.selectedSupplierOrderStatus;
+    },
     pSupplierOrders(state) {
         return state.pSupplierOrders;
     },
@@ -30,6 +34,9 @@ const getters = {
 };
 
 const mutations = {
+    setSelectedSupplierOrderStatus(state, status) {
+        return state.selectedSupplierOrderStatus = status
+    },
     setPSupplierOrders(state, pData) {
         state.pSupplierOrders = pData;
     },
@@ -97,6 +104,7 @@ const actions = {
             const data = res.data
             commit("SHOW_NOTIFICATION", data)
             if (data.code >= 400) return;
+            commit("setSelectedSupplierOrderStatus", 'WAITING')
             router.push({
                 name: 'supplier-orders.list'
             })
