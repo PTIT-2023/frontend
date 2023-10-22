@@ -108,6 +108,16 @@ const routes = [
     component: () => import("@/pages/inventory/supplier_orders/EditSupplierOrder.vue")
   },
   {
+    path: '/inventory/import-forms',
+    name: 'import-forms.list',
+    component: () => import("@/pages/inventory/import_forms/ListImportForm.vue")
+  },
+  {
+    path: '/inventory/import-forms/get/:id',
+    name: 'import-forms.get',
+    component: () => import("@/pages/inventory/import_forms/GetImportForm.vue")
+  },
+  {
     path: '/ecommerce/customers',
     component: Customers
   },
