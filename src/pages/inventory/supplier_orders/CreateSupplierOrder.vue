@@ -42,7 +42,8 @@
                 <label class="block text-sm font-medium mb-1" for="mandatory">Supplier order detail <span
                     class="text-rose-500">*</span></label>
                 <error-text :v="v$.orderSupplierDetailList" />
-                <SOPTable class="mt-4" />
+                <SOPTable :products="orderSupplierDetailList" class="mt-4" addButtonVisible="true" quantityEditable="true"
+                  priceEditable="true" deleteButtonVisible="true" />
               </div>
 
             </div>
@@ -72,7 +73,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { mapActions, mapGetters } from '@/mapState'
 import { useVuelidate } from '@vuelidate/core'
 
@@ -110,8 +111,10 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { supplierOrder } = mapGetters()
-    const { createSupplierOrder } = mapActions()
+    const { supplierOrder, orderSupplierDetailList } = mapGetters()
+    const { createSupplierOrder, resetSupplierOrder } = mapActions()
+
+    resetSupplierOrder()
 
     const handleDateChanged = (selectedDate) => {
       supplierOrder.value.deliveryDate = selectedDate.getTime()
@@ -133,6 +136,7 @@ export default {
     return {
       sidebarOpen,
       entity: supplierOrder,
+      orderSupplierDetailList,
       handleDateChanged,
       save,
       v$

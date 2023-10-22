@@ -5,6 +5,7 @@ const getDefaultState = () => {
     return {
         pSupplierOrders: {},
         supplierOrder: {},
+        mSupplierOrder: {}
     };
 };
 
@@ -19,6 +20,12 @@ const getters = {
     },
     orderSupplierDetailList(state) {
         return state.supplierOrder.orderSupplierDetailList
+    },
+    mSupplierOrder(state) {
+        return state.mSupplierOrder;
+    },
+    mOrderSupplierDetailList(state) {
+        return state.mSupplierOrder.productsList ? state.mSupplierOrder.productsList : []
     }
 };
 
@@ -31,12 +38,19 @@ const mutations = {
     },
     addProductToOrderSupplierDetail(state, data) {
         const { id, name, imageList, inventoryQuantity } = data
-        state.supplierOrder.orderSupplierDetailList.unshift({ id, name, imageList, inventoryQuantity, quantity: 1, price: 1000 })
+        state.supplierOrder.orderSupplierDetailList.unshift(
+            { id, name, image: imageList ? imageList[0] : null, inventoryQuantity, quantity: 1, unitPrice: 1000 })
     },
     removeProductFromOrderSupplierDetail(state, id) {
         let list = state.supplierOrder.orderSupplierDetailList.filter(product => product.id !== id)
         state.supplierOrder.orderSupplierDetailList = list
-    }
+    },
+    setMSupplierOrder(state, data) {
+        state.mSupplierOrder = data;
+    },
+    setMOrderSupplierDetailList(state, data) {
+        state.mSupplierOrder.productsList = data;
+    },
 };
 
 const actions = {
@@ -58,6 +72,7 @@ const actions = {
         }
     },
     resetSupplierOrder({ commit }) {
+        console.log('reset')
         commit("setSupplierOrder", {
             supplierName: '',
             deliveryDate: 0,
@@ -70,7 +85,7 @@ const actions = {
     async createSupplierOrder({ commit }, order) {
         order.orderDate = Date.now()
         order.orderSupplierDetailList = order.orderSupplierDetailList.map(product => {
-            const { id: productId, quantity, price } = product
+            const { id: productId, quantity, unitPrice: price } = product
             return { productId, quantity, price }
         })
         console.log(order)
@@ -86,19 +101,21 @@ const actions = {
             console.log(e)
         }
     },
-    // async getProductById({ commit }, productId) {
-    //     try {
-    //         const res = await api.get(`products/${productId}`)
-    //         const product = res.data.data;
-    //         commit("setProduct", product);
-    //         router.push({
-    //             name: 'products.edit',
-    //             params: { id: productId }
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async getSupplierOrderById({ commit }, id) {
+        try {
+            const res = await api.get(`order-suppliers/${id}`)
+            const entity = res.data.data;
+            console.log(entity)
+            commit("setMSupplierOrder", entity);
+            commit("setMOrderSupplierDetailList", entity.productsList);
+            router.push({
+                name: 'supplier-orders.edit',
+                params: { id }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
     // async editProduct({ commit }, product) {
     //     console.log(product)
     //     try {

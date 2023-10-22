@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Edit product ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Supplier order detail ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
@@ -25,84 +25,42 @@
 
               <div class="grid gap-5 md:grid-cols-2">
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Name <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="text" required v-model="product.name" />
-                  <error-text :v="v$.name" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">ID</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.id }}</label>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Description</label>
-                  <textarea class="form-input w-full h-40" type="text" v-model="product.description" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier name</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.supplierName }}</label>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Habitat</label>
-                  <input class="form-input w-full" type="text" v-model="product.habitat" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Order date</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ $filters.toDateString(entity.orderDate)
+                  }}</label>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Position</label>
-                  <input class="form-input w-full" type="text" v-model="product.position" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Delivery date</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{
+                    $filters.toDateString(entity.deliveryDate) }}</label>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Reproduction method</label>
-                  <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.status }}</label>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Food type</label>
-                  <input class="form-input w-full" type="text" v-model="product.foodType" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Employee name</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ entity.employeeName }}</label>
                 </div>
 
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Temperature <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" v-model="product.temperature" />
-                  <error-text :v="v$.temperature" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">pH <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" v-model="product.ph" />
-                  <error-text :v="v$.ph" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Max size <span
-                      class="text-rose-500">*</span></label>
-                  <input class="form-input w-full" type="number" required v-model="product.maxSize" />
-                  <error-text :v="v$.maxSize" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="country">Category
-                    <span class="text-rose-500">*</span></label>
-                  <select class="form-select" v-model="product.categoryId">
-                    <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
-                      :selected="index === 0">{{ category.name }}
-                    </option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Status</label>
-                  <div class="flex items-center mt-5">
-                    <div class="form-switch">
-                      <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
-                        :false-value="false" :disabled="product.inventoryQuantity <= 0" />
-                      <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
-                        <span class="bg-white shadow-sm" aria-hidden="true"></span>
-                        <span class="sr-only">Toggle</span>
-                      </label>
-                    </div>
-                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ product.status ? 'Active' :
-                      'Inactive' }}</div>
-                  </div>
-                </div>
-
+              </div>
+              <div>
+                <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier order detail</h2>
+                <!-- {{ productsList }} -->
+                <SOPTable class="mt-4" :products="productsList" />
               </div>
 
             </div>
@@ -112,13 +70,17 @@
           <div class="space-y-8 mt-8" />
 
           <div class="m-1.5 inline-block">
-            <button @click="save" :disabled="v$.$invalid"
-              class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Save</button>
+            <button @click="save" class="btn bg-rose-500 hover:bg-rose-600 text-white">Cancel</button>
           </div>
 
-          <router-link :to="{ name: 'products.list' }">
+          <div class="m-1.5 inline-block">
+            <button @click="save"
+              class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Import</button>
+          </div>
+
+          <router-link :to="{ name: 'supplier-orders.list' }">
             <div class="m-1.5 inline-block">
-              <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Cancel</button>
+              <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Back</button>
             </div>
           </router-link>
 
@@ -132,16 +94,16 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { useRoute } from "vue-router";
+import { ref, computed } from 'vue'
 import { mapActions, mapGetters } from '@/mapState'
-import { useVuelidate } from '@vuelidate/core'
+import { useRoute } from "vue-router";
 
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
-import { required, minValue, maxValue } from '@/helpers/i18n-validators'
+import SingleDatePicker from '@/components/SingleDatePicker.vue'
+import SOPTable from '@/partials/supplier_orders/SOPTable.vue';
 
 export default {
   name: 'FormPage',
@@ -149,68 +111,39 @@ export default {
     Sidebar,
     Header,
     Tooltip,
-    'error-text': ErrorText
-  },
-
-  validations() {
-    return {
-      name: { required }
-    }
-  },
-
-  mounted() {
-    this.v$.$touch();
+    SingleDatePicker,
+    'error-text': ErrorText,
+    SOPTable,
   },
 
   setup() {
     const sidebarOpen = ref(false)
 
-    const { product, categories } = mapGetters()
-    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
+    const { mSupplierOrder, mOrderSupplierDetailList } = mapGetters()
+    const { getSupplierOrderById } = mapActions()
+
     const route = useRoute();
-    const productId = route.params?.id
+    const orderId = route.params?.id
+
+    getSupplierOrderById(orderId)
+
+    const productsList = computed(() => {
+      return mOrderSupplierDetailList.value.map(p => {
+        console.log(p);
+        return { id: p.productId, image: p.productImage, name: p.name, inventoryQuantity: p.inventoryQuantity, 
+          quantity: p.quantity, unitPrice: p.unitPrice, totalPrice: p.totalPrice }
+      })
+    })
 
     const save = () => {
-      if (productId) {
-        editProduct(product.value)
-      } else {
-        createProduct(product.value)
-      }
+      // createSupplierOrder(mSupplierOrder.value)
     }
-
-    if (productId) {
-      getCategories({ setFirstCategoryForProduct: false })
-    } else {
-      resetProduct()
-      getCategories({ setFirstCategoryForProduct: true })
-    }
-
-    const rules = {
-      name: { required },
-      maxSize: { 
-        required, 
-        minValue: minValue(1) 
-      },
-      ph: {
-        required,
-        minValue: minValue(0),
-        maxValue: maxValue(14)
-      },
-      temperature: {
-        required,
-        minValue: minValue(20),
-        maxValue: maxValue(30)
-      }
-    }
-
-    const v$ = useVuelidate(rules, product)
 
     return {
       sidebarOpen,
-      categories,
-      product,
+      entity: mSupplierOrder,
+      productsList,
       save,
-      v$
     }
   },
 }

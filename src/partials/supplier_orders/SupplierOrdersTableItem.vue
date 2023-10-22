@@ -106,14 +106,14 @@ export default {
       }
     }    
 
-    const { getProductById } = mapActions()
+    const { getSupplierOrderById } = mapActions()
 
-    const onEdit = (productId) => {
-      getProductById(productId)
+    const onEdit = (id) => {
+      getSupplierOrderById(id)
     }
 
-    const onDelete = (productId) => {
-      context.emit('onDelete', productId)
+    const onDelete = (id) => {
+      context.emit('onDelete', id)
     }
 
     return {
@@ -122,7 +122,6 @@ export default {
       totalColor,
       statusColor,
       typeIcon,
-      // formatDate,
       onEdit,
       onDelete
     }
