@@ -93,6 +93,26 @@
                 </div>
 
                 <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Inventory quantity</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.inventoryQuantity }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Sold quantity</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.soldQuantity }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.price }}</label>
+                  <router-link :to="{ name: 'prices.list' }">
+                    <div class="inline-block">
+                      <button class="btn bg-orange-500 hover:bg-yellow-600 text-white">Edit</button>
+                    </div>
+                  </router-link>
+                </div>
+
+                <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status <span
                       class="text-rose-500">*</span></h2>
                   <div class="flex items-center mt-5">
@@ -193,9 +213,9 @@ export default {
 
     const rules = {
       name: { required },
-      maxSize: { 
-        required, 
-        minValue: minValue(1) 
+      maxSize: {
+        required,
+        minValue: minValue(1)
       },
       ph: {
         required,
