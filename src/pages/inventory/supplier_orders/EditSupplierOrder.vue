@@ -60,7 +60,7 @@
               <div>
                 <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier order detail</h2>
                 <!-- {{ productsList }} -->
-                <SOPTable class="mt-4" :products="productsList" />
+                <SOPTable class="mt-4" :products="productsList" :quantityEditable="entity.status === 'WAITING'" />
               </div>
 
             </div>

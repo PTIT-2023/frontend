@@ -19,10 +19,10 @@
       <div>{{ product.inventoryQuantity }}</div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <input class="form-input w-20" type="number" required v-model="product.quantity" :disabled="!quantityEditable" />
+      <input class="form-input w-20" type="number" required v-model="product.quantity" min="1" :max="deleteButtonVisible ? '' : product.quantity" :disabled="!quantityEditable" />
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <input class="form-input w-30" type="number" required v-model="product.unitPrice" step="1000"
+      <input class="form-input w-30" type="number" required v-model="product.unitPrice" min="0" step="1000"
         :disabled="!priceEditable" />
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
