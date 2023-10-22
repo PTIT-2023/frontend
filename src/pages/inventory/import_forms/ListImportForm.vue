@@ -50,11 +50,11 @@
           </div>
 
           <!-- Table -->
-          <SupplierOrdersTable @change-selection="updateSelectedItems($event)" />
+          <ImportFormsTable @change-selection="updateSelectedItems($event)" />
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced @change-page="onPageChanged" :total-page="pSupplierOrders.totalPage" />
+            <PaginationAdvanced @change-page="onPageChanged" :total-page="pImportForms.totalPage" />
           </div>
 
         </div>
@@ -67,7 +67,7 @@
 
 <script>
 import { ref, watch, onMounted } from 'vue'
-import { mapGetters, mapActions, mapMutations } from '@/mapState'
+import { mapGetters, mapActions } from '@/mapState'
 
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
@@ -75,12 +75,11 @@ import SearchForm from '@/components/SearchForm.vue'
 import DeleteButton from '@/partials/actions/DeleteButton.vue'
 import DateSelect from '@/components/DateSelect.vue'
 import FilterButton from '@/components/DropdownFilter.vue'
-import SupplierOrdersTable from '@/partials/supplier_orders/SupplierOrdersTable.vue'
+import ImportFormsTable from '@/partials/import_forms/ImportFormsTable.vue'
 import PaginationAdvanced from '@/components/PaginationAdvanced.vue'
 import StatusBadge from '@/components/StatusBadge.vue'
 
 export default {
-  name: 'ListSupplierOrder',
   components: {
     Sidebar,
     Header,
@@ -88,7 +87,7 @@ export default {
     DeleteButton,
     DateSelect,
     FilterButton,
-    SupplierOrdersTable,
+    ImportFormsTable,
     PaginationAdvanced,
     StatusBadge
   },
@@ -100,24 +99,19 @@ export default {
       selectedItems.value = selected
     }
 
-    const { selectedSupplierOrderStatus, pSupplierOrders } = mapGetters()
-    const { setSelectedSupplierOrderStatus } = mapMutations()
-    const { getPSupplierOrders } = mapActions()
+    const { pImportForms } = mapGetters()
+    const { getPImportForms } = mapActions()
 
     const selectedPage = ref(1)
     const searchText = ref('')
 
     onMounted(() => {
-      getPSupplierOrders({ status: selectedSupplierOrderStatus.value, page: selectedPage.value, keyWord: searchText.value })
+      getPImportForms({ page: selectedPage.value, keyWord: searchText.value })
     }),
 
-    watch([selectedSupplierOrderStatus, selectedPage, searchText], ([newStatus, newPage, newSearchText]) => {
-      getPSupplierOrders({ status: newStatus, page: newPage, keyWord: newSearchText })
+    watch([selectedPage, searchText], ([newPage, newSearchText]) => {
+      getPImportForms({ page: newPage, keyWord: newSearchText })
     })
-
-    const onSelectedOrderStatusChanged = (status) => {
-      setSelectedSupplierOrderStatus(status)
-    }
 
     const onPageChanged = (page) => {
       selectedPage.value = page
@@ -131,9 +125,7 @@ export default {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
-      selectedSupplierOrderStatus,
-      pSupplierOrders,
-      onSelectedOrderStatusChanged,
+      pImportForms,
       selectedPage,
       onPageChanged,
       onSearchChanged,

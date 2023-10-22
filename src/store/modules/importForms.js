@@ -3,6 +3,7 @@ import router from '@/router';
 
 const getDefaultState = () => {
     return {
+        pImportForms: [],
         importForm: {},
     };
 };
@@ -10,14 +11,34 @@ const getDefaultState = () => {
 const state = getDefaultState();
 
 const getters = {
-
+    pImportForms(state) {
+        return state.pImportForms;
+    },
 };
 
 const mutations = {
-
+    setPImportForms(state, pData) {
+        state.pImportForms = pData;
+    },
 };
 
 const actions = {
+    async getPImportForms({ commit }, { page, keyWord }) {
+        try {
+            const res = await api.get(`import-forms?page=${page}&limit=10&keyWord=${keyWord}`)
+            const data = res.data
+            console.log(data);
+            if (data.code >= 400) {
+                commit("SHOW_NOTIFICATION", data)
+                return
+            }
+            const pData = res.data.data;
+            console.log(res.data.message, pData);
+            commit("setPImportForms", pData);
+        } catch (e) {
+            console.log(e)
+        }
+    },
     async createImportForm({commit, getters}) {
         const supplierOrder = getters.mSupplierOrder;
         const importDetailList = supplierOrder.detail.map(product => {
