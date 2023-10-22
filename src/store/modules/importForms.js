@@ -87,7 +87,7 @@ const actions = {
             const entity = res.data.data;
             console.log(entity)
             commit("setMImportForm", entity);
-            commit("setMImportFormDetail", entity.productList);
+            commit("setMImportFormDetail", entity.productsList);
             router.push({
                 name: 'import-forms.get',
                 params: { id }
