@@ -59,7 +59,7 @@
               </div>
               <div>
                 <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Supplier order detail</h2>
-                {{ mOrderSupplierDetailList }}
+                <!-- {{ mOrderSupplierDetailList }} -->
                 <SOPTable class="mt-4" :products="mOrderSupplierDetailList" :quantityEditable="entity.status === 'WAITING'" />
               </div>
 
@@ -69,12 +69,12 @@
 
           <div class="space-y-8 mt-8" />
 
-          <div class="m-1.5 inline-block">
+          <div v-if="entity.status === 'WAITING'" class="m-1.5 inline-block">
             <button @click.stop="showConfirmCancelDialog(true)"
               class="btn bg-rose-500 hover:bg-rose-600 text-white">Cancel</button>
           </div>
 
-          <div class="m-1.5 inline-block">
+          <div v-if="entity.status === 'WAITING'" class="m-1.5 inline-block">
             <button @click.stop="openConfirmImportDialog(true)"
               class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Import</button>
           </div>
@@ -172,15 +172,6 @@ export default {
     onMounted(() => {
       getSupplierOrderById(orderId)
     })
-
-    // const productsList = computed(() => {
-    //   return mOrderSupplierDetailList.value.map(p => {
-    //     return {
-    //       id: p.productId, image: p.productImage, name: p.name, inventoryQuantity: p.inventoryQuantity,
-    //       quantity: p.quantity, unitPrice: p.unitPrice, totalPrice: p.totalPrice
-    //     }
-    //   })
-    // })
 
     const confirmCancelOpen = ref(false)
     const showConfirmCancelDialog = (opened) => {
