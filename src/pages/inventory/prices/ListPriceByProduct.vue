@@ -21,46 +21,18 @@
               <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Prices ✨</h1>
             </div>
 
-            <!-- Components -->
-            <div class="space-y-8 mt-8">
+          </div>
 
-              <div class="grid gap-5 md:grid-cols-2">
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Product name</h2>
-                  <!-- <input class="form-input w-full" type="text" required v-model="product.name" /> -->
-                </div>
-              </div>
-
+          <!-- Product info -->
+          <div class="grid gap-5 md:grid-cols-2">
+            <div>
+              <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Product ID</h2>
+              <!-- <label class="block text-sm font-medium mb-1" for="mandatory">{{ price.productId }}</label> -->
             </div>
-
-            <!-- Right: Actions  -->
-            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-
-              <!-- Category select -->
-              <div class="content-center">
-                <label class="block text-sm font-medium" for="country">Category</label>
-              </div>
-              <select class="form-select" @change="onSelectedCategoryIdChanged($event)">
-                <option :key="'all'" :value="''">All</option>
-                <option v-for="(category, index) in categories" :key="category.id" :value="category.id">{{ category.name }}
-                </option>
-              </select>
-
-              <!-- Search form -->
-              <SearchForm placeholder="Search by name or description…"
-                @onTextChanged="onSearchChanged" />
-              <!-- Create product button -->
-              <router-link :to="{ name: 'products.create' }">
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                  <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                    <path
-                      d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                  </svg>
-                  <span class="hidden xs:block ml-2">Create Product</span>
-                </button>
-              </router-link>
+            <div>
+              <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Product name</h2>
+              <!-- <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.name }}</label> -->
             </div>
-
           </div>
 
           <!-- More actions -->
@@ -105,12 +77,7 @@
           </div>
 
           <!-- Table -->
-          <ProductsTable @change-selection="updateSelectedItems($event)" />
-
-          <!-- Pagination -->
-          <div class="mt-8">
-            <PaginationAdvanced @change-page="onPageChanged" :total-page="pProducts.totalPage" />
-          </div>
+          <PriceTable @change-selection="updateSelectedItems($event)" />
 
         </div>
       </main>
@@ -121,8 +88,9 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { mapGetters, mapActions } from '@/mapState'
+import { useRoute } from "vue-router";
 
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
@@ -130,7 +98,7 @@ import SearchForm from '@/components/SearchForm.vue'
 import DeleteButton from '@/partials/actions/DeleteButton.vue'
 import DateSelect from '@/components/DateSelect.vue'
 import FilterButton from '@/components/DropdownFilter.vue'
-import ProductsTable from '@/partials/products/ProductsTable.vue'
+import PriceTable from '@/partials/prices/PriceTable.vue'
 import PaginationAdvanced from '@/components/PaginationAdvanced.vue'
 
 export default {
@@ -142,7 +110,7 @@ export default {
     DeleteButton,
     DateSelect,
     FilterButton,
-    ProductsTable,
+    PriceTable,
     PaginationAdvanced,
   },
   setup() {
@@ -153,42 +121,30 @@ export default {
       selectedItems.value = selected
     }
 
-    const { pProducts, categories } = mapGetters()
-    const { getPProducts, getCategories } = mapActions()
+    const { prices } = mapGetters()
+    const { getPricesByProductId } = mapActions()
 
-    getCategories({ setFirstCategoryForProduct: false })
+    const route = useRoute();
+    const productId = route.params?.id
+    onMounted(() => {
+      getPricesByProductId(productId)
+    })
 
     const selectedCategoryId = ref('')
     const selectedPage = ref(1)
     const selectKeyWord = ref('')
 
-    watch([selectedCategoryId, selectedPage, selectKeyWord],  ([newCategoryId, newPage, newKeyWord]) => {
-      getPProducts({ categoryId: newCategoryId, page: newPage, keyWord: newKeyWord })
-    })
-
-    const onSelectedCategoryIdChanged = (e) => {
-      selectedCategoryId.value = e.target.value
-    }
-
-    const onPageChanged = (page) => {
-      selectedPage.value = page
-    }
-
-    const onSearchChanged = (keyWord) => {
-      selectKeyWord.value = keyWord
-    }
+    // const onSearchChanged = (keyWord) => {
+    //   selectKeyWord.value = keyWord
+    // }
 
     return {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
-      onSelectedCategoryIdChanged,
       selectedCategoryId,
       selectedPage,
-      categories,
-      pProducts,
-      onPageChanged,
-      onSearchChanged,
+      prices
     }
   }
 }
