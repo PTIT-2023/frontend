@@ -4,6 +4,7 @@ import notification from "./modules/notification";
 import products from "./modules/products";
 import categories from "./modules/categories";
 import supplierOrders from "./modules/supplierOrders";
+import importForms from "./modules/importForms";
 
 export default createStore({
     state: {},
@@ -14,6 +15,7 @@ export default createStore({
         notification,
         products,
         categories,
-        supplierOrders
+        supplierOrders,
+        importForms,
     }
 })

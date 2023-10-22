@@ -3,7 +3,7 @@
     <header class="px-5 py-4">
       <div class="grid gap-5 md:grid-cols-2">
         <h2 class="font-semibold text-slate-800 dark:text-slate-100">Products <span
-            class="text-slate-400 dark:text-slate-500 font-medium">{{ products.length }}</span></h2>
+            class="text-slate-400 dark:text-slate-500 font-medium">{{ products ? products.length : 0 }}</span></h2>
 
         <button v-if="addButtonVisible" @click.stop="openSearchModal()"
           class="btn bg-indigo-500 hover:bg-indigo-600 text-white">

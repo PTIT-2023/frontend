@@ -25,7 +25,7 @@ const getters = {
         return state.mSupplierOrder;
     },
     mOrderSupplierDetailList(state) {
-        return state.mSupplierOrder.productsList ? state.mSupplierOrder.productsList : []
+        return state.mSupplierOrder.detail
     }
 };
 
@@ -48,8 +48,11 @@ const mutations = {
     setMSupplierOrder(state, data) {
         state.mSupplierOrder = data;
     },
-    setMOrderSupplierDetailList(state, data) {
-        state.mSupplierOrder.productsList = data;
+    setMOrderSupplierDetailList(state, list) {
+        state.mSupplierOrder.detail = list.map(p => {
+            const { productId: id, productImage: image, name, inventoryQuantity, quantity, unitPrice, totalPrice } = p
+            return { id, image, name, inventoryQuantity, quantity, unitPrice, totalPrice }
+        });
     },
 };
 
