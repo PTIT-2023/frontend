@@ -25,7 +25,7 @@
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
               <!-- Search form -->
-              <SearchForm placeholder="Search by id or employee name" @onTextChanged="onSearchChanged" />
+              <SearchForm placeholder="Search by id, supplier name or employee name" @onTextChanged="onSearchChanged" />
             </div>
 
           </div>

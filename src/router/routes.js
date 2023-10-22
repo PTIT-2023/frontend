@@ -78,6 +78,16 @@ const routes = [
     component: Fintech
   },
   {
+    path: '/sales/customer-orders',
+    name: 'customer-orders.list',
+    component: () => import("@/pages/sales/customer_orders/ListCustomerOrder.vue")
+  },
+  {
+    path: '/sales/customer-orders/edit/:id',
+    name: 'customer-orders.edit',
+    component: () => import("@/pages/sales/customer_orders/EditCustomerOrder.vue")
+  },
+  {
     path: '/inventory/products',
     name: 'products.list',
     component: () => import("@/pages/inventory/products/Products.vue")
