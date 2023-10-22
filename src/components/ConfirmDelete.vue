@@ -24,8 +24,9 @@
                 <div class="flex flex-wrap justify-end space-x-2">
                     <button
                         class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
-                        @click.stop="cancel()">Cancel</button>
-                    <button @click.stop="yes()" class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Yes, Delete it</button>
+                        @click.stop="cancel()">{{ cancelText }}</button>
+                    <button @click.stop="yes()" class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">{{ actionText
+                    }}</button>
                 </div>
             </div>
         </div>
@@ -40,7 +41,19 @@ export default {
     components: {
         ModalBlank
     },
-    props: ['title', 'description', 'opened'],
+    props: {
+        title: String,
+        description: String,
+        opened: Boolean,
+        cancelText: {
+            type: String,
+            default: 'Cancel'
+        },
+        actionText: {
+            type: String,
+            default: 'Yes, Delete it'
+        }
+    },
     emits: ['on-cancel'],
     setup(props, { emit }) {
 

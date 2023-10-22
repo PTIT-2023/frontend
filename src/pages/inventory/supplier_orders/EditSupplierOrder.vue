@@ -70,7 +70,8 @@
           <div class="space-y-8 mt-8" />
 
           <div class="m-1.5 inline-block">
-            <button @click="save" class="btn bg-rose-500 hover:bg-rose-600 text-white">Cancel</button>
+            <button @click.stop="showConfirmCancelDialog(true)"
+              class="btn bg-rose-500 hover:bg-rose-600 text-white">Cancel</button>
           </div>
 
           <div class="m-1.5 inline-block">
@@ -91,6 +92,10 @@
     </div>
 
   </div>
+
+  <ConfirmDelete title="Cancel this supplier order?" description="You cannot undo this action" :opened="confirmCancelOpen"
+    :cancelText="'No, go back'" :actionText="'Yes, cancel it'" @on-cancel="showConfirmCancelDialog(false)"
+    @on-yes="handleCancelOrder" />
 </template>
 
 <script>
@@ -104,6 +109,7 @@ import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
 import SingleDatePicker from '@/components/SingleDatePicker.vue'
 import SOPTable from '@/partials/supplier_orders/SOPTable.vue';
+import ConfirmDelete from '@/components/ConfirmDelete.vue'
 
 export default {
   name: 'FormPage',
@@ -114,13 +120,14 @@ export default {
     SingleDatePicker,
     'error-text': ErrorText,
     SOPTable,
+    ConfirmDelete
   },
 
   setup() {
     const sidebarOpen = ref(false)
 
     const { mSupplierOrder, mOrderSupplierDetailList } = mapGetters()
-    const { getSupplierOrderById } = mapActions()
+    const { getSupplierOrderById, cancelSupplierOrderById } = mapActions()
 
     const route = useRoute();
     const orderId = route.params?.id
@@ -129,9 +136,10 @@ export default {
 
     const productsList = computed(() => {
       return mOrderSupplierDetailList.value.map(p => {
-        console.log(p);
-        return { id: p.productId, image: p.productImage, name: p.name, inventoryQuantity: p.inventoryQuantity, 
-          quantity: p.quantity, unitPrice: p.unitPrice, totalPrice: p.totalPrice }
+        return {
+          id: p.productId, image: p.productImage, name: p.name, inventoryQuantity: p.inventoryQuantity,
+          quantity: p.quantity, unitPrice: p.unitPrice, totalPrice: p.totalPrice
+        }
       })
     })
 
@@ -139,11 +147,24 @@ export default {
       // createSupplierOrder(mSupplierOrder.value)
     }
 
+    const confirmCancelOpen = ref(false)
+    const showConfirmCancelDialog = (opened) => {
+      confirmCancelOpen.value = opened
+    }
+    
+    const handleCancelOrder = () => {
+      confirmCancelOpen.value = false
+      cancelSupplierOrderById(orderId)
+    }
+
     return {
       sidebarOpen,
       entity: mSupplierOrder,
       productsList,
       save,
+      confirmCancelOpen,
+      showConfirmCancelDialog,
+      handleCancelOrder
     }
   },
 }

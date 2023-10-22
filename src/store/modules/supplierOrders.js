@@ -116,31 +116,18 @@ const actions = {
             console.log(e)
         }
     },
-    // async editProduct({ commit }, product) {
-    //     console.log(product)
-    //     try {
-    //         const res = await api.put(`products`, product)
-    //         const data = res.data
-    //         commit("SHOW_NOTIFICATION", data)
-    //         if (data.code >= 400) return;
-    //         router.push({
-    //             name: 'products.list'
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
-    // async deleteProductById({ commit, dispatch }, productIds) {
-    //     console.log(productIds)
-    //     try {
-    //         const res = await api.delete(`products/${productIds[0]}`)
-    //         console.log(res.data.message)
-    //         commit("SHOW_NOTIFICATION", res.data)
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    //     dispatch("getPProducts", {page: 1, keyWord: ''});
-    // },
+    async cancelSupplierOrderById({ commit, dispatch }, id) {
+        try {
+            const res = await api.put(`order-suppliers/${id}`)
+            console.log(res.data.message)
+            commit("SHOW_NOTIFICATION", res.data)
+            router.push({
+                name: 'supplier-orders.list'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {
