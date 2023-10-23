@@ -75,6 +75,33 @@
 
           <!-- Confirm dialog -->
 
+          <!-- Pickup button -->
+          <div v-if="order.orderStatusName === 'WAITING_CONFIRM'" class="m-1.5 inline-block">
+            <button @click.stop="setDialogOptions({
+              opened: true,
+              actionText: 'Yes, it will be pick up!',
+              onYes: () => updateOrderStatus('WAITING_PICKUP')
+            })" class="btn bg-lime-500 hover:bg-lime-600 text-white disabled:opacity-50">Accept</button>
+          </div>
+
+          <!-- Delivered button -->
+          <div v-if="order.orderStatusName === 'WAITING_CONFIRM'" class="m-1.5 inline-block">
+            <button @click.stop="setDialogOptions({
+              opened: true,
+              actionText: 'Yes, cancel it!',
+              onYes: () => updateOrderStatus('CANCELLED')
+            })" class="btn bg-red-500 hover:bg-red-600 text-white disabled:opacity-50">Cancel</button>
+          </div>
+
+           <!-- Delivering button -->
+           <div v-if="order.orderStatusName === 'WAITING_PICKUP'" class="m-1.5 inline-block">
+            <button @click.stop="setDialogOptions({
+              opened: true,
+              actionText: 'Yes, it is delivering!',
+              onYes: () => updateOrderStatus('DELIVERING')
+            })" class="btn bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50">Delivering</button>
+          </div>
+
           <!-- Delivered button -->
           <div v-if="order.orderStatusName === 'DELIVERING'" class="m-1.5 inline-block">
             <button @click.stop="setDialogOptions({
