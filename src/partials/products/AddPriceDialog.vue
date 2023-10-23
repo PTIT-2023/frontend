@@ -60,7 +60,7 @@ export default {
         const note = ref('')
 
         const handleDateChanged = (date) => {
-            applyDate.value = date.getTime()
+            applyDate.value = date?.getTime()
         }
 
         const { product } = mapGetters()

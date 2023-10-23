@@ -102,13 +102,8 @@
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price</h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price (current)</h2>
                   <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.price }}</label>
-                  <!-- <router-link :to="{ name: 'prices.list' }">
-                    <div class="inline-block">
-                      <button class="btn bg-orange-500 hover:bg-yellow-600 text-white">Edit</button>
-                    </div>
-                  </router-link> -->
                 </div>
 
                 <div>
@@ -126,8 +121,6 @@
                     <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ product.status ? 'Active' :
                       'Inactive' }}</div>
                   </div>
-
-
                 </div>
 
               </div>
