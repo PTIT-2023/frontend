@@ -122,7 +122,7 @@
               class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Save</button>
           </div>
 
-          <router-link :to="{ name: 'products.list' }">
+          <router-link :to="{ name: 'employees.list' }">
             <div class="m-1.5 inline-block">
               <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Cancel</button>
             </div>

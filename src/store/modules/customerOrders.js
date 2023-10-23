@@ -1,5 +1,6 @@
 import api from '@/api'
 import router from '@/router';
+import { data } from 'autoprefixer';
 
 const getDefaultState = () => {
     return {
@@ -122,19 +123,22 @@ const actions = {
             console.log(e)
         }
     },
-    // async cancelCustomerOrderById({ commit, dispatch }, id) {
-    //     try {
-    //         const res = await api.put(`order-Customers/${id}`)
-    //         console.log(res.data.message)
-    //         commit("SHOW_NOTIFICATION", res.data)
-    //         commit("setSelectedCustomerOrderStatus", 'CANCELLED')
-    //         router.push({
-    //             name: 'Customer-orders.list'
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async updateCustomerOrderStatus({ commit }, {id, toStatus}) {
+        console.log(id, toStatus)
+        try {
+            const res = await api.put(`order-customers?orderStatusIdTo=${toStatus.id}&id=${id}`)
+            const data = res.data;
+            console.log(data.message)
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return
+            commit("setSelectedCustomerOrderStatus", toStatus.name)
+            router.push({
+                name: 'customer-orders.list'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {

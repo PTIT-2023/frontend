@@ -1,15 +1,26 @@
 <template>
+  {{ dialog }}
   <div id="toast"></div>
   <router-view />
+  <Dialog :options="dialogOptions"  @on-cancel="setDialogOptions({opened: false})" @on-yes="dialogOptions.onYes()" />
 </template>
 
 <script>
 import { ref, watch } from 'vue';
-import { mapActions, mapGetters } from '@/mapState'
+import { mapActions, mapGetters, mapMutations } from '@/mapState'
+import Dialog from '@/components/Dialog.vue'
 import './charts/ChartjsConfig';
 
 export default {
+  components: {
+    Dialog
+  },
   setup(props, { emit }) {
+    const { notificationDisplayed, getNotificationText, getNotificationType, dialogOptions } = mapGetters()
+    const { setDialogOptions } = mapMutations()
+    const { resetNotification } = mapActions()
+
+    // Toast
     const toast = ({ title = "", message = "", type = "info", duration = 3000 }) => {
       const main = document.getElementById("toast");
       if (main) {
@@ -56,9 +67,6 @@ export default {
       }
     }
 
-    const { notificationDisplayed, getNotificationText, getNotificationType } = mapGetters()
-    const { resetNotification } = mapActions()
-
     watch(notificationDisplayed, () => {
       console.log("Component(App)::notificationDisplayed() - called");
       if (notificationDisplayed.value) {
@@ -79,7 +87,9 @@ export default {
 
     return {
       notificationDisplayed,
-      toast
+      toast,
+      dialogOptions,
+      setDialogOptions
     }
   },
 }

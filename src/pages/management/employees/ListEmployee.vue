@@ -26,7 +26,7 @@
 
               <!-- Category select -->
               <div class="content-center">
-                <label class="block text-sm font-medium" for="country">Category</label>
+                <label class="block text-sm font-medium mt-2" for="country">Role</label>
               </div>
               <select class="form-select" @change="onSelectedCategoryIdChanged($event)">
                 <option :key="'all'" :value="''">All</option>
@@ -35,16 +35,16 @@
               </select>
 
               <!-- Search form -->
-              <SearchForm placeholder="Search by name or description…"
+              <SearchForm placeholder="Search by name, email, address…"
                 @onTextChanged="onSearchChanged" />
               <!-- Create product button -->
-              <router-link :to="{ name: 'products.create' }">
+              <router-link :to="{ name: 'employees.create' }">
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                   <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                     <path
                       d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                   </svg>
-                  <span class="hidden xs:block ml-2">Create Product</span>
+                  <span class="hidden xs:block ml-2">Create Employee</span>
                 </button>
               </router-link>
             </div>

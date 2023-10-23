@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 
 import notification from "./modules/notification";
+import dialog from "./modules/dialog";
 import products from "./modules/products";
 import prices from "./modules/prices";
 import categories from "./modules/categories";
@@ -17,6 +18,7 @@ export default createStore({
     actions: {},
     modules: {
         notification,
+        dialog,
         products,
         prices,
         categories,

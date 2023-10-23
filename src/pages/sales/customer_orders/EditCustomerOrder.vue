@@ -55,10 +55,11 @@
                   }}</label>
                 </div>
 
-                <!-- <div>
+                <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ $t(order.status) }}</label>
-                </div> -->
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ order.orderStatusName ?
+                    $t(order.orderStatusName) : '' }}</label>
+                </div>
 
               </div>
               <div>
@@ -72,40 +73,16 @@
 
           <div class="space-y-8 mt-8" />
 
-          <!-- Confirm import dialog -->
-          <ModalBlank id="info-modal" :modalOpen="infoModalOpen" @close-modal="infoModalOpen = false">
-            <div class="p-5 flex space-x-4">
-              <!-- Icon -->
-              <div
-                class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-indigo-100 dark:bg-indigo-500/30">
-                <svg class="w-4 h-4 shrink-0 fill-current text-indigo-500" viewBox="0 0 16 16">
-                  <path
-                    d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H7V7h2v5zM8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z" />
-                </svg>
-              </div>
-              <!-- Content -->
-              <div>
-                <!-- Modal header -->
-                <div class="mb-2">
-                  <div class="text-lg font-semibold text-slate-800 dark:text-slate-100">Create new Event?</div>
-                </div>
-                <!-- Modal content -->
-                <div class="text-sm mb-10">
-                  <div class="space-y-2">
-                    <p>Semper eget duis at tellus at urna condimentum mattis pellentesque lacus suspendisse faucibus
-                      interdum.</p>
-                  </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex flex-wrap justify-end space-x-2">
-                  <button
-                    class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300"
-                    @click.stop="infoModalOpen = false">Cancel</button>
-                  <button @click="handleImport" class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Yes, Create it</button>
-                </div>
-              </div>
-            </div>
-          </ModalBlank>
+          <!-- Confirm dialog -->
+
+          <!-- Delivered button -->
+          <div v-if="order.orderStatusName === 'DELIVERING'" class="m-1.5 inline-block">
+            <button @click.stop="setDialogOptions({
+              opened: true,
+              actionText: 'Yes, it is delivered!',
+              onYes: () => updateOrderStatus('DELIVERED')
+            })" class="btn bg-green-500 hover:bg-green-600 text-white disabled:opacity-50">Delivered</button>
+          </div>
 
           <!-- Back -->
           <router-link :to="{ name: 'customer-orders.list' }">
@@ -129,7 +106,7 @@
 
 <script>
 import { ref, onMounted } from 'vue'
-import { mapActions, mapGetters } from '@/mapState'
+import { mapActions, mapGetters, mapMutations } from '@/mapState'
 import { useRoute } from "vue-router";
 
 import Sidebar from '@/partials/Sidebar.vue'
@@ -157,43 +134,35 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { customerOrder } = mapGetters()
-    const { getCustomerOrderById } = mapActions()
+    const { customerOrder, orderStatuses } = mapGetters()
+    const { setDialogOptions } = mapMutations()
+    const { getCustomerOrderById, updateCustomerOrderStatus, getOrderStatuses } = mapActions()
 
     const route = useRoute();
     const orderId = route.params?.id
 
     onMounted(() => {
       getCustomerOrderById(orderId)
+      getOrderStatuses()
     })
 
-    const confirmCancelOpen = ref(false)
-    const showConfirmCancelDialog = (opened) => {
-      confirmCancelOpen.value = opened
-    }
-    const handleCancelOrder = () => {
-      confirmCancelOpen.value = false
-      // cancelCustomerOrderById(orderId)
+    const confirmDialogOpen = ref(false)
+    const showConfirmDialog = (opened) => {
+      confirmDialogOpen.value = opened
     }
 
-    const infoModalOpen = ref(false)
-    const openConfirmImportDialog = (opened) => {
-      infoModalOpen.value = opened
-    }
-    const handleImport = () => {
-      // createImportForm(mCustomerOrder.value)
+    const updateOrderStatus = (toStatusName) => {
+      const toStatus = orderStatuses.value.find(s => s.name === toStatusName)
+      updateCustomerOrderStatus({ id: orderId, toStatus })
     }
 
     return {
       sidebarOpen,
       order: customerOrder,
-      // mOrderCustomerDetailList,
-      confirmCancelOpen,
-      showConfirmCancelDialog,
-      handleCancelOrder,
-      infoModalOpen,
-      openConfirmImportDialog,
-      handleImport,
+      confirmDialogOpen,
+      showConfirmDialog,
+      setDialogOptions,
+      updateOrderStatus
     }
   },
 }
