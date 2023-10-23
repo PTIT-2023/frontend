@@ -155,6 +155,23 @@ const routes = [
     component: () => import("@/pages/inventory/import_forms/GetImportForm.vue")
   },
 
+  // Employees
+  {
+    path: '/management/employees',
+    name: 'employees.list',
+    component: () => import("@/pages/management/employees/ListEmployee.vue")
+  },
+  {
+    path: '/management/employees/create',
+    name: 'employees.create',
+    component: () => import("@/pages/management/employees/CreateEmployee.vue")
+  },
+  {
+    path: '/management/employees/edit/:id',
+    name: 'employees.edit',
+    component: () => import("@/pages/management/employees/EditEmployee.vue")
+  },
+
 
   {
     path: '/ecommerce/customers',
