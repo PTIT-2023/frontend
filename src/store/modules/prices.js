@@ -47,21 +47,17 @@ const actions = {
             console.log(e)
         }
     },
-    // async getImportFormById({ commit }, id) {
-    //     try {
-    //         const res = await api.get(`import-forms/${id}`)
-    //         const entity = res.data.data;
-    //         console.log(entity)
-    //         commit("setMImportForm", entity);
-    //         commit("setMImportFormDetail", entity.productsList);
-    //         router.push({
-    //             name: 'import-forms.get',
-    //             params: { id }
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async deletePriceDetailById({ commit, dispatch }, {id, productId}) {
+        console.log(id);
+        try {
+            const res = await api.delete(`price-details/${id}`)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            dispatch("getPricesByProductId", productId)
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {

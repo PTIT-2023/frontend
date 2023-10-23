@@ -25,7 +25,14 @@
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">
-        <button @click.stop='onDelete(price.id)' class="text-rose-500 hover:text-rose-600 rounded-full">
+        <button @click.stop="setDialogOptions({
+              opened: true,
+              actionText: 'Yes, delete it!',
+              onYes: () => {
+                setDialogOptions({opened: false})
+                deletePriceDetailById({id: price.id, productId: price.productId})
+              }
+            })" class="text-rose-500 hover:text-rose-600 rounded-full">
           <span class="sr-only">Delete</span>
           <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
               <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
@@ -39,7 +46,7 @@
 
 <script>
 import { computed } from 'vue'
-import { mapActions } from '@/mapState'
+import { mapActions, mapMutations } from '@/mapState'
 
 export default {
   props: ['price', 'value', 'selected'],
@@ -99,15 +106,16 @@ export default {
       }
     }    
 
-    // const { getProductById } = mapActions()
-
-    const onEdit = (productId) => {
-      // getProductById(productId)
-    }
-
-    const onDelete = (productId) => {
-      context.emit('onDelete', productId)
-    }
+    const { setDialogOptions } = mapMutations()
+    const { deletePriceDetailById } = mapActions()
+    // const onDeleteIconClick = (priceDetailId) => {
+    //   // context.emit('onDelete', priceDetailId)
+    //   setDialogOptions({
+    //           opened: true,
+    //           actionText: 'Yes, delete it!',
+    //           onYes: () => updateOrderStatus('DELIVERED')
+    //         })
+    // }
 
     return {
       check,
@@ -115,8 +123,8 @@ export default {
       totalColor,
       statusColor,
       typeIcon,
-      onEdit,
-      onDelete
+      setDialogOptions,
+      deletePriceDetailById
     }
   },
 }

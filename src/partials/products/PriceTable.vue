@@ -53,7 +53,7 @@
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
             <PriceTableItem v-for="price in prices" :key="price.id" :price="price" v-model:selected="selected"
-              :value="price.id" @on-delete="onDeleteItemClick" />
+              :value="price.id" @on-delete="" />
           </tbody>
         </table>
 
@@ -102,34 +102,11 @@ export default {
       emit('change-selection', selected.value)
     })
 
-    // Confirm delete dialog
-    const productsToDelete = ref([])
-
-    const onDeleteItemClick = (productId) => {
-      productsToDelete.value = [productId]
-      showConfirmDelete(true)
-    }
-
-    const confirmDeleteOpen = ref(false)
-    const showConfirmDelete = (opened) => {
-      confirmDeleteOpen.value = opened
-    }
-
-    const handleDelete = () => {
-      showConfirmDelete(false)
-      deleteProductById(productsToDelete.value)
-    }
-
     return {
       prices,
       selectAll,
       selected,
       checkAll,
-      confirmDeleteOpen,
-      productsToDelete,
-      showConfirmDelete,
-      onDeleteItemClick,
-      handleDelete,
       setAddPriceDialogOpened
     }
   }
