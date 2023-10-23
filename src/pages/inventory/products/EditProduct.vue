@@ -19,7 +19,6 @@
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
-
             <!-- Components -->
             <div class="space-y-8 mt-8">
 
@@ -105,11 +104,11 @@
                 <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price</h2>
                   <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.price }}</label>
-                  <router-link :to="{ name: 'prices.list' }">
+                  <!-- <router-link :to="{ name: 'prices.list' }">
                     <div class="inline-block">
                       <button class="btn bg-orange-500 hover:bg-yellow-600 text-white">Edit</button>
                     </div>
-                  </router-link>
+                  </router-link> -->
                 </div>
 
                 <div>
@@ -127,15 +126,21 @@
                     <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ product.status ? 'Active' :
                       'Inactive' }}</div>
                   </div>
+
+
                 </div>
 
               </div>
 
             </div>
-
           </div>
 
           <div class="space-y-8 mt-8" />
+
+          <div class="m-1.5">
+            <!-- Table -->
+            <PriceTable @change-selection="updateSelectedItems($event)" :items="prices" />
+          </div>
 
           <div class="m-1.5 inline-block">
             <button @click="save" :disabled="v$.$invalid"
@@ -158,7 +163,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from "vue-router";
 import { mapActions, mapGetters } from '@/mapState'
 import { useVuelidate } from '@vuelidate/core'
@@ -167,6 +172,7 @@ import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
+import PriceTable from '@/partials/products/PriceTable.vue'
 import { required, minValue, maxValue } from '@/helpers/i18n-validators'
 
 export default {
@@ -175,6 +181,7 @@ export default {
     Sidebar,
     Header,
     Tooltip,
+    PriceTable,
     'error-text': ErrorText
   },
 
@@ -191,10 +198,23 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { product, categories } = mapGetters()
-    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
+    const { product, categories, prices } = mapGetters()
+    const { resetProduct, getProductById, getCategories, createProduct, editProduct, getPricesByProductId } = mapActions()
     const route = useRoute();
     const productId = route.params?.id
+
+    onMounted(() => {
+      if (productId) {
+        getProductById(productId).then(() => {
+          getCategories({ setFirstCategoryForProduct: false })
+          getPricesByProductId(productId)
+        })
+      } else {
+        resetProduct()
+        getCategories({ setFirstCategoryForProduct: true })
+      }
+
+    })
 
     const save = () => {
       if (productId) {
@@ -202,13 +222,6 @@ export default {
       } else {
         createProduct(product.value)
       }
-    }
-
-    if (productId) {
-      getCategories({ setFirstCategoryForProduct: false })
-    } else {
-      resetProduct()
-      getCategories({ setFirstCategoryForProduct: true })
     }
 
     const rules = {
@@ -235,6 +248,7 @@ export default {
       sidebarOpen,
       categories,
       product,
+      prices,
       save,
       v$
     }

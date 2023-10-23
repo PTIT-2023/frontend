@@ -12,13 +12,16 @@
       <div>{{ $filters.toDateString(price.applyDate) }}</div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <!-- <div>{{price.value}}</div> -->
+      <div>{{price.price}}</div>
     </td>    
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{price.employeeName}}</div>
     </td> 
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{price.note}}</div>
+    </td>
+    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      <div>{{ $filters.toDateString(price.createAt) }}</div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">

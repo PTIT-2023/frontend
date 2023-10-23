@@ -3,21 +3,24 @@
   <div id="toast"></div>
   <router-view />
   <Dialog :options="dialogOptions"  @on-cancel="setDialogOptions({opened: false})" @on-yes="dialogOptions.onYes()" />
+  <AddPriceDialog :opened="addPriceDialogOpened" @on-cancel="setAddPriceDialogOpened(false)" />
 </template>
 
 <script>
 import { ref, watch } from 'vue';
 import { mapActions, mapGetters, mapMutations } from '@/mapState'
 import Dialog from '@/components/Dialog.vue'
+import AddPriceDialog from '@/partials/products/AddPriceDialog.vue'
 import './charts/ChartjsConfig';
 
 export default {
   components: {
-    Dialog
+    Dialog,
+    AddPriceDialog
   },
   setup(props, { emit }) {
-    const { notificationDisplayed, getNotificationText, getNotificationType, dialogOptions } = mapGetters()
-    const { setDialogOptions } = mapMutations()
+    const { notificationDisplayed, getNotificationText, getNotificationType, dialogOptions, addPriceDialogOpened } = mapGetters()
+    const { setDialogOptions, setAddPriceDialogOpened } = mapMutations()
     const { resetNotification } = mapActions()
 
     // Toast
@@ -89,7 +92,9 @@ export default {
       notificationDisplayed,
       toast,
       dialogOptions,
-      setDialogOptions
+      setDialogOptions,
+      addPriceDialogOpened,
+      setAddPriceDialogOpened
     }
   },
 }
