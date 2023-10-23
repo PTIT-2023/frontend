@@ -1,7 +1,7 @@
 <template>
   <form class="relative">
     <label for="action-search" class="sr-only">Search</label>
-    <input id="action-search" class="form-input pl-9 bg-white dark:bg-slate-800 w-80" type="search" :placeholder="placeholder"
+    <input id="action-search" class="form-input pl-9 bg-white dark:bg-slate-800 w-96" type="search" :placeholder="placeholder"
     v-model="keyWord"/>
     <button class="absolute inset-0 right-auto group" type="submit" aria-label="Search" @click.prevent="textChanged">
       <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 group-hover:text-slate-500 dark:group-hover:text-slate-400 ml-3 mr-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

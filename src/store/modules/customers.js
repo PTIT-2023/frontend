@@ -31,7 +31,7 @@ const mutations = {
 const actions = {
     async getPCustomers({ commit }, { page, keyWord }) {
         try {
-            const res = await api.get(`customers?roleId=8255f34f-4bc8-4dc2-90da-9d3a35f65489&page=${page}&limit=10&keyWord=${keyWord}`)
+            const res = await api.get(`customers?page=${page}&limit=10&keyWord=${keyWord}`)
             const data = res.data
             console.log(data);
             if (data.code >= 400) {
