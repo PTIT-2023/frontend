@@ -2,7 +2,6 @@ import api from '@/api'
 
 const getDefaultState = () => {
     return {
-        selectedCustomerOrderStatus: '',
         orderStatuses: [],
     };
 };
@@ -13,17 +12,11 @@ const getters = {
     orderStatuses(state) {
         return state.orderStatuses;
     },
-    selectedCustomerOrderStatus(state) {
-        return state.selectedCustomerOrderStatus;
-    },
 };
 
 const mutations = {
     setOrderStatuses(state, data) {
         state.orderStatuses = data;
-    },
-    setSelectedCustomerOrderStatus(state, data) {
-        return state.selectedCustomerOrderStatus = data
     },
 };
 
@@ -34,7 +27,6 @@ const actions = {
             const list = res.data.data;
             commit("setOrderStatuses", list);
             if (!getters.selectedCustomerOrderStatus) {
-                console.log('setSelectedCustomerOrderStatus', list[0]);
                 commit("setSelectedCustomerOrderStatus", list[0]);
             }
         } catch (e) {

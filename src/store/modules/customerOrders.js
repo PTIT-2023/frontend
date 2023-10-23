@@ -4,7 +4,7 @@ import { data } from 'autoprefixer';
 
 const getDefaultState = () => {
     return {
-        // selectedCustomerOrderStatus: 'WAITING',
+        selectedCustomerOrderStatus: null,
         pCustomerOrders: {},
         customerOrder: {},
     };
@@ -13,6 +13,9 @@ const getDefaultState = () => {
 const state = getDefaultState();
 
 const getters = {
+    selectedCustomerOrderStatus(state) {
+        return state.selectedCustomerOrderStatus;
+    },
     pCustomerOrders(state) {
         return state.pCustomerOrders;
     },
@@ -22,12 +25,6 @@ const getters = {
     customerOrderDetail(state) {
         return state.customerOrder.detail;
     },
-    // mCustomerOrder(state) {
-    //     return state.mCustomerOrder;
-    // },
-    // mOrderCustomerDetailList(state) {
-    //     return state.mCustomerOrder.detail
-    // }
 };
 
 const mutations = {
@@ -41,24 +38,9 @@ const mutations = {
             return { id, image, name, inventoryQuantity, quantity, unitPrice, totalPrice }
         })
     },
-    // addProductToOrderCustomerDetail(state, data) {
-    //     const { id, name, imageList, inventoryQuantity } = data
-    //     state.CustomerOrder.orderCustomerDetailList.unshift(
-    //         { id, name, image: imageList ? imageList[0] : null, inventoryQuantity, quantity: 1, unitPrice: 1000 })
-    // },
-    // removeProductFromOrderCustomerDetail(state, id) {
-    //     let list = state.CustomerOrder.orderCustomerDetailList.filter(product => product.id !== id)
-    //     state.CustomerOrder.orderCustomerDetailList = list
-    // },
-    // setMCustomerOrder(state, data) {
-    //     state.mCustomerOrder = data;
-    // },
-    // setMOrderCustomerDetailList(state, list) {
-    //     state.mCustomerOrder.detail = list.map(p => {
-    //         const { productId: id, productImage: image, name, inventoryQuantity, quantity, unitPrice, totalPrice } = p
-    //         return { id, image, name, inventoryQuantity, quantity, unitPrice, totalPrice }
-    //     });
-    // },
+    setSelectedCustomerOrderStatus(state, data) {
+        return state.selectedCustomerOrderStatus = data
+    },
 };
 
 const actions = {
@@ -131,7 +113,7 @@ const actions = {
             console.log(data.message)
             commit("SHOW_NOTIFICATION", data)
             if (data.code >= 400) return
-            commit("setSelectedCustomerOrderStatus", toStatus.name)
+            commit("setSelectedCustomerOrderStatus", toStatus)
             router.push({
                 name: 'customer-orders.list'
             })

@@ -152,6 +152,7 @@ export default {
     }
 
     const updateOrderStatus = (toStatusName) => {
+      setDialogOptions({ opened: false })
       const toStatus = orderStatuses.value.find(s => s.name === toStatusName)
       updateCustomerOrderStatus({ id: orderId, toStatus })
     }
