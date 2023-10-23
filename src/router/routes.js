@@ -77,6 +77,8 @@ const routes = [
     path: '/dashboard/fintech',
     component: Fintech
   },
+
+  // Customer orders
   {
     path: '/sales/customer-orders',
     name: 'customer-orders.list',
@@ -87,6 +89,20 @@ const routes = [
     name: 'customer-orders.edit',
     component: () => import("@/pages/sales/customer_orders/EditCustomerOrder.vue")
   },
+
+  // Customers
+  {
+    path: '/sales/customers',
+    name: 'customers.list',
+    component: () => import("@/pages/sales/customers/ListCustomer.vue")
+  },
+  {
+    path: '/sales/customer/get/:id',
+    name: 'customers.get',
+    component: () => import("@/pages/sales/customers/GetCustomer.vue")
+  },
+
+  // Products
   {
     path: '/inventory/products',
     name: 'products.list',
@@ -102,11 +118,15 @@ const routes = [
     name: 'products.edit',
     component: () => import("@/pages/inventory/products/EditProduct.vue")
   },
+
+  // Prices
   {
     path: '/inventory/prices/product/:id',
     name: 'prices.list',
     component: () => import("@/pages/inventory/prices/ListPriceByProduct.vue")
   },
+
+  // Supplier orders
   {
     path: '/inventory/supplier-orders',
     name: 'supplier-orders.list',
@@ -122,6 +142,8 @@ const routes = [
     name: 'supplier-orders.edit',
     component: () => import("@/pages/inventory/supplier_orders/EditSupplierOrder.vue")
   },
+
+  // Import forms
   {
     path: '/inventory/import-forms',
     name: 'import-forms.list',
@@ -132,6 +154,8 @@ const routes = [
     name: 'import-forms.get',
     component: () => import("@/pages/inventory/import_forms/GetImportForm.vue")
   },
+
+
   {
     path: '/ecommerce/customers',
     component: Customers
