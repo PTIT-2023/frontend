@@ -68,7 +68,7 @@ import Header from '../../partials/Header.vue'
 import DeleteButton from '../../partials/actions/DeleteButton.vue'
 import DateSelect from '../../components/DateSelect.vue'
 import FilterButton from '../../components/DropdownFilter.vue'
-import CustomersTable from '../../partials/customers/CustomersTable.vue'
+import CustomersTable from '../../partials/_customers/CustomersTable.vue'
 import PaginationClassic from '../../components/PaginationClassic.vue'
 
 export default {
