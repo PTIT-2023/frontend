@@ -45,21 +45,20 @@ const actions = {
             console.log(e)
         }
     },
-    // async getImportFormById({ commit }, id) {
-    //     try {
-    //         const res = await api.get(`import-forms/${id}`)
-    //         const entity = res.data.data;
-    //         console.log(entity)
-    //         commit("setMImportForm", entity);
-    //         commit("setMImportFormDetail", entity.productsList);
-    //         router.push({
-    //             name: 'import-forms.get',
-    //             params: { id }
-    //         })
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async getCustomerById({ commit }, id) {
+        try {
+            const res = await api.get(`customers/${id}`)
+            const entity = res.data.data;
+            console.log(entity)
+            commit("setCustomers", entity);
+            router.push({
+                name: 'customers.get',
+                params: { id }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {

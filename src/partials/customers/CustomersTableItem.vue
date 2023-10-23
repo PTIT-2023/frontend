@@ -104,10 +104,10 @@ export default {
       }
     }
 
-    const { getImportFormById } = mapActions()
+    const { getCustomerById } = mapActions()
 
     const onEdit = (id) => {
-      getImportFormById(id)
+      getCustomerById(id)
     }
 
     const onDelete = (id) => {
