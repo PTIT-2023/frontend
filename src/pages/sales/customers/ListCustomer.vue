@@ -50,11 +50,11 @@
           </div>
 
           <!-- Table -->
-          <ImportFormsTable @change-selection="updateSelectedItems($event)" />
+          <CustomersTable @change-selection="updateSelectedItems($event)" />
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced @change-page="onPageChanged" :total-page="pImportForms.totalPage" />
+            <PaginationAdvanced @change-page="onPageChanged" :total-page="pCustomers.totalPage" />
           </div>
 
         </div>
@@ -75,7 +75,7 @@ import SearchForm from '@/components/SearchForm.vue'
 import DeleteButton from '@/partials/actions/DeleteButton.vue'
 import DateSelect from '@/components/DateSelect.vue'
 import FilterButton from '@/components/DropdownFilter.vue'
-import ImportFormsTable from '@/partials/import_forms/ImportFormsTable.vue'
+import CustomersTable from '@/partials/customers/CustomersTable.vue'
 import PaginationAdvanced from '@/components/PaginationAdvanced.vue'
 import StatusBadge from '@/components/StatusBadge.vue'
 
@@ -87,7 +87,7 @@ export default {
     DeleteButton,
     DateSelect,
     FilterButton,
-    ImportFormsTable,
+    CustomersTable,
     PaginationAdvanced,
     StatusBadge
   },
@@ -99,18 +99,18 @@ export default {
       selectedItems.value = selected
     }
 
-    const { pImportForms } = mapGetters()
-    const { getPImportForms } = mapActions()
+    const { pCustomers } = mapGetters()
+    const { getPCustomers } = mapActions()
 
     const selectedPage = ref(1)
     const searchText = ref('')
 
     onMounted(() => {
-      getPImportForms({ page: selectedPage.value, keyWord: searchText.value })
+      getPCustomers({ page: selectedPage.value, keyWord: searchText.value })
     }),
 
     watch([selectedPage, searchText], ([newPage, newSearchText]) => {
-      getPImportForms({ page: newPage, keyWord: newSearchText })
+      getPCustomers({ page: newPage, keyWord: newSearchText })
     })
 
     const onPageChanged = (page) => {
@@ -125,7 +125,7 @@ export default {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
-      pImportForms,
+      pCustomers,
       selectedPage,
       onPageChanged,
       onSearchChanged,

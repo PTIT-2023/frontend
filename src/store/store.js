@@ -8,6 +8,7 @@ import supplierOrders from "./modules/supplierOrders";
 import importForms from "./modules/importForms";
 import orderStatuses from "./modules/orderStatuses";
 import customerOrders from "./modules/customerOrders";
+import customers from "./modules/customers";
 
 export default createStore({
     state: {},
@@ -23,5 +24,6 @@ export default createStore({
         importForms,
         orderStatuses,
         customerOrders,
+        customers,
     }
 })
