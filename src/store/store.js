@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 import notification from "./modules/notification";
 import dialog from "./modules/dialog";
 import addPriceDialog from "./modules/addPriceDialog";
+import addImageDialog from "./modules/addImageDialog";
 import products from "./modules/products";
 import prices from "./modules/prices";
 import categories from "./modules/categories";
@@ -21,6 +22,7 @@ export default createStore({
         notification,
         dialog,
         addPriceDialog,
+        addImageDialog,
         products,
         prices,
         categories,

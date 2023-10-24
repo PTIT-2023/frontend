@@ -131,7 +131,10 @@
           <div class="space-y-8 mt-8" />
 
           <div class="m-1.5">
-            <!-- Table -->
+            <ImageTable @change-selection="updateSelectedItems($event)" :items="prices" />
+          </div>
+
+          <div class="m-1.5">
             <PriceTable @change-selection="updateSelectedItems($event)" :items="prices" />
           </div>
 
@@ -166,6 +169,7 @@ import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
 import PriceTable from '@/partials/products/PriceTable.vue'
+import ImageTable from '@/partials/products/ImageTable.vue'
 import { required, minValue, maxValue } from '@/helpers/i18n-validators'
 
 export default {
@@ -174,6 +178,7 @@ export default {
     Sidebar,
     Header,
     Tooltip,
+    ImageTable,
     PriceTable,
     'error-text': ErrorText
   },

@@ -17,6 +17,9 @@ const getters = {
     product(state) {
         return state.product;
     },
+    productImages(state) {
+        return state.product.imageList;
+    },
     newProduct(state) {
         return state.newProduct;
     }
@@ -32,6 +35,9 @@ const mutations = {
     setProductCategoryId(state, categoryId) {
         state.product.categoryId = categoryId;
     },
+    addImageToProductImages(state, img) {
+        state.product.imageList.push(img)
+    }
 };
 
 const actions = {

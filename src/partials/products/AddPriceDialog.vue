@@ -18,8 +18,7 @@
                         required />
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1" for="feedback">Note <span
-                            class="text-rose-500">*</span></label>
+                    <label class="block text-sm font-medium mb-1" for="feedback">Note</label>
                     <textarea v-model="note" id="feedback" class="form-textarea w-full px-2 py-1 h-36" rows="4" required></textarea>
                 </div>
             </div>
