@@ -1,5 +1,5 @@
 <template>
-    <ModalBasic id="feedback-modal" :modalOpen="opened" @close-modal="cancel()" title="Create price detail">
+    <ModalBasic id="feedback-modal" :modalOpen="opened" @close-modal="cancel()" title="Add new image">
         <!-- Modal content -->
         <div class="px-5 py-4 mb-10">
             <div class="space-y-3">
@@ -61,7 +61,6 @@ export default {
 
         const { product } = mapGetters()
         const { setAddImageDialogOpened } = mapMutations()
-        const { addImageToProductImages } = mapActions()
 
         const yes = () => {
             setAddImageDialogOpened(false)

@@ -43,8 +43,8 @@
           </thead>
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
-            <ImageTableItem v-for="image in product.imageList" :key="image.id" :item="image" v-model:selected="selected"
-              :value="image.id" @on-delete="" />
+            <ImageTableItem v-for="(image, index) in product.imageList" :key="index" :item="{ image, index }"
+              v-model:selected="selected" :value="image" @on-delete="" />
           </tbody>
         </table>
 

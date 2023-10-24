@@ -4,15 +4,15 @@
       <div class="flex items-center">
         <label class="inline-flex">
           <span class="sr-only">Select</span>
-          <input :id="item" class="form-checkbox" type="checkbox" :value="value" @change="check" :checked="checked" />
+          <input :id="item.index" class="form-checkbox" type="checkbox" :value="value" @change="check" :checked="checked" />
         </label>
       </div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <img :src="item" width="100" height="auto"/>
+      <img :src="item.image" width="100" height="auto"/>
     </td>    
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{item}}</div>
+      <div>{{item.image}}</div>
     </td> 
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">
@@ -21,7 +21,8 @@
               actionText: 'Yes, delete it!',
               onYes: () => {
                 setDialogOptions({opened: false})
-                deletePriceDetailById({id: price.id, productId: price.productId})
+                // deletePriceDetailById({id: price.id, productId: price.productId})
+                removeImageFromProductImagesByIndex(item.index)
               }
             })" class="text-rose-500 hover:text-rose-600 rounded-full">
           <span class="sr-only">Delete</span>
@@ -97,7 +98,7 @@ export default {
       }
     }    
 
-    const { setDialogOptions } = mapMutations()
+    const { setDialogOptions, removeImageFromProductImagesByIndex } = mapMutations()
     const { deletePriceDetailById } = mapActions()
     // const onDeleteIconClick = (priceDetailId) => {
     //   // context.emit('onDelete', priceDetailId)
@@ -115,7 +116,7 @@ export default {
       statusColor,
       typeIcon,
       setDialogOptions,
-      deletePriceDetailById
+      removeImageFromProductImagesByIndex
     }
   },
 }

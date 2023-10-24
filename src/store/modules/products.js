@@ -37,6 +37,9 @@ const mutations = {
     },
     addImageToProductImages(state, img) {
         state.product.imageList.push(img)
+    },
+    removeImageFromProductImagesByIndex(state, index) {
+        state.product.imageList.splice(index, 1)
     }
 };
 
