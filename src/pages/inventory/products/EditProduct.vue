@@ -34,29 +34,26 @@
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Description <span
                       class="text-rose-500">*</span></h2>
                   <textarea class="form-input w-full h-40" type="text" v-model="product.description" />
+                  <error-text :v="v$.description" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat</h2>
                   <input class="form-input w-full" type="text" v-model="product.habitat" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position</h2>
                   <input class="form-input w-full" type="text" v-model="product.position" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method</h2>
                   <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type</h2>
                   <input class="form-input w-full" type="text" v-model="product.foodType" />
                 </div>
 
@@ -82,8 +79,7 @@
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Category <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Category</h2>
                   <select class="form-select" v-model="product.categoryId">
                     <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
                       :selected="index === 0">{{ category.name }}
@@ -107,8 +103,7 @@
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status</h2>
                   <div class="flex items-center mt-5">
                     <div class="form-switch">
                       <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
@@ -224,6 +219,7 @@ export default {
 
     const rules = {
       name: { required },
+      description: { required },
       maxSize: {
         required,
         minValue: minValue(1)
