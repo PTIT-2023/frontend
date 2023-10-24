@@ -60,12 +60,12 @@ export default {
         }
 
         const { product } = mapGetters()
-        const { setAddImageDialogOpened } = mapMutations()
+        const { setAddImageDialogOpened, addImageToProductImages } = mapMutations()
 
         const yes = () => {
             setAddImageDialogOpened(false)
             console.log(image.value);
-            product.value.imageList.push(image.value)
+            addImageToProductImages(image.value)
         }
 
         const cancel = () => {

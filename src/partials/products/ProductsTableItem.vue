@@ -15,7 +15,7 @@
       <div>{{product.name}}</div>
     </td>    
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{product.description}}</div>
+      <div>{{product.description?.substring(0, 30)}}</div>
     </td> 
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{product.inventoryQuantity}}</div>
