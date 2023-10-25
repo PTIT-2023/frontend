@@ -26,7 +26,7 @@
 
               <!-- Category select -->
               <div class="content-center">
-                <label class="block text-sm font-medium" for="country">Category</label>
+                <label class="block text-sm font-medium mt-2" for="country">Category</label>
               </div>
               <select class="form-select" @change="onSelectedCategoryIdChanged($event)">
                 <option :key="'all'" :value="''">All</option>

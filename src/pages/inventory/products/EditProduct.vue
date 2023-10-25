@@ -58,22 +58,19 @@
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature </h2>
                   <input class="form-input w-full" type="number" v-model="product.temperature" />
                   <error-text :v="v$.temperature" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH </h2>
                   <input class="form-input w-full" type="number" v-model="product.ph" />
                   <error-text :v="v$.ph" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size </h2>
                   <input class="form-input w-full" type="number" required v-model="product.maxSize" />
                   <error-text :v="v$.maxSize" />
                 </div>
@@ -221,16 +218,13 @@ export default {
       name: { required },
       description: { required },
       maxSize: {
-        required,
         minValue: minValue(1)
       },
       ph: {
-        required,
         minValue: minValue(0),
         maxValue: maxValue(14)
       },
       temperature: {
-        required,
         minValue: minValue(20),
         maxValue: maxValue(30)
       }
