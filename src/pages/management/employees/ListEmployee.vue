@@ -28,15 +28,14 @@
               <div class="content-center">
                 <label class="block text-sm font-medium mt-2" for="country">Role</label>
               </div>
-              <select class="form-select" @change="onSelectedCategoryIdChanged($event)">
-                <option :key="'all'" :value="''">All</option>
-                <option v-for="(category, index) in categories" :key="category.id" :value="category.id">{{ category.name }}
+              <select class="form-select" @change="onSelectedEmpRoleChanged($event)">
+                <option v-for="empRole in comboEmpRoles" :key="empRole.id" :value="empRole.id">{{
+                  empRole.name }}
                 </option>
               </select>
 
               <!-- Search form -->
-              <SearchForm placeholder="Search by name, email, address…"
-                @onTextChanged="onSearchChanged" />
+              <SearchForm placeholder="Search by name, email, address…" @onTextChanged="onSearchChanged" />
               <!-- Create product button -->
               <router-link :to="{ name: 'employees.create' }">
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
@@ -93,11 +92,11 @@
           </div>
 
           <!-- Table -->
-          <ProductsTable @change-selection="updateSelectedItems($event)" />
+          <EmployeesTable @change-selection="updateSelectedItems($event)" />
 
           <!-- Pagination -->
           <div class="mt-8">
-            <PaginationAdvanced @change-page="onPageChanged" :total-page="pProducts.totalPage" />
+            <PaginationAdvanced @change-page="onPageChanged" :total-page="pEmployees.totalPage" />
           </div>
 
         </div>
@@ -109,8 +108,8 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-import { mapGetters, mapActions } from '@/mapState'
+import { ref, watch, onMounted } from 'vue'
+import { mapGetters, mapMutations, mapActions } from '@/mapState'
 
 import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
@@ -118,11 +117,10 @@ import SearchForm from '@/components/SearchForm.vue'
 import DeleteButton from '@/partials/actions/DeleteButton.vue'
 import DateSelect from '@/components/DateSelect.vue'
 import FilterButton from '@/components/DropdownFilter.vue'
-import ProductsTable from '@/partials/products/ProductsTable.vue'
+import EmployeesTable from '@/partials/employees/EmployeesTable.vue'
 import PaginationAdvanced from '@/components/PaginationAdvanced.vue'
 
 export default {
-  name: 'Products',
   components: {
     Sidebar,
     Header,
@@ -130,7 +128,7 @@ export default {
     DeleteButton,
     DateSelect,
     FilterButton,
-    ProductsTable,
+    EmployeesTable,
     PaginationAdvanced,
   },
   setup() {
@@ -141,21 +139,26 @@ export default {
       selectedItems.value = selected
     }
 
-    const { pProducts, categories } = mapGetters()
-    const { getPProducts, getCategories } = mapActions()
+    const { pProducts, categories, comboEmpRoles, pEmployees, selectedEmpRoleId } = mapGetters()
+    const { setSelectedEmpRoleId } = mapMutations()
+    const { getPProducts, getCategories, getEmployeeRoles, getPEmployees } = mapActions()
 
-    getCategories({ setFirstCategoryForProduct: false })
-
-    const selectedCategoryId = ref('')
     const selectedPage = ref(1)
     const selectKeyWord = ref('')
 
-    watch([selectedCategoryId, selectedPage, selectKeyWord],  ([newCategoryId, newPage, newKeyWord]) => {
-      getPProducts({ categoryId: newCategoryId, page: newPage, keyWord: newKeyWord })
+    watch([selectedEmpRoleId, selectedPage, selectKeyWord], ([newEmpRoleId, newPage, newKeyWord]) => {
+      getPEmployees({ roleId: newEmpRoleId, page: newPage, keyWord: newKeyWord })
     })
 
-    const onSelectedCategoryIdChanged = (e) => {
-      selectedCategoryId.value = e.target.value
+    // getCategories({ setFirstCategoryForProduct: false })
+    onMounted(() => {
+      getEmployeeRoles().then(() => {
+        getPEmployees({ roleId: selectedEmpRoleId.value, page: selectedPage.value, keyWord: selectKeyWord.value })
+      })
+    })
+
+    const onSelectedEmpRoleChanged = (e) => {
+      setSelectedEmpRoleId(e.target.value);
     }
 
     const onPageChanged = (page) => {
@@ -170,11 +173,13 @@ export default {
       sidebarOpen,
       selectedItems,
       updateSelectedItems,
-      onSelectedCategoryIdChanged,
-      selectedCategoryId,
+      onSelectedEmpRoleChanged,
+      selectedEmpRoleId,
       selectedPage,
+      comboEmpRoles,
       categories,
       pProducts,
+      pEmployees,
       onPageChanged,
       onSearchChanged,
     }

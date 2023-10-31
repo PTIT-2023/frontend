@@ -12,6 +12,7 @@ import importForms from "./modules/importForms";
 import orderStatuses from "./modules/orderStatuses";
 import customerOrders from "./modules/customerOrders";
 import customers from "./modules/customers";
+import employees from "./modules/employees";
 
 export default createStore({
     state: {},
@@ -31,5 +32,6 @@ export default createStore({
         orderStatuses,
         customerOrders,
         customers,
+        employees
     }
 })
