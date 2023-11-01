@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Edit product ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Edit employee ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">
@@ -142,7 +142,7 @@
               class="btn bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50">Save</button>
           </div>
 
-          <router-link :to="{ name: 'products.list' }">
+          <router-link :to="{ name: 'employees.list' }">
             <div class="m-1.5 inline-block">
               <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Cancel</button>
             </div>

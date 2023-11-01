@@ -15,7 +15,7 @@
 
           <!-- Page header -->
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Create new product ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Add new employee ✨</h1>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-700">

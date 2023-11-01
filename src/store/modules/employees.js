@@ -21,6 +21,9 @@ const getters = {
     },
     pEmployees(state) {
         return state.pEmployees
+    },
+    employee(state) {
+        return state.employee
     }
 };
 
@@ -33,6 +36,9 @@ const mutations = {
     },
     setPEmployees(state, pData) {
         state.pEmployees = pData;
+    },
+    setEmployee(state, data) {
+        state.employee = data;
     },
 };
 
@@ -64,6 +70,19 @@ const actions = {
             const pData = res.data.data;
             console.log(res.data.message, pData);
             commit("setPEmployees", pData);
+        } catch (e) {
+            console.log(e)
+        }
+    }, 
+    async getEmployeeById({ commit }, id) {
+        try {
+            const res = await api.get(`products/${id}`)
+            const employee = res.data.data;
+            commit("setEmployee", employee);
+            router.push({
+                name: 'employees.edit',
+                params: { id: id }
+            })
         } catch (e) {
             console.log(e)
         }
