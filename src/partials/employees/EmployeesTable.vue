@@ -22,22 +22,19 @@
                 </div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Image</div>
+                <div class="font-semibold text-left">Avatar</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Name</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Description</div>
+                <div class="font-semibold text-left">Email</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Inventory quantity</div>
+                <div class="font-semibold text-left">Address</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Sold quantity</div>
-              </th>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Price</div>
+                <div class="font-semibold text-left">Phone</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Action</div>
@@ -46,7 +43,7 @@
           </thead>
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
-            <EmployeesTableItem v-for="employee in pEmployees.data" :key="employee.id" :product="employee"
+            <EmployeesTableItem v-for="employee in pEmployees.data" :key="employee.id" :employee="employee"
               v-model:selected="selected" :value="employee.id" @on-delete="onDeleteItemClick" />
           </tbody>
         </table>
