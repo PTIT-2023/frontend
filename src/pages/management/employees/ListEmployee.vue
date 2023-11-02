@@ -29,7 +29,7 @@
                 <label class="block text-sm font-medium mt-2" for="country">Role</label>
               </div>
               <select class="form-select" @change="onSelectedEmpRoleChanged($event)">
-                <option v-for="empRole in comboEmpRoles" :key="empRole.id" :value="empRole.id">{{
+                <option v-for="empRole in comboEmpRoles" :key="empRole.id" :value="empRole.id" :selected="empRole.id === selectedEmpRoleId">{{
                   empRole.name }}
                 </option>
               </select>

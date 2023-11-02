@@ -43,7 +43,7 @@ const mutations = {
 };
 
 const actions = {
-    async getEmployeeRoles({ commit }) {
+    async getEmployeeRoles({ commit, getters }) {
         try {
             const res = await api.get(`master/employee-roles`)
             const data = res.data
@@ -53,7 +53,9 @@ const actions = {
             }
             console.log(data.message);
             commit("setComboEmpRoles", data.data);
-            commit("setSelectedEmpRoleId", data.data[0]?.id)
+            if (!getters.selectedEmpRoleId) {
+                commit("setSelectedEmpRoleId", data.data[0]?.id)
+            }
         } catch (e) {
             console.log(e)
         }
