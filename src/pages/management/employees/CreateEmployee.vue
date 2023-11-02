@@ -150,18 +150,14 @@ export default {
     const sidebarOpen = ref(false)
 
     const { product, categories } = mapGetters()
-    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
+    const { createEmployee, resetProduct, getCategories, createProduct, editProduct } = mapActions()
     const route = useRoute();
     const productId = route.params?.id
 
     const employee = ref({ gender: 'MALE', avatar: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' })
 
     const save = () => {
-      if (productId) {
-        editProduct(product.value)
-      } else {
-        createProduct(product.value)
-      }
+      createEmployee(employee.value)
     }
 
     if (productId) {
