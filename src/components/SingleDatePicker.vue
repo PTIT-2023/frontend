@@ -22,7 +22,8 @@ export default {
     minDate: {
       type: String,
       default: 'today'
-    }
+    },
+    maxDate: String
   },
   data(props) {
     return {
@@ -30,6 +31,7 @@ export default {
       config: {
         // mode: 'range',
         minDate: props.minDate,
+        maxDate: props.maxDate,
         static: true,
         monthSelectorType: 'static',
         dateFormat: 'M j, Y',
