@@ -24,7 +24,6 @@
             <!-- Right: Actions  -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
-              <!-- Category select -->
               <div class="content-center">
                 <label class="block text-sm font-medium mt-2" for="country">Role</label>
               </div>

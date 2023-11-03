@@ -78,7 +78,7 @@ const actions = {
     }, 
     async getEmployeeById({ commit }, id) {
         try {
-            const res = await api.get(`products/${id}`)
+            const res = await api.get(`employees/${id}`)
             const employee = res.data.data;
             commit("setEmployee", employee);
             router.push({

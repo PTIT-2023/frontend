@@ -24,109 +24,94 @@
             <div class="space-y-8 mt-8">
 
               <div class="grid gap-5 md:grid-cols-2">
+
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Name <span
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email <span
                       class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="text" required v-model="product.name" />
-                  <error-text :v="v$.name" />
+                  <input class="form-input w-full" type="text" required v-model="employee.email" />
+                  <error-text :v="v$.email" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Description <span
-                      class="text-rose-500">*</span></h2>
-                  <textarea class="form-input w-full h-40" type="text" v-model="product.description" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat <span
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">First name <span
                       class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="text" v-model="product.habitat" />
+                  <input class="form-input w-full" type="text" required v-model="employee.firstName" />
+                  <error-text :v="v$.firstName" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position <span
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Last name <span
                       class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="text" v-model="product.position" />
+                  <input class="form-input w-full" type="text" required v-model="employee.lastName" />
+                  <error-text :v="v$.lastName" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method <span
-                      class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
+                  <label class="block text-sm font-medium mb-1" for="mandatory">Birthday <span
+                      class="text-rose-500">*</span></label>
+                  <SingleDatePicker :minDate="null" maxDate="today" @onDateChanged="handleDateChanged" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type <span
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Gender <span
                       class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="text" v-model="product.foodType" />
+                  <select class="form-select" v-model="employee.gender">
+                    <option value="MALE">MALE</option>
+                    <option value="FEMALE">FEMALE</option>
+                  </select>
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature <span
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Address <span
                       class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="number" v-model="product.temperature" />
-                  <error-text :v="v$.temperature" />
+                  <textarea class="form-input w-full h-40" type="text" v-model="employee.address" />
+                  <error-text :v="v$.address" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH <span
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone <span
                       class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="number" v-model="product.ph" />
-                  <error-text :v="v$.ph" />
+                  <input class="form-input w-full" type="text" required v-model="employee.phone" />
+                  <error-text :v="v$.phone" />
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size <span
-                      class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="number" required v-model="product.maxSize" />
-                  <error-text :v="v$.maxSize" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Category <span
-                      class="text-rose-500">*</span></h2>
-                  <select class="form-select" v-model="product.categoryId">
-                    <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
-                      :selected="index === 0">{{ category.name }}
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Role</h2>
+                  <select class="form-select" v-model="employee.roleId">
+                    <option v-for="empRole in comboEmpRoles" :key="empRole.id" :value="empRole.id"
+                      :selected="empRole.id === employee.roleId">{{
+                        empRole.name }}
                     </option>
                   </select>
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Inventory quantity</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.inventoryQuantity }}</label>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Sold quantity</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.soldQuantity }}</label>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.price }}</label>
-                  <router-link :to="{ name: 'prices.list' }">
-                    <div class="inline-block">
-                      <button class="btn bg-orange-500 hover:bg-yellow-600 text-white">Edit</button>
-                    </div>
-                  </router-link>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status <span
-                      class="text-rose-500">*</span></h2>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Status</h2>
                   <div class="flex items-center mt-5">
                     <div class="form-switch">
-                      <input type="checkbox" id="toggle" class="sr-only" v-model="product.status" :true-value="true"
-                        :false-value="false" :disabled="product.inventoryQuantity <= 0" />
+                      <input type="checkbox" id="toggle" class="sr-only" v-model="employee.status" :true-value="true"
+                        :false-value="false" :disabled="false" />
                       <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
                         <span class="bg-white shadow-sm" aria-hidden="true"></span>
                         <span class="sr-only">Toggle</span>
                       </label>
                     </div>
-                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ product.status ? 'Active' :
+                    <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{ employee.status ? 'Active' :
                       'Inactive' }}</div>
                   </div>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Avatar</h2>
+                  <input class="form-input w-full" type="text" required v-model="employee.avatar" />
+                  <error-text :v="v$.avatar" />
+                </div>
+
+                <div>
+                  <img class="rounded-full" :src="employee.avatar" width="150" height="150" alt="Avatar" />
                 </div>
 
               </div>
@@ -158,7 +143,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from "vue-router";
 import { mapActions, mapGetters } from '@/mapState'
 import { useVuelidate } from '@vuelidate/core'
@@ -167,21 +152,16 @@ import Sidebar from '@/partials/Sidebar.vue'
 import Header from '@/partials/Header.vue'
 import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
-import { required, minValue, maxValue } from '@/helpers/i18n-validators'
+import SingleDatePicker from '@/components/SingleDatePicker.vue'
+import { required, email, minLength, url } from '@/helpers/i18n-validators'
 
 export default {
-  name: 'FormPage',
   components: {
     Sidebar,
     Header,
     Tooltip,
+    SingleDatePicker,
     'error-text': ErrorText
-  },
-
-  validations() {
-    return {
-      name: { required }
-    }
   },
 
   mounted() {
@@ -191,50 +171,38 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { product, categories } = mapGetters()
-    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
+    const { employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
+    const { getEmployeeById, getEmployeeRoles } = mapActions()
     const route = useRoute();
-    const productId = route.params?.id
+    const empId = route.params?.id
+
+    onMounted(() => {
+      getEmployeeRoles().then(() => {
+        getEmployeeById(empId)
+      })
+    })
+
+    employee.value.roleId = selectedEmpRoleId.value
 
     const save = () => {
-      if (productId) {
-        editProduct(product.value)
-      } else {
-        createProduct(product.value)
-      }
-    }
-
-    if (productId) {
-      getCategories({ setFirstCategoryForProduct: false })
-    } else {
-      resetProduct()
-      getCategories({ setFirstCategoryForProduct: true })
+      console.log('edit');
     }
 
     const rules = {
-      name: { required },
-      maxSize: {
-        required,
-        minValue: minValue(1)
-      },
-      ph: {
-        required,
-        minValue: minValue(0),
-        maxValue: maxValue(14)
-      },
-      temperature: {
-        required,
-        minValue: minValue(20),
-        maxValue: maxValue(30)
-      }
+      email: { required, email },
+      firstName: { required },
+      lastName: { required },
+      address: { required },
+      phone: { required },
+      avatar: { url }
     }
 
-    const v$ = useVuelidate(rules, product)
+    const v$ = useVuelidate(rules, employee)
 
     return {
       sidebarOpen,
-      categories,
-      product,
+      comboEmpRoles,
+      employee,
       save,
       v$
     }

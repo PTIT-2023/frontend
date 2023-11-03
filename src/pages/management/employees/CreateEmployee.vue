@@ -160,13 +160,6 @@ export default {
       createEmployee(employee.value)
     }
 
-    if (productId) {
-      getCategories({ setFirstCategoryForProduct: false })
-    } else {
-      resetProduct()
-      getCategories({ setFirstCategoryForProduct: true })
-    }
-
     const rules = {
       email: { required, email },
       password: { required, minLen: minLength(8) },
