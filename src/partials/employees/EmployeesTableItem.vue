@@ -9,7 +9,7 @@
       </div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <img :src="employee.avatar" width="100" height="auto"/>
+      <img class="border-black rounded-full" :src="employee.avatar" width="100" height="auto"/>
     </td>  
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{employee.name}}</div>

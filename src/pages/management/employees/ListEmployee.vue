@@ -29,7 +29,7 @@
               </div>
               <select class="form-select" @change="onSelectedEmpRoleChanged($event)">
                 <option v-for="empRole in comboEmpRoles" :key="empRole.id" :value="empRole.id" :selected="empRole.id === selectedEmpRoleId">{{
-                  empRole.name }}
+                  $t(empRole.name) }}
                 </option>
               </select>
 

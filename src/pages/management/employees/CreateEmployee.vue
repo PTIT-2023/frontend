@@ -88,7 +88,7 @@
                 </div>
 
                 <div>
-                  <img class="rounded-full" :src="employee.avatar" width="150" height="150" alt="Avatar" />
+                  <img class="rounded-full border-black border" :src="employee.avatar" width="150" height="150" alt="Avatar" />
                 </div>
 
               </div>

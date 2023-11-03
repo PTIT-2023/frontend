@@ -82,7 +82,7 @@
                   <select class="form-select" v-model="employee.roleId">
                     <option v-for="empRole in comboEmpRoles" :key="empRole.id" :value="empRole.id"
                       :selected="empRole.id === employee.roleId">{{
-                        empRole.name }}
+                        $t(empRole.name) }}
                     </option>
                   </select>
                 </div>
@@ -110,7 +110,7 @@
                 </div>
 
                 <div>
-                  <img class="rounded-full" :src="employee.avatar" width="150" height="150" alt="Avatar" />
+                  <img class="rounded-full border-black border" :src="employee.avatar" width="150" height="150" alt="Avatar" />
                 </div>
 
               </div>

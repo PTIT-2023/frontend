@@ -18,5 +18,8 @@
     "WAITING_CONFIRM": "Waiting confirm",
 
     "WAITING": "Waiting",
-    "IMPORTED": "Imported"
+    "IMPORTED": "Imported",
+
+    "ROLE_MANAGER": "Manager",
+    "ROLE_EMPLOYEE": "Employee"
 }
