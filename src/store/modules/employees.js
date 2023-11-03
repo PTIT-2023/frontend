@@ -103,6 +103,20 @@ const actions = {
             console.log(e)
         }
     },
+    async editEmployee({ commit }, employee) {
+        console.log(employee)
+        try {
+            const res = await api.put(`employees`, employee)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
+            router.push({
+                name: 'employees.list'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {

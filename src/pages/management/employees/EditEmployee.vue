@@ -26,9 +26,8 @@
               <div class="grid gap-5 md:grid-cols-2">
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email <span
-                      class="text-rose-500">*</span></h2>
-                  <input class="form-input w-full" type="text" required v-model="employee.email" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email</h2>
+                  <input disabled class="form-input w-full" type="text" v-model="employee.email" />
                   <error-text :v="v$.email" />
                 </div>
 
@@ -172,7 +171,7 @@ export default {
     const sidebarOpen = ref(false)
 
     const { employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
-    const { getEmployeeById, getEmployeeRoles } = mapActions()
+    const { getEmployeeById, getEmployeeRoles, editEmployee } = mapActions()
     const route = useRoute();
     const empId = route.params?.id
 
@@ -185,7 +184,7 @@ export default {
     employee.value.roleId = selectedEmpRoleId.value
 
     const save = () => {
-      console.log('edit');
+      editEmployee(employee.value)
     }
 
     const rules = {
