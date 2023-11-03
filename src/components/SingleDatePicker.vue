@@ -2,7 +2,7 @@
   <div class="relative">
     <flat-pickr
       class="form-input pl-9 dark:bg-slate-800 text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-200 font-medium w-[15.5rem]"
-      :config="config" v-model="date"></flat-pickr>
+      :config="config" v-bind:modelValue="date"></flat-pickr>
     <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
       <svg class="w-4 h-4 fill-current text-slate-500 dark:text-slate-400 ml-3" viewBox="0 0 16 16">
         <path
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import flatPickr from 'vue-flatpickr-component'
 
 export default {
@@ -23,18 +24,19 @@ export default {
       type: String,
       default: 'today'
     },
-    maxDate: String
+    maxDate: String,
+    date: String,
   },
   data(props) {
     return {
-      date: null, // refer to https://github.com/ankurk91/vue-flatpickr-component
+      // date: null, // refer to https://github.com/ankurk91/vue-flatpickr-component
       config: {
         // mode: 'range',
         minDate: props.minDate,
         maxDate: props.maxDate,
         static: true,
         monthSelectorType: 'static',
-        dateFormat: 'M j, Y',
+        dateFormat: 'd/m/Y',
         defaultDate: 'today',
         prevArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
         nextArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',

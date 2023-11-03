@@ -51,7 +51,7 @@
                 <div>
                   <label class="block text-sm font-medium mb-1" for="mandatory">Birthday <span
                       class="text-rose-500">*</span></label>
-                  <SingleDatePicker :minDate="null" maxDate="today" @onDateChanged="handleDateChanged" />
+                  <SingleDatePicker :date="toDateString(employee.birthday)" :minDate="null" maxDate="today" @onDateChanged="handleDateChanged" />
                 </div>
 
                 <div>
@@ -153,6 +153,7 @@ import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
 import SingleDatePicker from '@/components/SingleDatePicker.vue'
 import { required, email, minLength, url } from '@/helpers/i18n-validators'
+import moment from 'moment'
 
 export default {
   components: {
@@ -175,16 +176,22 @@ export default {
     const route = useRoute();
     const empId = route.params?.id
 
+    const toDateString = (value) => {
+      return moment(value).format('DD/MM/yyyy')
+    }
+
     onMounted(() => {
       getEmployeeRoles().then(() => {
         getEmployeeById(empId)
       })
     })
 
-    employee.value.roleId = selectedEmpRoleId.value
-
     const save = () => {
       editEmployee(employee.value)
+    }
+
+    const handleDateChanged = (selectedDate) => {
+      employee.value.birthday = selectedDate.getTime()
     }
 
     const rules = {
@@ -200,10 +207,13 @@ export default {
 
     return {
       sidebarOpen,
+      toDateString,
+      handleDateChanged,
+      moment,
       comboEmpRoles,
       employee,
       save,
-      v$
+      v$,
     }
   },
 }

@@ -104,12 +104,13 @@ const actions = {
         }
     },
     async editEmployee({ commit }, employee) {
-        console.log(employee)
+        console.log('employee', employee)
         try {
             const res = await api.put(`employees`, employee)
             const data = res.data
             commit("SHOW_NOTIFICATION", data)
             if (data.code >= 400) return;
+            commit('setSelectedEmpRoleId', employee.roleId)
             router.push({
                 name: 'employees.list'
             })
