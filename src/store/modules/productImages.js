@@ -41,7 +41,7 @@ const actions = {
             const res = await api.post(`product-image`, productImage)
             const data = res.data
             commit("SHOW_NOTIFICATION", data)
-            dispatch("getPricesByProductId", priceDetail.productId)
+            dispatch("getProductImagesByProductId", productImage.productId)
         } catch (e) {
             console.log(e)
         }

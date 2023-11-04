@@ -5,12 +5,12 @@
             <div class="space-y-3">
                 <div>
                     <label class="block text-sm font-medium mb-1" for="feedback">Image URL</label>
-                    <textarea v-model="image" id="feedback" class="form-textarea w-full px-2 py-1 h-20" rows="4"
+                    <textarea v-model="imageURL" id="feedback" class="form-textarea w-full px-2 py-1 h-20" rows="4"
                         required></textarea>
-                    <error-text :v="v$.image" />
+                    <error-text :v="v$.imageURL" />
                 </div>
                 <div>
-                    <img :src="image" alt="">
+                    <img :src="imageURL" alt="">
                 </div>
             </div>
         </div>
@@ -60,15 +60,15 @@ export default {
         }
     },
     setup(props, { emit }) {
-        const image = ref('')
+        const imageURL = ref('')
 
         const { product } = mapGetters()
-        const { setAddImageDialogOpened, addImageToProductImages } = mapMutations()
+        const { setAddImageDialogOpened } = mapMutations()
+        const { addProductImage } = mapActions()
 
         const yes = () => {
             setAddImageDialogOpened(false)
-            console.log(image.value);
-            addImageToProductImages(image.value)
+            addProductImage({ productId: product.value.id, url: imageURL.value })
         }
 
         const cancel = () => {
@@ -76,14 +76,13 @@ export default {
         }
 
         const rules = {
-            image: { required, url },
+            imageURL: { required, url },
         }
 
-        const v$ = useVuelidate(rules, { image })
+        const v$ = useVuelidate(rules, { imageURL })
 
         return {
-            image,
-            product,
+            imageURL,
             yes,
             cancel,
             v$
