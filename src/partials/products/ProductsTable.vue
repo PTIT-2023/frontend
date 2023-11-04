@@ -30,13 +30,13 @@
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Description</div>
               </th>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+              <th class="px-2 first:pl-5 last:pr-5 py-3">
                 <div class="font-semibold text-left">Inventory quantity</div>
               </th>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+              <th class="px-2 first:pl-5 last:pr-5 py-3">
                 <div class="font-semibold text-left">Sold quantity</div>
               </th>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+              <th class="px-2 first:pl-5 last:pr-5 py-3">
                 <div class="font-semibold text-left">Price</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
