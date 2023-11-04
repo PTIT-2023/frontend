@@ -71,7 +71,7 @@ const actions = {
             foodType: '',
             maxSize: 1,
             categoryId: '',
-            imageList: ['https://i.ytimg.com/vi/y7A-m5tL3fQ/maxresdefault.jpg'],
+            imageList: [],
             status: false
         });
     },
