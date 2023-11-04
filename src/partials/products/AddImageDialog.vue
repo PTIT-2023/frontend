@@ -55,7 +55,7 @@ export default {
     watch: {
         opened(newOpened) {
             if (!newOpened) {
-                this.image = ''
+                this.imageURL = ''
             }
         }
     },

@@ -32,12 +32,6 @@ const mutations = {
     setProductCategoryId(state, categoryId) {
         state.product.categoryId = categoryId;
     },
-    // addImageToProductImages(state, img) {
-    //     state.product.imageList.unshift(img)
-    // },
-    // removeImageFromProductImagesByIndex(state, index) {
-    //     state.product.imageList.splice(index, 1)
-    // }
 };
 
 const actions = {
