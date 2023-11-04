@@ -28,7 +28,7 @@
     </ModalBasic>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import ModalBasic from '@/components/ModalBasic.vue'
 import SingleDatePicker from '@/components/SingleDatePicker.vue'
 import { mapGetters, mapMutations, mapActions } from '@/mapState'
@@ -52,12 +52,15 @@ export default {
     mounted() {
         this.v$.$touch();
     },
+    watch: {
+        opened(newOpened) {
+            if (!newOpened) {
+                this.image = ''
+            }
+        }
+    },
     setup(props, { emit }) {
         const image = ref('')
-
-        const handleDateChanged = (date) => {
-            applyDate.value = date?.getTime()
-        }
 
         const { product } = mapGetters()
         const { setAddImageDialogOpened, addImageToProductImages } = mapMutations()
@@ -81,7 +84,6 @@ export default {
         return {
             image,
             product,
-            handleDateChanged,
             yes,
             cancel,
             v$
