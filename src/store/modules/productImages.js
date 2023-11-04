@@ -46,17 +46,17 @@ const actions = {
             console.log(e)
         }
     },
-    // async deletePriceDetailById({ commit, dispatch }, {id, productId}) {
-    //     console.log(id);
-    //     try {
-    //         const res = await api.delete(`price-details/${id}`)
-    //         const data = res.data
-    //         commit("SHOW_NOTIFICATION", data)
-    //         dispatch("getPricesByProductId", productId)
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // },
+    async deleteProductImageById({ commit, dispatch }, {id, productId}) {
+        console.log(id);
+        try {
+            const res = await api.delete(`product-image/${id}`)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            dispatch("getProductImagesByProductId", productId)
+        } catch (e) {
+            console.log(e)
+        }
+    },
 };
 
 export default {

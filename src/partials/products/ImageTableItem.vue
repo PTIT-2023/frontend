@@ -21,8 +21,7 @@
               actionText: 'Yes, delete it!',
               onYes: () => {
                 setDialogOptions({opened: false})
-                // deletePriceDetailById({id: price.id, productId: price.productId})
-                removeImageFromProductImagesByIndex(item.id)
+                deleteProductImageById({id: item.id, productId: item.productId})
               }
             })" class="text-rose-500 hover:text-rose-600 rounded-full">
           <span class="sr-only">Delete</span>
@@ -100,16 +99,8 @@ export default {
       }
     }    
 
-    const { setDialogOptions, removeImageFromProductImagesByIndex } = mapMutations()
-    const { deletePriceDetailById } = mapActions()
-    // const onDeleteIconClick = (priceDetailId) => {
-    //   // context.emit('onDelete', priceDetailId)
-    //   setDialogOptions({
-    //           opened: true,
-    //           actionText: 'Yes, delete it!',
-    //           onYes: () => updateOrderStatus('DELIVERED')
-    //         })
-    // }
+    const { setDialogOptions } = mapMutations()
+    const { deleteProductImageById } = mapActions()
 
     return {
       check,
@@ -118,7 +109,7 @@ export default {
       statusColor,
       typeIcon,
       setDialogOptions,
-      removeImageFromProductImagesByIndex
+      deleteProductImageById,
     }
   },
 }
