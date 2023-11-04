@@ -51,16 +51,16 @@
                 </th> -->
               </thead>
               <tbody>
-                <tr class="hover:bg-lime-500 hover:text-white border-b border-slate-200 dark:border-slate-700"
+                <tr class="hover:bg-sky-600 hover:text-white border-b border-slate-200 dark:border-slate-700"
                   @click="handleSelect(product)" v-for="product in products">
-                  <td class="px-2 first:pl-5 last:pr-5 py-3 min-w-[60%]">
+                  <td class="px-2 first:pl-5 last:pr-5 py-3 min-w-[5rem] max-w-[40rem]">
                     <img :src="product.imageList[0]" />
                   </td>
-                  <td class="px-2 first:pl-5 last:pr-5 py-3">
-                    <div>{{ product.name }}</div>
+                  <td class="px-2 first:pl-5 last:pr-5 py-3 min-w-[20rem]">
+                    <div class="line-clamp-3">{{ product.name }}</div>
                   </td>
                   <td class="px-2 first:pl-5 last:pr-5 py-3">
-                    <div>{{ product.description }}</div>
+                    <div class="line-clamp-3">{{ product.description }}</div>
                   </td>
                 </tr>
               </tbody>
