@@ -3,7 +3,7 @@
     <header class="px-5 py-4">
       <div class="grid gap-5 md:grid-cols-2">
         <h2 class="font-semibold text-slate-800 dark:text-slate-100">Images <span
-            class="text-slate-400 dark:text-slate-500 font-medium">{{ product.imageList?.length }}</span></h2>
+            class="text-slate-400 dark:text-slate-500 font-medium">{{ productImages.length }}</span></h2>
         <button @click.stop="setAddImageDialogOpened(true)" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
           <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
             <path
@@ -43,8 +43,8 @@
           </thead>
           <!-- Table body -->
           <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
-            <ImageTableItem v-for="(image, index) in product.imageList" :key="index" :item="{ image, index }"
-              v-model:selected="selected" :value="image" @on-delete="" />
+            <ImageTableItem v-for="productImage in productImages" :key="productImage.id"
+              :item="productImage" v-model:selected="selected" :value="productImage" @on-delete="" />
           </tbody>
         </table>
 
@@ -68,7 +68,7 @@ export default {
   props: ['selectedItems'],
   setup(props, { emit }) {
 
-    const { product } = mapGetters()
+    const { productImages } = mapGetters()
     const { setAddImageDialogOpened } = mapMutations()
 
     // Select products
@@ -90,7 +90,7 @@ export default {
     })
 
     return {
-      product,
+      productImages,
       selectAll,
       selected,
       checkAll,

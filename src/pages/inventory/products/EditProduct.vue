@@ -123,11 +123,11 @@
           <div class="space-y-8 mt-8" />
 
           <div class="m-1.5">
-            <ImageTable @change-selection="updateSelectedItems($event)" :items="prices" />
+            <ImageTable @change-selection="updateSelectedItems($event)" />
           </div>
 
           <div class="m-1.5">
-            <PriceTable @change-selection="updateSelectedItems($event)" :items="prices" />
+            <PriceTable @change-selection="updateSelectedItems($event)" />
           </div>
 
           <div class="m-1.5 inline-block">
@@ -188,8 +188,9 @@ export default {
   setup() {
     const sidebarOpen = ref(false)
 
-    const { product, categories, prices } = mapGetters()
-    const { resetProduct, getProductById, getCategories, createProduct, editProduct, getPricesByProductId } = mapActions()
+    const { product, categories } = mapGetters()
+    const { resetProduct, getProductById, getCategories,
+      createProduct, editProduct, getPricesByProductId, getProductImagesByProductId } = mapActions()
     const route = useRoute();
     const productId = route.params?.id
 
@@ -198,12 +199,12 @@ export default {
         getProductById(productId).then(() => {
           getCategories({ setFirstCategoryForProduct: false })
           getPricesByProductId(productId)
+          getProductImagesByProductId(productId)
         })
       } else {
         resetProduct()
         getCategories({ setFirstCategoryForProduct: true })
       }
-
     })
 
     const save = () => {
@@ -236,7 +237,6 @@ export default {
       sidebarOpen,
       categories,
       product,
-      prices,
       save,
       v$
     }

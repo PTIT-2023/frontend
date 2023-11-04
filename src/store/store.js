@@ -7,6 +7,7 @@ import addPriceDialog from "./modules/addPriceDialog";
 import addImageDialog from "./modules/addImageDialog";
 import products from "./modules/products";
 import prices from "./modules/prices";
+import productImages from "./modules/productImages";
 import categories from "./modules/categories";
 import supplierOrders from "./modules/supplierOrders";
 import importForms from "./modules/importForms";
@@ -28,6 +29,7 @@ export default createStore({
         addImageDialog,
         products,
         prices,
+        productImages,
         categories,
         supplierOrders,
         importForms,

@@ -17,9 +17,6 @@ const getters = {
     product(state) {
         return state.product;
     },
-    productImages(state) {
-        return state.product.imageList;
-    },
     newProduct(state) {
         return state.newProduct;
     }
@@ -35,12 +32,12 @@ const mutations = {
     setProductCategoryId(state, categoryId) {
         state.product.categoryId = categoryId;
     },
-    addImageToProductImages(state, img) {
-        state.product.imageList.unshift(img)
-    },
-    removeImageFromProductImagesByIndex(state, index) {
-        state.product.imageList.splice(index, 1)
-    }
+    // addImageToProductImages(state, img) {
+    //     state.product.imageList.unshift(img)
+    // },
+    // removeImageFromProductImagesByIndex(state, index) {
+    //     state.product.imageList.splice(index, 1)
+    // }
 };
 
 const actions = {

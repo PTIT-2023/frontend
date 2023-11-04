@@ -4,15 +4,15 @@
       <div class="flex items-center">
         <label class="inline-flex">
           <span class="sr-only">Select</span>
-          <input :id="item.index" class="form-checkbox" type="checkbox" :value="value" @change="check" :checked="checked" />
+          <input :id="item.id" class="form-checkbox" type="checkbox" :value="value" @change="check" :checked="checked" />
         </label>
       </div>
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <img :src="item.image" width="100" height="auto"/>
+      <img :src="item.url" width="100" height="auto"/>
     </td>    
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{item.image}}</div>
+      <div>{{item.url}}</div>
     </td> 
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">
@@ -22,7 +22,7 @@
               onYes: () => {
                 setDialogOptions({opened: false})
                 // deletePriceDetailById({id: price.id, productId: price.productId})
-                removeImageFromProductImagesByIndex(item.index)
+                removeImageFromProductImagesByIndex(item.id)
               }
             })" class="text-rose-500 hover:text-rose-600 rounded-full">
           <span class="sr-only">Delete</span>
@@ -43,6 +43,8 @@ import { mapActions, mapMutations } from '@/mapState'
 export default {
   props: ['item', 'value', 'selected'],
   setup(props, context) {
+    console.log('x',props.item);
+
     const checked = computed(() => props.selected.includes(props.value))
 
     function check() {
