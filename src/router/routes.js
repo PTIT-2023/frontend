@@ -67,6 +67,7 @@ import IconsPage from '@/pages/component/IconsPage.vue'
 const routes = [
   {
     path: '/',
+    name: 'dashboard',
     component: Dashboard
   },
   {

@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 
+import auth from "./modules/auth";
 import notification from "./modules/notification";
 import dialog from "./modules/dialog";
 import addPriceDialog from "./modules/addPriceDialog";
@@ -20,6 +21,7 @@ export default createStore({
     mutations: {},
     actions: {},
     modules: {
+        auth,
         notification,
         dialog,
         addPriceDialog,
