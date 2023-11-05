@@ -45,7 +45,8 @@
 
     <!-- Content -->
     <div class="relative">
-      <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, Acme Inc. 👋</h1>
+      <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, {{
+        `${user.firstName} ${user.lastName}` }}. 👋</h1>
       <p class="dark:text-indigo-200">Here is what’s happening with your projects today:</p>
     </div>
 
@@ -53,7 +54,18 @@
 </template>
 
 <script>
+import { ref, onMounted, onUnmounted } from 'vue'
+import { mapGetters, mapActions } from '@/mapState'
+
 export default {
   name: 'WelcomeBanner',
+  setup() {
+
+    const { user } = mapGetters()
+
+    return {
+      user,
+    }
+  }
 }
 </script>

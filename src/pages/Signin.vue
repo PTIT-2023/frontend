@@ -63,11 +63,10 @@
               </div>
             </div>
             <!-- Footer -->
-            <div class="pt-5 mt-6 border-t border-slate-200 dark:border-slate-700">
+            <!-- <div class="pt-5 mt-6 border-t border-slate-200 dark:border-slate-700">
               <div class="text-sm">
                 Don’t you have an account? <router-link class="font-medium text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400" to="/signup">Sign Up</router-link>
               </div>
-              <!-- Warning -->
               <div class="mt-5">
                 <div class="bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400 px-3 py-2 rounded">
                   <svg class="inline w-3 h-3 shrink-0 fill-current mr-2" viewBox="0 0 12 12">
@@ -79,7 +78,7 @@
                   </span>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
         </div>
