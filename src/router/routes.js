@@ -344,10 +344,12 @@ const routes = [
   },
   {
     path: '/signin',
+    name: 'signin',
     component: Signin
   },
   {
     path: '/signup',
+    name: 'signup',
     component: Signup
   },
   {

@@ -1,4 +1,7 @@
 export default class localStorageHelper {
+    static isUserAuthenticated() {
+        return localStorage.getItem("auth") && localStorage.getItem("user");
+    }
     static saveJwtResponse(data) {
         localStorage.setItem('auth', JSON.stringify(data))
     }
