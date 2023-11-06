@@ -9,6 +9,7 @@
 
 <script>
 import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router'
 import { mapActions, mapGetters, mapMutations } from '@/mapState'
 import Dialog from '@/components/Dialog.vue'
 import AddPriceDialog from '@/partials/products/AddPriceDialog.vue'
@@ -25,7 +26,7 @@ export default {
     const { notificationDisplayed, getNotificationText, getNotificationType, 
       dialogOptions, addPriceDialogOpened, addImageDialogOpened } = mapGetters()
     const { setDialogOptions, setAddPriceDialogOpened, setAddImageDialogOpened } = mapMutations()
-    const { resetNotification } = mapActions()
+    const { resetNotification, tryAutoLogin } = mapActions()
 
     // Toast
     const toast = ({ title = "", message = "", type = "info", duration = 3000 }) => {
@@ -91,6 +92,8 @@ export default {
       }
       resetNotification();
     })
+
+    tryAutoLogin()
 
     return {
       notificationDisplayed,

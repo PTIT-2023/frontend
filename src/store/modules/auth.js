@@ -1,5 +1,6 @@
 import api from '@/api'
 import router from '@/router'
+import localStorageHelper from '../../helpers/localStorageHelper';
 
 const getDefaultState = () => {
     return {
@@ -28,11 +29,10 @@ const actions = {
             const data = res.data
             commit("SHOW_NOTIFICATION", data)
             if (data.code >= 400) return;
-            localStorage.setItem('auth', JSON.stringify(data.data))
-            dispatch('getUserProfileById', data.data.id)
-            router.push({
-                path: '/'
-            })
+            const jwtResponse = data.data
+            localStorageHelper.saveJwtResponse(jwtResponse)
+            dispatch('getUserProfileAfterLogin', jwtResponse.id)
+            
         } catch (e) {
             if (e.response.data.status === 401) {
                 commit("SHOW_NOTIFICATION", {
@@ -43,14 +43,37 @@ const actions = {
             console.log(e)
         }
     },
-    async getUserProfileById({ commit }, id) {
+    async getUserProfileAfterLogin({ commit }, id) {
         try {
             const res = await api.get(`employees/${id}`)
             const employee = res.data.data;
+            localStorageHelper.saveUser(employee)
             commit("setUser", employee);
+            router.push({
+                path: '/'
+            })
         } catch (e) {
             console.log(e)
         }
+    },
+    tryAutoLogin({commit, dispatch}) {
+        const user = localStorageHelper.getUser()
+        if (!user) {
+            console.log("auth::tryAutoLogin() - No user found in local storage") 
+            if (window.location.pathname === "/") {
+                dispatch("logout")
+            }
+            return;
+        }
+
+        const userData = JSON.parse(user);
+        commit("setUser", userData);
+    },
+    logout({commit, dispatch}) {
+        localStorageHelper.clear()
+        router.push({
+            path: '/signin'
+        });
     },
 };
 

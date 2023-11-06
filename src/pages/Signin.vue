@@ -44,12 +44,12 @@
               <div class="space-y-4">
                 <div>
                   <label class="block text-sm font-medium mb-1" for="email">Email Address</label>
-                  <input v-model="loginRequest.email" id="email" class="form-input w-full" type="email" />
+                  <input v-model="loginRequest.email" @input="v$.email.$touch()" id="email" class="form-input w-full" type="email" />
                   <error-text :v="v$.email" />
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-1" for="password">Password</label>
-                  <input v-model="loginRequest.password" id="password" class="form-input w-full" type="password"
+                  <input v-model="loginRequest.password" @input="v$.password.$touch()" id="password" class="form-input w-full" type="password"
                     autoComplete="on" />
                   <error-text :v="v$.password" />
                 </div>
@@ -109,9 +109,6 @@ export default {
   name: 'Signin',
   components: {
     'error-text': ErrorText
-  },
-  mounted() {
-    this.v$.$touch();
   },
   setup() {
     const { login } = mapActions()
