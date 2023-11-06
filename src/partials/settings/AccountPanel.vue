@@ -7,7 +7,7 @@
       <section>
         <div class="flex items-center">
           <div class="mr-4">
-            <img class="w-20 h-20 rounded-full" src="../../images/user-avatar-80.png" width="80" height="80" alt="User upload" />
+            <img class="w-20 h-20 rounded-full" :src="localStorageHelper.getUser()?.avatar" width="80" height="80" alt="User upload" />
           </div>
           <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Change</button>
         </div>
@@ -81,6 +81,7 @@
 
 <script>
 import { ref } from 'vue'
+import localStorageHelper from '@/helpers/localStorageHelper'
 
 export default {
   name: 'AccountPanel',
@@ -90,6 +91,7 @@ export default {
 
     return {
       sync,
+      localStorageHelper
     }
   }
 }

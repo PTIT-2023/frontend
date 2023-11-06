@@ -9,7 +9,7 @@ export default class localStorageHelper {
         localStorage.setItem('user', JSON.stringify(data))
     }
     static getUser() {
-        return localStorage.getItem('user')
+        return JSON.parse(localStorage.getItem('user'))
     }
     static clear() {
         localStorage.clear()

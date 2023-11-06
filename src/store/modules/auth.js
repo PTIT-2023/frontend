@@ -66,8 +66,7 @@ const actions = {
             return;
         }
 
-        const userData = JSON.parse(user);
-        commit("setUser", userData);
+        commit("setUser", user);
     },
     logout({commit, dispatch}) {
         localStorageHelper.clear()
