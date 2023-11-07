@@ -53,9 +53,10 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">Birthday <span
-                      class="text-rose-500">*</span></label>
-                  <SingleDatePicker :minDate="null" maxDate="today" @onDateChanged="handleDateChanged" />
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Birthday <span
+                      class="text-rose-500">*</span></h2>
+                  <SingleDatePicker :date="toDateString(employee.birthday)" :minDate="null" maxDate="today" @onDateChanged="handleDateChanged" />
+                  <error-text :v="v$.birthday" />
                 </div>
 
                 <div>
@@ -65,6 +66,7 @@
                     <option value="MALE">MALE</option>
                     <option value="FEMALE">FEMALE</option>
                   </select>
+                  <error-text :v="v$.gender" />
                 </div>
 
                 <div>
@@ -131,6 +133,7 @@ import Tooltip from '@/components/Tooltip.vue'
 import ErrorText from '@/components/ErrorText.vue'
 import SingleDatePicker from '@/components/SingleDatePicker.vue'
 import { required, email, minLength, url } from '@/helpers/i18n-validators'
+import moment from 'moment'
 
 export default {
   name: 'FormPage',
@@ -156,6 +159,15 @@ export default {
 
     const employee = ref({ gender: 'MALE', avatar: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' })
 
+    
+    const toDateString = (value) => {
+      return moment(value).format('DD/MM/yyyy')
+    }
+
+    const handleDateChanged = (selectedDate) => {
+      employee.value.birthday = selectedDate.getTime()
+    }
+
     const save = () => {
       createEmployee(employee.value)
     }
@@ -165,6 +177,8 @@ export default {
       password: { required, minLen: minLength(8) },
       firstName: { required },
       lastName: { required },
+      birthday: { required },
+      gender: { required },
       address: { required },
       phone: { required },
       avatar: { url }
@@ -174,6 +188,8 @@ export default {
 
     return {
       sidebarOpen,
+      toDateString,
+      handleDateChanged,
       categories,
       employee,
       save,
