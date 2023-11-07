@@ -17,37 +17,37 @@
       <section>
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Avatar</h2>
-          <input class="form-input w-full" type="text" required v-model="employee.avatar" />
+          <input class="form-input w-full" type="text" required v-model="user.avatar" />
           <error-text :v="v$.avatar" />
         </div>
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email</h2>
-          <input disabled class="form-input" type="text" v-model="employee.email" />
+          <input disabled class="form-input" type="text" v-model="user.email" />
           <error-text :v="v$.email" />
         </div>
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">First name</h2>
-          <input class="form-input" type="text" required v-model="employee.firstName" />
+          <input class="form-input" type="text" required v-model="user.firstName" />
           <error-text :v="v$.firstName" />
         </div>
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Last name</h2>
-          <input class="form-input" type="text" required v-model="employee.lastName" />
+          <input class="form-input" type="text" required v-model="user.lastName" />
           <error-text :v="v$.lastName" />
         </div>
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Birthday</h2>
-          <SingleDatePicker :date="toDateString(employee.birthday)" :minDate="null" maxDate="today"
+          <SingleDatePicker :date="toDateString(user.birthday)" :minDate="null" maxDate="today"
             @onDateChanged="handleDateChanged" />
         </div>
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Gender</h2>
-          <select class="form-select" v-model="employee.gender">
+          <select class="form-select" v-model="user.gender">
             <option value="MALE">MALE</option>
             <option value="FEMALE">FEMALE</option>
           </select>
@@ -55,13 +55,13 @@
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Address</h2>
-          <textarea class="form-input w-full h-40" type="text" v-model="employee.address" />
+          <textarea class="form-input w-full h-40" type="text" v-model="user.address" />
           <error-text :v="v$.address" />
         </div>
 
         <div>
           <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone</h2>
-          <input class="form-input" type="text" required v-model="employee.phone" />
+          <input class="form-input" type="text" required v-model="user.phone" />
           <error-text :v="v$.phone" />
         </div>
 
@@ -110,7 +110,7 @@ export default {
 
     const sync = ref('Off')
 
-    const { employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
+    const { user, employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
     const { getEmployeeById, getEmployeeRoles, editEmployee } = mapActions()
     // const route = useRoute();
     // const empId = route.params?.id
@@ -122,6 +122,7 @@ export default {
     onMounted(() => {
       getEmployeeRoles().then(() => {
         // getEmployeeById(empId)
+        getUserProfile(localStorageHelper.getUser()?.id)
       })
     })
 
@@ -151,6 +152,7 @@ export default {
       handleDateChanged,
       moment,
       comboEmpRoles,
+      user,
       employee,
       v$
     }

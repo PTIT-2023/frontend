@@ -354,6 +354,7 @@ const routes = [
   },
   {
     path: '/reset-password',
+    name: 'forgot',
     component: ResetPassword
   },
   {

@@ -56,6 +56,16 @@ const actions = {
             console.log(e)
         }
     },
+    async getUserProfile({ commit }, id) {
+        try {
+            const res = await api.get(`employees/${id}`)
+            const employee = res.data.data;
+            localStorageHelper.saveUser(employee)
+            commit("setUser", employee);
+        } catch (e) {
+            console.log(e)
+        }
+    },
     tryAutoLogin({commit, dispatch}) {
         const user = localStorageHelper.getUser()
         if (!user) {
