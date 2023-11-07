@@ -7,63 +7,72 @@
       <section>
         <div class="flex items-center">
           <div class="mr-4">
-            <img class="w-20 h-20 rounded-full" :src="localStorageHelper.getUser()?.avatar" width="80" height="80" alt="User upload" />
+            <img class="w-20 h-20 rounded-full" :src="localStorageHelper.getUser()?.avatar" width="80" height="80"
+              alt="User upload" />
           </div>
-          <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Change</button>
+          <!-- <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Change</button> -->
         </div>
       </section>
       <!-- Business Profile -->
       <section>
-        <h3 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-1">Business Profile</h3>
-        <div class="text-sm">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</div>
-        <div class="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-5">
-          <div class="sm:w-1/3">
-            <label class="block text-sm font-medium mb-1" for="name">Business Name</label>
-            <input id="name" class="form-input w-full" type="text" />
-          </div>
-          <div class="sm:w-1/3">
-            <label class="block text-sm font-medium mb-1" for="business-id">Business ID</label>
-            <input id="business-id" class="form-input w-full" type="text" />
-          </div>
-          <div class="sm:w-1/3">
-            <label class="block text-sm font-medium mb-1" for="location">Location</label>
-            <input id="location" class="form-input w-full" type="text" />
-          </div>
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Avatar</h2>
+          <input class="form-input w-full" type="text" required v-model="employee.avatar" />
+          <error-text :v="v$.avatar" />
         </div>
-      </section>
-      <!-- Email -->
-      <section>
-        <h3 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-1">Email</h3>
-        <div class="text-sm">Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia.</div>
-        <div class="flex flex-wrap mt-5">
-          <div class="mr-2">
-            <label class="sr-only" for="email">Business email</label>
-            <input id="email" class="form-input" type="email" />
-          </div>
-          <button class="btn border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm text-indigo-500">Change</button>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email</h2>
+          <input disabled class="form-input" type="text" v-model="employee.email" />
+          <error-text :v="v$.email" />
         </div>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">First name</h2>
+          <input class="form-input" type="text" required v-model="employee.firstName" />
+          <error-text :v="v$.firstName" />
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Last name</h2>
+          <input class="form-input" type="text" required v-model="employee.lastName" />
+          <error-text :v="v$.lastName" />
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Birthday</h2>
+          <SingleDatePicker :date="toDateString(employee.birthday)" :minDate="null" maxDate="today"
+            @onDateChanged="handleDateChanged" />
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Gender</h2>
+          <select class="form-select" v-model="employee.gender">
+            <option value="MALE">MALE</option>
+            <option value="FEMALE">FEMALE</option>
+          </select>
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Address</h2>
+          <textarea class="form-input w-full h-40" type="text" v-model="employee.address" />
+          <error-text :v="v$.address" />
+        </div>
+
+        <div>
+          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone</h2>
+          <input class="form-input" type="text" required v-model="employee.phone" />
+          <error-text :v="v$.phone" />
+        </div>
+
       </section>
       <!-- Password -->
       <section>
         <h3 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-1">Password</h3>
-        <div class="text-sm">You can set a permanent password if you don't want to use temporary login codes.</div>
         <div class="mt-5">
-          <button class="btn border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm text-indigo-500">Set New Password</button>
-        </div>
-      </section>
-      <!-- Smart Sync -->
-      <section>
-        <h3 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-1">Smart Sync update for Mac</h3>
-        <div class="text-sm">With this update, online-only files will no longer appear to take up hard drive space.</div>
-        <div class="flex items-center mt-5">
-          <div class="form-switch">
-            <input type="checkbox" id="toggle" class="sr-only" v-model="sync" true-value="On" false-value="Off" />
-            <label class="bg-slate-400 dark:bg-slate-700" for="toggle">
-              <span class="bg-white shadow-sm" aria-hidden="true"></span>
-              <span class="sr-only">Enable smart sync</span>
-            </label>
-          </div>
-          <div class="text-sm text-slate-400 dark:text-slate-500 italic ml-2">{{sync}}</div>
+          <button
+            class="btn border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm text-indigo-500">Set
+            New Password</button>
         </div>
       </section>
     </div>
@@ -71,27 +80,79 @@
     <footer>
       <div class="flex flex-col px-6 py-5 border-t border-slate-200 dark:border-slate-700">
         <div class="flex self-end">
-          <button class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Cancel</button>
+          <button
+            class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Cancel</button>
           <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Save Changes</button>
         </div>
       </div>
     </footer>
-  </div>  
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from "vue-router";
+import { mapActions, mapGetters } from '@/mapState'
+import { useVuelidate } from '@vuelidate/core'
 import localStorageHelper from '@/helpers/localStorageHelper'
+import ErrorText from '@/components/ErrorText.vue'
+import SingleDatePicker from '@/components/SingleDatePicker.vue'
+import { required, email, minLength, url } from '@/helpers/i18n-validators'
+import moment from 'moment'
 
 export default {
   name: 'AccountPanel',
+  components: {
+    SingleDatePicker,
+    'error-text': ErrorText
+  },
   setup() {
 
-  const sync = ref('Off')
+    const sync = ref('Off')
+
+    const { employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
+    const { getEmployeeById, getEmployeeRoles, editEmployee } = mapActions()
+    // const route = useRoute();
+    // const empId = route.params?.id
+
+    const toDateString = (value) => {
+      return moment(value).format('DD/MM/yyyy')
+    }
+
+    onMounted(() => {
+      getEmployeeRoles().then(() => {
+        // getEmployeeById(empId)
+      })
+    })
+
+    const save = () => {
+      editEmployee(employee.value)
+    }
+
+    const handleDateChanged = (selectedDate) => {
+      employee.value.birthday = selectedDate.getTime()
+    }
+
+    const rules = {
+      email: { required, email },
+      firstName: { required },
+      lastName: { required },
+      address: { required },
+      phone: { required },
+      avatar: { url }
+    }
+
+    const v$ = useVuelidate(rules, employee)
 
     return {
       sync,
-      localStorageHelper
+      localStorageHelper,
+      toDateString,
+      handleDateChanged,
+      moment,
+      comboEmpRoles,
+      employee,
+      v$
     }
   }
 }
