@@ -23,28 +23,40 @@
                     </linearGradient>
                   </defs>
                   <rect fill="#6366F1" width="32" height="32" rx="16" />
-                  <path d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z" fill="#4F46E5" />
-                  <path d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z" fill="url(#logo-a)" />
-                  <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
+                  <path
+                    d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z"
+                    fill="#4F46E5" />
+                  <path
+                    d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z"
+                    fill="url(#logo-a)" />
+                  <path
+                    d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z"
+                    fill="url(#logo-b)" />
                 </svg>
               </router-link>
             </div>
-          </div>          
+          </div>
 
           <div class="max-w-sm mx-auto w-full px-4 py-8">
             <h1 class="text-3xl text-slate-800 dark:text-slate-100 font-bold mb-6">Reset your Password ✨</h1>
             <!-- Form -->
-            <form>
+            <div>
               <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="email">Email Address <span class="text-rose-500">*</span></label>
-                  <input id="email" class="form-input w-full" type="email" />
+                  <label class="block text-sm font-medium mb-1" for="email">Email Address <span
+                      class="text-rose-500">*</span></label>
+                  <input @input="v$.emailText.$touch()" v-model="emailText" id="email" class="form-input w-full"
+                    type="email" />
+                  <error-text :v="v$.emailText" />
                 </div>
               </div>
               <div class="flex justify-end mt-6">
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Send Reset Link</button>
+                <button @click="sendResetLink()" :disabled="v$.$invalid"
+                  class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap disabled:opacity-50">Send
+                  Reset
+                  Link</button>
               </div>
-            </form>
+            </div>
           </div>
 
         </div>
@@ -52,8 +64,10 @@
 
       <!-- Image -->
       <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img class="object-cover object-center w-full h-full" src="../images/auth-image.jpg" width="760" height="1024" alt="Authentication" />
-        <img class="absolute top-1/4 left-0 -translate-x-1/2 ml-8 hidden lg:block" src="../images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" />
+        <img class="object-cover object-center w-full h-full" src="../images/auth-image.jpg" width="760" height="1024"
+          alt="Authentication" />
+        <img class="absolute top-1/4 left-0 -translate-x-1/2 ml-8 hidden lg:block" src="../images/auth-decoration.png"
+          width="218" height="224" alt="Authentication decoration" />
       </div>
 
     </div>
@@ -62,8 +76,39 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
+import { useRoute } from "vue-router";
+import { mapActions, mapGetters } from '@/mapState'
+import { useVuelidate } from '@vuelidate/core'
+import localStorageHelper from '@/helpers/localStorageHelper'
+import ErrorText from '@/components/ErrorText.vue'
+import { required, email, minLength, url } from '@/helpers/i18n-validators'
 
 export default {
   name: 'ResetPassword',
+  components: {
+    'error-text': ErrorText
+  },
+  setup() {
+    const { forgotPassword } = mapActions()
+    const emailText = ref('')
+
+    const sendResetLink = () => {
+      forgotPassword({ email: emailText.value })
+    }
+
+    const rules = {
+      emailText: { required, email },
+    }
+
+    const v$ = useVuelidate(rules, { emailText })
+
+    return {
+      localStorageHelper,
+      sendResetLink,
+      emailText,
+      v$
+    }
+  }
 }
 </script>

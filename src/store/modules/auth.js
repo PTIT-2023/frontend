@@ -32,7 +32,7 @@ const actions = {
             const jwtResponse = data.data
             localStorageHelper.saveJwtResponse(jwtResponse)
             dispatch('getUserProfileAfterLogin', jwtResponse.id)
-            
+
         } catch (e) {
             if (e.response.data.status === 401) {
                 commit("SHOW_NOTIFICATION", {
@@ -66,10 +66,10 @@ const actions = {
             console.log(e)
         }
     },
-    tryAutoLogin({commit, dispatch}) {
+    tryAutoLogin({ commit, dispatch }) {
         const user = localStorageHelper.getUser()
         if (!user) {
-            console.log("auth::tryAutoLogin() - No user found in local storage") 
+            console.log("auth::tryAutoLogin() - No user found in local storage")
             if (window.location.pathname === "/") {
                 dispatch("logout")
             }
@@ -78,7 +78,20 @@ const actions = {
 
         commit("setUser", user);
     },
-    logout({commit, dispatch}) {
+    async forgotPassword({ commit }, { email }) {
+        try {
+            const res = await api.post(`auth/forgot-password/send-email`, { email })
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
+            router.push({
+                name: 'signin'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    logout({ commit, dispatch }) {
         localStorageHelper.clear()
         router.push({
             path: '/signin'

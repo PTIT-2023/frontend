@@ -107,9 +107,6 @@ export default {
     'error-text': ErrorText
   },
   setup() {
-
-    const sync = ref('Off')
-
     const { user, employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
     const { getEmployeeById, getEmployeeRoles, editEmployee } = mapActions()
     // const route = useRoute();
@@ -146,7 +143,6 @@ export default {
     const v$ = useVuelidate(rules, employee)
 
     return {
-      sync,
       localStorageHelper,
       toDateString,
       handleDateChanged,
