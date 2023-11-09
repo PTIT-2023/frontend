@@ -45,6 +45,7 @@ import PageNotFound from '@/pages/utility/PageNotFound.vue'
 import KnowledgeBase from '@/pages/utility/KnowledgeBase.vue'
 import Signin from '@/pages/Signin.vue'
 import Signup from '@/pages/Signup.vue'
+import ForgotPassword from '@/pages/ForgotPassword.vue'
 import ResetPassword from '@/pages/ResetPassword.vue'
 import Onboarding01 from '@/pages/Onboarding01.vue'
 import Onboarding02 from '@/pages/Onboarding02.vue'
@@ -355,6 +356,11 @@ const routes = [
   {
     path: '/reset-password',
     name: 'forgot',
+    component: ForgotPassword
+  },
+  {
+    path: '/reset-password/:token',
+    name: 'reset',
     component: ResetPassword
   },
   {

@@ -43,21 +43,18 @@
             <div>
               <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-medium mb-1" for="password">Password</label>
-                  <input v-model="password" @input="v$.password.$touch()" id="password"
-                    class="form-input w-full" type="password" autoComplete="on" />
-                  <error-text :v="v$.password" />
-                </div>
-                <div>
-                  <label class="block text-sm font-medium mb-1" for="password">Confirm password</label>
-                  <input v-model="confirmPassword" @input="v$.confirmPassword.$touch()" id="password"
-                    class="form-input w-full" type="password" autoComplete="on" />
-                  <error-text :v="v$.confirmPassword" />
+                  <label class="block text-sm font-medium mb-1" for="email">Email Address <span
+                      class="text-rose-500">*</span></label>
+                  <input @input="v$.emailText.$touch()" v-model="emailText" id="email" class="form-input w-full"
+                    type="email" />
+                  <error-text :v="v$.emailText" />
                 </div>
               </div>
               <div class="flex justify-end mt-6">
-                <button @click="handleResetPassword()" :disabled="v$.$invalid"
-                  class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap disabled:opacity-50">Reset</button>
+                <button @click="sendResetLink()" :disabled="v$.$invalid"
+                  class="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap disabled:opacity-50">Send
+                  Reset
+                  Link</button>
               </div>
             </div>
           </div>
@@ -85,38 +82,31 @@ import { mapActions, mapGetters } from '@/mapState'
 import { useVuelidate } from '@vuelidate/core'
 import localStorageHelper from '@/helpers/localStorageHelper'
 import ErrorText from '@/components/ErrorText.vue'
-import { required, sameAs, minLength } from '@/helpers/i18n-validators'
+import { required, email, minLength, url } from '@/helpers/i18n-validators'
 
 export default {
-  name: 'ResetPassword',
+  name: 'ForgotPassword',
   components: {
     'error-text': ErrorText
   },
   setup() {
-    const { resetPassword } = mapActions()
-    const password = ref('')
-    const confirmPassword = ref('')
+    const { forgotPassword } = mapActions()
+    const emailText = ref('')
 
-    const route = useRoute();
-    const token = route.params?.token
-
-    const handleResetPassword = () => {
-      console.log(token, password.value);
-      resetPassword({ token, password: password.value })
+    const sendResetLink = () => {
+      forgotPassword({ email: emailText.value })
     }
 
     const rules = {
-      password: { required, minLen: minLength(8) },
-      confirmPassword: { required, sameAsPassword: sameAs(password) }
+      emailText: { required, email },
     }
 
-    const v$ = useVuelidate(rules, { password, confirmPassword })
+    const v$ = useVuelidate(rules, { emailText })
 
     return {
       localStorageHelper,
-      handleResetPassword,
-      password,
-      confirmPassword,
+      sendResetLink,
+      emailText,
       v$
     }
   }

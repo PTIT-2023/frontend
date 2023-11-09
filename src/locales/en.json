@@ -6,7 +6,8 @@
         "minLen": "This field must have at least {min} characters.",
         "maxLen": "This field must have at most {max} characters.",
         "email": "Please enter a valid email",
-        "url": "This Fixed URL must start with http|https:// and should be within 6-128 characters."
+        "url": "This Fixed URL must start with http|https:// and should be within 6-128 characters.",
+        "sameAsPassword": "Password and Confirm Password do not match"
     },
     "deleteDialog_title": "Delete {quantity} {name}s?",
     "deleteDialog_description": "The {name}s that cannot be deleted will be placed in an inactive state",

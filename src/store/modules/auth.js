@@ -91,6 +91,20 @@ const actions = {
             console.log(e)
         }
     },
+    async resetPassword({ commit }, { token, password }) {
+        console.log(token, password);
+        try {
+            const res = await api.put(`auth/forgot-password/reset`, { token, password })
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
+            router.push({
+                name: 'signin'
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    },
     logout({ commit, dispatch }) {
         localStorageHelper.clear()
         router.push({
