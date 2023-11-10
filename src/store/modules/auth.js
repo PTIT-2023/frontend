@@ -66,6 +66,18 @@ const actions = {
             console.log(e)
         }
     },
+    async updateUserProfile({ commit }, user) {
+        try {
+            const res = await api.put(`employees`, user)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+            if (data.code >= 400) return;
+            localStorageHelper.saveUser(user)
+            commit("setUser", {...user})
+        } catch (e) {
+            console.log(e)
+        }
+    },
     tryAutoLogin({ commit, dispatch }) {
         const user = localStorageHelper.getUser()
         if (!user) {

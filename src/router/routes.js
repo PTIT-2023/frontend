@@ -71,14 +71,14 @@ const routes = [
     name: 'dashboard',
     component: Dashboard
   },
-  {
-    path: '/dashboard/analytics',
-    component: Analytics
-  },
-  {
-    path: '/dashboard/fintech',
-    component: Fintech
-  },
+  // {
+  //   path: '/dashboard/analytics',
+  //   component: Analytics
+  // },
+  // {
+  //   path: '/dashboard/fintech',
+  //   component: Fintech
+  // },
 
   // Customer orders
   {

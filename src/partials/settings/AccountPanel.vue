@@ -7,64 +7,64 @@
       <section>
         <div class="flex items-center">
           <div class="mr-4">
-            <img class="w-20 h-20 rounded-full" :src="localStorageHelper.getUser()?.avatar" width="80" height="80"
-              alt="User upload" />
+            <img class="w-20 h-20 rounded-full" :src="mUser.avatar" width="80" height="80" alt="User upload" />
           </div>
           <!-- <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Change</button> -->
         </div>
       </section>
       <!-- Business Profile -->
       <section>
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Avatar</h2>
-          <input class="form-input w-full" type="text" required v-model="user.avatar" />
-          <error-text :v="v$.avatar" />
-        </div>
+        <div class="space-y-4">
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Avatar</h2>
+            <input class="form-input w-full" type="text" required v-model="mUser.avatar" />
+            <error-text :v="v$.avatar" />
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email</h2>
-          <input disabled class="form-input" type="text" v-model="user.email" />
-          <error-text :v="v$.email" />
-        </div>
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Email</h2>
+            <input disabled class="form-input" type="text" v-model="mUser.email" />
+            <error-text :v="v$.email" />
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">First name</h2>
-          <input class="form-input" type="text" required v-model="user.firstName" />
-          <error-text :v="v$.firstName" />
-        </div>
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">First name</h2>
+            <input class="form-input" type="text" required v-model="mUser.firstName" />
+            <error-text :v="v$.firstName" />
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Last name</h2>
-          <input class="form-input" type="text" required v-model="user.lastName" />
-          <error-text :v="v$.lastName" />
-        </div>
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Last name</h2>
+            <input class="form-input" type="text" required v-model="mUser.lastName" />
+            <error-text :v="v$.lastName" />
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Birthday</h2>
-          <SingleDatePicker :date="toDateString(user.birthday)" :minDate="null" maxDate="today"
-            @onDateChanged="handleDateChanged" />
-        </div>
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Birthday</h2>
+            <SingleDatePicker :date="toDateString(mUser.birthday)" :minDate="null" maxDate="today"
+              @onDateChanged="handleDateChanged" />
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Gender</h2>
-          <select class="form-select" v-model="user.gender">
-            <option value="MALE">MALE</option>
-            <option value="FEMALE">FEMALE</option>
-          </select>
-        </div>
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Gender</h2>
+            <select class="form-select" v-model="mUser.gender">
+              <option value="MALE">MALE</option>
+              <option value="FEMALE">FEMALE</option>
+            </select>
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Address</h2>
-          <textarea class="form-input w-full h-40" type="text" v-model="user.address" />
-          <error-text :v="v$.address" />
-        </div>
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Address</h2>
+            <textarea class="form-input w-full h-40" type="text" v-model="mUser.address" />
+            <error-text :v="v$.address" />
+          </div>
 
-        <div>
-          <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone</h2>
-          <input class="form-input" type="text" required v-model="user.phone" />
-          <error-text :v="v$.phone" />
+          <div>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone</h2>
+            <input class="form-input" type="text" required v-model="mUser.phone" />
+            <error-text :v="v$.phone" />
+          </div>
         </div>
-
       </section>
       <!-- Password -->
       <section>
@@ -80,9 +80,9 @@
     <footer>
       <div class="flex flex-col px-6 py-5 border-t border-slate-200 dark:border-slate-700">
         <div class="flex self-end">
-          <button
+          <button @click="reset()"
             class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Cancel</button>
-          <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Save Changes</button>
+          <button @click="save()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Save Changes</button>
         </div>
       </div>
     </footer>
@@ -107,28 +107,25 @@ export default {
     'error-text': ErrorText
   },
   setup() {
-    const { user, employee, comboEmpRoles, selectedEmpRoleId } = mapGetters()
-    const { getEmployeeById, getEmployeeRoles, editEmployee } = mapActions()
-    // const route = useRoute();
-    // const empId = route.params?.id
+    const { user, comboEmpRoles } = mapGetters()
+    const { getUserProfile, updateUserProfile } = mapActions()
 
     const toDateString = (value) => {
       return moment(value).format('DD/MM/yyyy')
     }
 
-    onMounted(() => {
-      getEmployeeRoles().then(() => {
-        // getEmployeeById(empId)
-        getUserProfile(localStorageHelper.getUser()?.id)
-      })
-    })
+    const mUser = ref({ ...user.value })
+
+    const reset = () => {
+      mUser.value = {...user.value}
+    }
 
     const save = () => {
-      editEmployee(employee.value)
+      updateUserProfile(mUser.value)
     }
 
     const handleDateChanged = (selectedDate) => {
-      employee.value.birthday = selectedDate.getTime()
+      mUser.value.birthday = selectedDate.getTime()
     }
 
     const rules = {
@@ -140,7 +137,12 @@ export default {
       avatar: { url }
     }
 
-    const v$ = useVuelidate(rules, employee)
+    const v$ = useVuelidate(rules, mUser)
+
+    onMounted(() => {
+      getUserProfile(localStorageHelper.getUser()?.id)
+      v$.value.$touch()
+    })
 
     return {
       localStorageHelper,
@@ -149,7 +151,9 @@ export default {
       moment,
       comboEmpRoles,
       user,
-      employee,
+      mUser,
+      reset,
+      save,
       v$
     }
   }
