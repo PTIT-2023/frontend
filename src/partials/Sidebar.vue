@@ -247,41 +247,13 @@
                       </a>
                     </li>
                   </router-link>
-                  <router-link to="/settings/notifications" custom v-slot="{ href, navigate, isExactActive }">
+                  <router-link to="/settings/change-password" custom v-slot="{ href, navigate, isExactActive }">
                     <li class="mb-1 last:mb-0">
                       <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">My Notifications</span>
+                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Change password</span>
                       </a>
                     </li>
                   </router-link>
-                  <router-link to="/settings/apps" custom v-slot="{ href, navigate, isExactActive }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Connected Apps</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/settings/plans" custom v-slot="{ href, navigate, isExactActive }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Plans</span>
-                      </a>
-                    </li>
-                  </router-link>                       
-                  <router-link to="/settings/billing" custom v-slot="{ href, navigate, isExactActive }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Billing & Invoices</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/settings/feedback" custom v-slot="{ href, navigate, isExactActive }">
-                    <li class="mb-1 last:mb-0">
-                      <a class="block transition duration-150 truncate" :class="isExactActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200'" :href="href" @click="navigate">
-                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Give Feedback</span>
-                      </a>
-                    </li>
-                  </router-link>                                                                    
                 </ul>
               </div>
             </SidebarLinkGroup>

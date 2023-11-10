@@ -300,24 +300,8 @@ const routes = [
     component: Account
   },
   {
-    path: '/settings/notifications',
-    component: Notifications
-  },
-  {
-    path: '/settings/apps',
-    component: Apps
-  },
-  {
-    path: '/settings/plans',
-    component: Plans
-  },
-  {
-    path: '/settings/billing',
-    component: Billing
-  },
-  {
-    path: '/settings/feedback',
-    component: Feedback
+    path: '/settings/change-password',
+    component: Account
   },
   {
     path: '/utility/changelog',
