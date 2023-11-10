@@ -78,6 +78,16 @@ const actions = {
             console.log(e)
         }
     },
+    async updatePassword({ commit }, changePasswordData) {
+        console.log(changePasswordData);
+        try {
+            const res = await api.put(`auth/change-password`, changePasswordData)
+            const data = res.data
+            commit("SHOW_NOTIFICATION", data)
+        } catch (e) {
+            console.log(e)
+        }
+    },
     tryAutoLogin({ commit, dispatch }) {
         const user = localStorageHelper.getUser()
         if (!user) {

@@ -32,11 +32,7 @@ import TasksList from '@/pages/tasks/TasksList.vue'
 import Inbox from '@/pages/Inbox.vue'
 import Calendar from '@/pages/Calendar.vue'
 import Account from '@/pages/settings/Account.vue'
-import Notifications from '@/pages/settings/Notifications.vue'
-import Apps from '@/pages/settings/Apps.vue'
-import Plans from '@/pages/settings/Plans.vue'
-import Billing from '@/pages/settings/Billing.vue'
-import Feedback from '@/pages/settings/Feedback.vue'
+import ChangePassword from '@/pages/settings/ChangePassword.vue'
 import Changelog from '@/pages/utility/Changelog.vue'
 import Roadmap from '@/pages/utility/Roadmap.vue'
 import Faqs from '@/pages/utility/Faqs.vue'
@@ -301,7 +297,7 @@ const routes = [
   },
   {
     path: '/settings/change-password',
-    component: Account
+    component: ChangePassword
   },
   {
     path: '/utility/changelog',

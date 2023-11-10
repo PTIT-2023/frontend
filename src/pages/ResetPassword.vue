@@ -101,7 +101,6 @@ export default {
     const token = route.params?.token
 
     const handleResetPassword = () => {
-      console.log(token, password.value);
       resetPassword({ token, password: password.value })
     }
 

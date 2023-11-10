@@ -66,15 +66,6 @@
           </div>
         </div>
       </section>
-      <!-- Password -->
-      <section>
-        <h3 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-1">Password</h3>
-        <div class="mt-5">
-          <button
-            class="btn border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm text-indigo-500">Set
-            New Password</button>
-        </div>
-      </section>
     </div>
     <!-- Panel footer -->
     <footer>
@@ -82,7 +73,7 @@
         <div class="flex self-end">
           <button @click="reset()"
             class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Cancel</button>
-          <button @click="save()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3">Save Changes</button>
+          <button :disabled="v$.$invalid" @click="save()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 disabled:opacity-50">Save Changes</button>
         </div>
       </div>
     </footer>
