@@ -5,6 +5,9 @@ export default class localStorageHelper {
     static saveJwtResponse(data) {
         localStorage.setItem('auth', JSON.stringify(data))
     }
+    static getToken() {
+        return JSON.parse(localStorage.getItem('auth'))?.token
+    }
     static saveUser(data) {
         localStorage.setItem('user', JSON.stringify(data))
     }
