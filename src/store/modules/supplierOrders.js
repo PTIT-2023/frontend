@@ -1,5 +1,6 @@
 import api from '@/api'
 import router from '@/router';
+import localStorageHelper from '@/helpers/localStorageHelper';
 
 const getDefaultState = () => {
     return {
@@ -87,13 +88,14 @@ const actions = {
             supplierName: '',
             deliveryDate: 0,
             orderDate: 0,
-            employeeId: 'e13334a4-f3bf-45e7-9aae-98d35d164ee6',
+            // employeeId: 'e13334a4-f3bf-45e7-9aae-98d35d164ee6',
             orderSupplierDetailList: [],
             // status: 'WAITING'
         });
     },
     async createSupplierOrder({ commit }, order) {
         order.orderDate = Date.now()
+        order.employeeId = localStorageHelper.getUser()?.id
         order.orderSupplierDetailList = order.orderSupplierDetailList.map(product => {
             const { id: productId, quantity, unitPrice: price } = product
             return { productId, quantity, price }

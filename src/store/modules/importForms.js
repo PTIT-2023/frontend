@@ -1,5 +1,6 @@
 import api from '@/api'
 import router from '@/router';
+import localStorageHelper from '@/helpers/localStorageHelper';
 
 const getDefaultState = () => {
     return {
@@ -63,7 +64,7 @@ const actions = {
         })
         const importForm = {
             createDate: Date.now(),
-            employeeId: 'e13334a4-f3bf-45e7-9aae-98d35d164ee6',
+            employeeId: localStorageHelper.getUser()?.id,
             orderSupplierId: supplierOrder.id,
             importDetailList
         }
