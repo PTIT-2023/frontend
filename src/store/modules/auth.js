@@ -110,6 +110,12 @@ const actions = {
                 name: 'signin'
             })
         } catch (e) {
+            if (e.response.data.status === 401) {
+                commit("SHOW_NOTIFICATION", {
+                    code: 401,
+                    message: 'Email does not exist!'
+                })
+            }
             console.log(e)
         }
     },
