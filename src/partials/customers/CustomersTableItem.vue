@@ -8,6 +8,11 @@
         </label>
       </div>
     </td>
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
+      <img class="border-black rounded-full w-[3rem]"
+        :src="item.avatar ? item.avatar : 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'" width="100"
+        height="auto" />
+    </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
       <div>{{ item.name }}</div>
     </td>

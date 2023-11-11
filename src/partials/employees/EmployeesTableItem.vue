@@ -8,22 +8,22 @@
         </label>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <img class="border-black rounded-full" :src="employee.avatar" width="100" height="auto"/>
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
+      <img class="border-black rounded-full w-[3rem]" :src="employee.avatar" width="100" height="auto"/>
     </td>  
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
       <div>{{employee.name}}</div>
     </td>    
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
       <div>{{employee.email}}</div>
     </td> 
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
       <div>{{employee.address}}</div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
       <div>{{employee.phone}}</div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+    <td class="px-2 first:pl-5 last:pr-5 py-3 w-px">
       <div class="space-x-1">
         <button @click="onEdit(employee.id)" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full">
           <span class="sr-only">Edit</span>
