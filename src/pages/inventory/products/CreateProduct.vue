@@ -39,44 +39,6 @@
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat</h2>
-                  <input class="form-input w-full" type="text" v-model="product.habitat" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position</h2>
-                  <input class="form-input w-full" type="text" v-model="product.position" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method</h2>
-                  <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type</h2>
-                  <input class="form-input w-full" type="text" v-model="product.foodType" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature </h2>
-                  <input class="form-input w-full" type="number" v-model="product.temperature" />
-                  <error-text :v="v$.temperature" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH </h2>
-                  <input class="form-input w-full" type="number" v-model="product.ph" />
-                  <error-text :v="v$.ph" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size </h2>
-                  <input class="form-input w-full" type="number" required v-model="product.maxSize" />
-                  <error-text :v="v$.maxSize" />
-                </div>
-
-                <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Category <span
                       class="text-rose-500">*</span></h2>
                   <select class="form-select" v-model="product.categoryId">
@@ -102,6 +64,46 @@
                       'Inactive' }}</div>
                   </div>
                 </div>
+
+                <template v-if="isCreatureCategorySelected">
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat</h2>
+                    <input class="form-input w-full" type="text" v-model="product.habitat" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position</h2>
+                    <input class="form-input w-full" type="text" v-model="product.position" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method</h2>
+                    <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type</h2>
+                    <input class="form-input w-full" type="text" v-model="product.foodType" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature </h2>
+                    <input class="form-input w-full" type="number" v-model="product.temperature" />
+                    <error-text :v="v$.temperature" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH </h2>
+                    <input class="form-input w-full" type="number" v-model="product.ph" />
+                    <error-text :v="v$.ph" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size </h2>
+                    <input class="form-input w-full" type="number" required v-model="product.maxSize" />
+                    <error-text :v="v$.maxSize" />
+                  </div>
+                </template>
 
               </div>
 
@@ -132,7 +134,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from "vue-router";
 import { mapActions, mapGetters } from '@/mapState'
 import { useVuelidate } from '@vuelidate/core'
@@ -152,44 +154,42 @@ export default {
     'error-text': ErrorText
   },
 
-  validations() {
-    return {
-      name: { required }
-    }
-  },
-
   mounted() {
     this.v$.$touch();
+  },
+
+  computed: {
+    isCreatureCategorySelected() {
+      return this.creatureCategoryIds.includes(this.product.categoryId)
+    }
   },
 
   setup() {
     const sidebarOpen = ref(false)
 
     const { product, categories } = mapGetters()
-    const { resetProduct, getCategories, createProduct, editProduct } = mapActions()
-    const route = useRoute();
-    const productId = route.params?.id
+    const { resetProduct, getCategories, createProduct } = mapActions()
+
+    const creatureCategoryIds = ref([])
 
     const save = () => {
-      if (productId) {
-        editProduct(product.value)
-      } else {
-        createProduct(product.value)
-      }
+      createProduct(product.value)
     }
 
-    if (productId) {
-      getCategories({ setFirstCategoryForProduct: false })
-    } else {
+    onMounted(() => {
       resetProduct()
-      getCategories({ setFirstCategoryForProduct: true })
-    }
+      getCategories({ setFirstCategoryForProduct: true }).then(() => {
+        creatureCategoryIds.value = categories.value
+          .filter(category => category.name === 'ANIMAL' || category.name === 'PLANT')
+          .map(category => category.id)
+      })
+    })
 
     const rules = {
       name: { required },
       description: { required },
-      maxSize: { 
-        minValue: minValue(1) 
+      maxSize: {
+        minValue: minValue(1)
       },
       ph: {
         minValue: minValue(0),
@@ -205,6 +205,7 @@ export default {
 
     return {
       sidebarOpen,
+      creatureCategoryIds,
       categories,
       product,
       save,
