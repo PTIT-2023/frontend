@@ -33,25 +33,25 @@
                 </div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Image</div>
+                <div class="font-semibold text-center">Image</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Name</div>
+                <div class="font-semibold text-center">Name</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Inventory quantity</div>
+                <div class="font-semibold text-center">Inventory quantity</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Quantity</div>
+                <div class="font-semibold text-center">Quantity</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Unit price</div>
+                <div class="font-semibold text-center">Unit price</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Total price</div>
+                <div class="font-semibold text-center">Total price</div>
               </th>
               <th v-if="deleteButtonVisible" class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div class="font-semibold text-left">Action</div>
+                <div class="font-semibold text-center">Action</div>
               </th>
             </tr>
           </thead>

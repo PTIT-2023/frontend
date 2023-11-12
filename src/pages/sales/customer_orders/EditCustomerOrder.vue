@@ -73,50 +73,57 @@
 
           <div class="space-y-8 mt-8" />
 
-          <!-- Confirm dialog -->
+          <div class="grid gap-5 md:grid-cols-2">
+            <div>
+              <!-- Pickup button -->
+              <div v-if="order.orderStatusName === 'Waiting for confirm'" class="m-1.5 inline-block">
+                <button @click.stop="setDialogOptions({
+                  opened: true,
+                  actionText: 'Yes, it will be pick up!',
+                  onYes: () => updateOrderStatus('Waiting for pick up')
+                })" class="btn bg-lime-500 hover:bg-lime-600 text-white disabled:opacity-50">Accept</button>
+              </div>
 
-          <!-- Pickup button -->
-          <div v-if="order.orderStatusName === 'Waiting for confirm'" class="m-1.5 inline-block">
-            <button @click.stop="setDialogOptions({
-              opened: true,
-              actionText: 'Yes, it will be pick up!',
-              onYes: () => updateOrderStatus('Waiting for pick up')
-            })" class="btn bg-lime-500 hover:bg-lime-600 text-white disabled:opacity-50">Accept</button>
-          </div>
+              <!-- Delivered button -->
+              <div v-if="order.orderStatusName === 'Waiting for confirm'" class="m-1.5 inline-block">
+                <button @click.stop="setDialogOptions({
+                  opened: true,
+                  actionText: 'Yes, cancel it!',
+                  onYes: () => updateOrderStatus('Cancelled')
+                })" class="btn bg-red-500 hover:bg-red-600 text-white disabled:opacity-50">Cancel</button>
+              </div>
 
-          <!-- Delivered button -->
-          <div v-if="order.orderStatusName === 'Waiting for confirm'" class="m-1.5 inline-block">
-            <button @click.stop="setDialogOptions({
-              opened: true,
-              actionText: 'Yes, cancel it!',
-              onYes: () => updateOrderStatus('Cancelled')
-            })" class="btn bg-red-500 hover:bg-red-600 text-white disabled:opacity-50">Cancel</button>
-          </div>
+              <!-- Delivering button -->
+              <div v-if="order.orderStatusName === 'Waiting for pick up'" class="m-1.5 inline-block">
+                <button @click.stop="setDialogOptions({
+                  opened: true,
+                  actionText: 'Yes, it is delivering!',
+                  onYes: () => updateOrderStatus('Delivering')
+                })" class="btn bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50">Delivering</button>
+              </div>
 
-           <!-- Delivering button -->
-           <div v-if="order.orderStatusName === 'Waiting for pick up'" class="m-1.5 inline-block">
-            <button @click.stop="setDialogOptions({
-              opened: true,
-              actionText: 'Yes, it is delivering!',
-              onYes: () => updateOrderStatus('Delivering')
-            })" class="btn bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50">Delivering</button>
-          </div>
+              <!-- Delivered button -->
+              <div v-if="order.orderStatusName === 'Delivering'" class="m-1.5 inline-block">
+                <button @click.stop="setDialogOptions({
+                  opened: true,
+                  actionText: 'Yes, it is delivered!',
+                  onYes: () => updateOrderStatus('Delivered')
+                })" class="btn bg-green-500 hover:bg-green-600 text-white disabled:opacity-50">Delivered</button>
+              </div>
 
-          <!-- Delivered button -->
-          <div v-if="order.orderStatusName === 'Delivering'" class="m-1.5 inline-block">
-            <button @click.stop="setDialogOptions({
-              opened: true,
-              actionText: 'Yes, it is delivered!',
-              onYes: () => updateOrderStatus('Delivered')
-            })" class="btn bg-green-500 hover:bg-green-600 text-white disabled:opacity-50">Delivered</button>
-          </div>
-
-          <!-- Back -->
-          <router-link :to="{ name: 'customer-orders.list' }">
-            <div class="m-1.5 inline-block">
-              <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Back</button>
+              <!-- Back -->
+              <router-link :to="{ name: 'customer-orders.list' }">
+                <div class="m-1.5 inline-block">
+                  <button class="btn bg-gray-500 hover:bg-gray-600 text-white">Back</button>
+                </div>
+              </router-link>
             </div>
-          </router-link>
+
+            <div class="text-right mr-28">
+              <label class="block text-sm font-medium mb-1" for="mandatory">Total Price: <span class="text-red-500 text-2xl">{{
+                order.totalPriceOrder }}đ</span></label>
+            </div>
+          </div>
 
         </div>
 

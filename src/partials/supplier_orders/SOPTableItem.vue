@@ -9,24 +9,24 @@
         </label>
       </div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
       <img :src="product.image" width="100" height="auto" />
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{ product.name }}</div>
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
+      <div class="min-w-[20rem]">{{ product.name }}</div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{ product.inventoryQuantity }}</div>
+    <td class="px-2 first:pl-5 last:pr-5 py-3">
+      <div class="text-right max-w-[10rem]">{{ product.inventoryQuantity }}</div>
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <input class="form-input w-20" type="number" required v-model="product.quantity" min="1" :max="maxQuantity" :disabled="!quantityEditable" />
+    <td class="px-2 first:pl-5 last:pr-5 py-3 text-right">
+      <input class="form-input w-20 text-right max-w-[10rem] text-right" type="number" required v-model="product.quantity" min="1" :max="maxQuantity" :disabled="!quantityEditable" />
     </td>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <input class="form-input w-30" type="number" required v-model="product.unitPrice" min="0" step="1000"
+    <td class="px-2 first:pl-5 last:pr-5 py-3 text-right">
+      <input class="form-input w-30 max-w-[10rem] text-right" type="number" required v-model="product.unitPrice" min="0" step="1000"
         :disabled="!priceEditable" />
     </td>
     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-      <div>{{ product.quantity * product.unitPrice }}</div>
+      <div class="text-right max-w-[10rem]">{{ product.quantity * product.unitPrice }}</div>
     </td>
     <td v-if="deleteButtonVisible" class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="space-x-1">
