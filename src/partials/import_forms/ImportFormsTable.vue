@@ -13,14 +13,14 @@
           <thead
             class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-700">
             <tr>
-              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+              <!-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                 <div class="flex items-center">
                   <label class="inline-flex">
                     <span class="sr-only">Select all</span>
                     <input class="form-checkbox" type="checkbox" v-model="selectAll" @click="checkAll" />
                   </label>
                 </div>
-              </th>
+              </th> -->
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Import form ID</div>
               </th>

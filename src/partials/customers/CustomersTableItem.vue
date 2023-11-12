@@ -1,13 +1,13 @@
 <template>
   <tr>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+    <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="flex items-center">
         <label class="inline-flex">
           <span class="sr-only">Select</span>
           <input :id="item.id" class="form-checkbox" type="checkbox" :value="value" @change="check" :checked="checked" />
         </label>
       </div>
-    </td>
+    </td> -->
     <td class="px-2 first:pl-5 last:pr-5 py-3">
       <img class="border-black rounded-full w-[3rem]"
         :src="item.avatar ? item.avatar : 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'" width="100"

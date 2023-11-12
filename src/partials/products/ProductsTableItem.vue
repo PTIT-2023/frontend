@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+    <!-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
       <div class="flex items-center">
         <label class="inline-flex">
           <span class="sr-only">Select</span>
@@ -8,7 +8,7 @@
             :checked="checked" />
         </label>
       </div>
-    </td>
+    </td> -->
     <td class="px-2 first:pl-5 last:pr-5 py-3 min-w-[5rem] max-w-[40rem]">
       <img :src="product.imageList[0]" />
     </td>
