@@ -38,65 +38,12 @@
                 </div>
 
                 <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat</h2>
-                  <input class="form-input w-full" type="text" v-model="product.habitat" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position</h2>
-                  <input class="form-input w-full" type="text" v-model="product.position" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method</h2>
-                  <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type</h2>
-                  <input class="form-input w-full" type="text" v-model="product.foodType" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature </h2>
-                  <input class="form-input w-full" type="number" v-model="product.temperature" />
-                  <error-text :v="v$.temperature" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH </h2>
-                  <input class="form-input w-full" type="number" v-model="product.ph" />
-                  <error-text :v="v$.ph" />
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size </h2>
-                  <input class="form-input w-full" type="number" required v-model="product.maxSize" />
-                  <error-text :v="v$.maxSize" />
-                </div>
-
-                <div>
                   <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Category</h2>
                   <select class="form-select" v-model="product.categoryId">
                     <option v-for="(category, index) in categories" :key="category.id" :value="category.id"
                       :selected="index === 0">{{ category.name }}
                     </option>
                   </select>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Inventory quantity</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.inventoryQuantity }}</label>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Sold quantity</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.soldQuantity }}</label>
-                </div>
-
-                <div>
-                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price (current)</h2>
-                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.price }}</label>
                 </div>
 
                 <div>
@@ -114,6 +61,65 @@
                       'Inactive' }}</div>
                   </div>
                 </div>
+
+                <template v-if="isCreatureCategorySelected">
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Habitat</h2>
+                    <input class="form-input w-full" type="text" v-model="product.habitat" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Position</h2>
+                    <input class="form-input w-full" type="text" v-model="product.position" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Reproduction method</h2>
+                    <input class="form-input w-full" type="text" v-model="product.reproductionMethod" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Food type</h2>
+                    <input class="form-input w-full" type="text" v-model="product.foodType" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Temperature </h2>
+                    <input class="form-input w-full" type="number" v-model="product.temperature" />
+                    <error-text :v="v$.temperature" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">pH </h2>
+                    <input class="form-input w-full" type="number" v-model="product.ph" />
+                    <error-text :v="v$.ph" />
+                  </div>
+
+                  <div>
+                    <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Max size </h2>
+                    <input class="form-input w-full" type="number" required v-model="product.maxSize" />
+                    <error-text :v="v$.maxSize" />
+                  </div>
+
+                  <div></div>
+                </template>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Inventory quantity</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.inventoryQuantity }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Sold quantity</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.soldQuantity }}</label>
+                </div>
+
+                <div>
+                  <h2 class="font-semibold text-slate-800 dark:text-slate-100 mb-2">Price (current)</h2>
+                  <label class="block text-sm font-medium mb-1" for="mandatory">{{ product.price }}</label>
+                </div>
+
+
 
               </div>
 
@@ -175,14 +181,14 @@ export default {
     'error-text': ErrorText
   },
 
-  validations() {
-    return {
-      name: { required }
-    }
-  },
-
   mounted() {
     this.v$.$touch();
+  },
+
+  computed: {
+    isCreatureCategorySelected() {
+      return this.creatureCategoryIds.includes(this.product.categoryId)
+    }
   },
 
   setup() {
@@ -193,26 +199,22 @@ export default {
       createProduct, editProduct, getPricesByProductId, getProductImagesByProductId } = mapActions()
     const route = useRoute();
     const productId = route.params?.id
+    const creatureCategoryIds = ref([])
 
     onMounted(() => {
-      if (productId) {
-        getProductById(productId).then(() => {
-          getCategories({ setFirstCategoryForProduct: false })
-          getPricesByProductId(productId)
-          getProductImagesByProductId(productId)
+      getProductById(productId).then(() => {
+        getCategories({ setFirstCategoryForProduct: false }).then(() => {
+          creatureCategoryIds.value = categories.value
+            .filter(category => category.name === 'ANIMAL' || category.name === 'PLANT')
+            .map(category => category.id)
         })
-      } else {
-        resetProduct()
-        getCategories({ setFirstCategoryForProduct: true })
-      }
+        getPricesByProductId(productId)
+        getProductImagesByProductId(productId)
+      })
     })
 
     const save = () => {
-      if (productId) {
-        editProduct(product.value)
-      } else {
-        createProduct(product.value)
-      }
+      editProduct(product.value)
     }
 
     const rules = {
@@ -235,6 +237,7 @@ export default {
 
     return {
       sidebarOpen,
+      creatureCategoryIds,
       categories,
       product,
       save,
