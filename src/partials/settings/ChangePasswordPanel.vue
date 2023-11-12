@@ -7,13 +7,13 @@
       <section>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium mb-1" for="password">Password</label>
+            <label class="block text-sm font-medium mb-1" for="password">Current password</label>
             <input v-model="currentPassword" @input="v$.currentPassword.$touch()" id="password" class="form-input"
               type="password" autoComplete="on" />
             <error-text :v="v$.currentPassword" />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1" for="password">Password</label>
+            <label class="block text-sm font-medium mb-1" for="password">New password</label>
             <input v-model="newPassword" @input="v$.newPassword.$touch()" id="password" class="form-input" type="password"
               autoComplete="on" />
             <error-text :v="v$.newPassword" />
@@ -31,8 +31,8 @@
     <footer>
       <div class="flex flex-col px-6 py-5 border-t border-slate-200 dark:border-slate-700">
         <div class="flex self-end">
-          <button @click="reset()"
-            class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Cancel</button>
+          <!-- <button @click="reset()"
+            class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300">Cancel</button> -->
           <button :disabled="v$.$invalid" @click="save()"
             class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 disabled:opacity-50">Save Changes</button>
         </div>

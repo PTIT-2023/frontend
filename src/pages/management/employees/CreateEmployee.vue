@@ -157,8 +157,7 @@ export default {
     const route = useRoute();
     const productId = route.params?.id
 
-    const employee = ref({ gender: 'MALE', avatar: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' })
-
+    const employee = ref({ gender: 'MALE', birthday: new Date().getTime(), avatar: 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png' })
     
     const toDateString = (value) => {
       return moment(value).format('DD/MM/yyyy')
